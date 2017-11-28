@@ -9,7 +9,7 @@ namespace Stage2HW.DataAccess.Data
         public CryptocurrencyExchangeDbContext() : base(GetConnectionString())
         {}
 
-        public DbSet<User> Users { get; set; }
+        public DbSet<User> UsersDbSet { get; set; }
 
         private static string GetConnectionString()
         {
