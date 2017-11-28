@@ -4,6 +4,9 @@ using Stage2HW.Cli.IoHelpers.Interfaces;
 using Stage2HW.Cli.Menu;
 using Stage2HW.Cli.Menu.Interfaces;
 using Stage2HW.Cli.Menu.MenuOptions;
+using Stage2HW.Cli.Menu.MenuOptions.Interfaces;
+using Stage2HW.Cli.Services;
+using Stage2HW.Cli.Services.Interfaces;
 
 namespace Stage2HW.Cli.Modules
 {
@@ -14,8 +17,11 @@ namespace Stage2HW.Cli.Modules
             Bind<IConsoleWriter>().To<ConsoleWriter>();
             Bind<IInputReader>().To<InputReader>();
             Bind<IMenu>().To<MainMenu>();
+            Bind<IMenu>().To<LoggedInMenu>().WhenInjectedInto<LogInToExchange>();
             Bind<IRegisterToExchange>().To<RegisterToExchange>();
             Bind<IValidateInput>().To<ValidateInput>();
+            Bind<ICryptocurrencyExchangeGenerator>().To<CryptocurrencyExchangeGenerator>();
+            Bind<ILogInToExchange>().To<LogInToExchange>();
         }
     }
 }

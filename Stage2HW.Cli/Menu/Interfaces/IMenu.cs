@@ -1,4 +1,5 @@
-﻿using Stage2HW.Cli.Menu.MenuOptions;
+﻿using Stage2HW.Business.Dtos;
+using Stage2HW.Cli.Menu.MenuOptions;
 
 namespace Stage2HW.Cli.Menu.Interfaces
 {
@@ -7,7 +8,7 @@ namespace Stage2HW.Cli.Menu.Interfaces
         void PrintMenu();
         void RunOption();
         void AddOptions();
-        bool Exit { get; }
-        //int OptionNumber { }
+        bool Exit { get; set; }
+        UserDto ActiveUser { get; set; }
     }
 }
