@@ -24,10 +24,10 @@ namespace Stage2HW.Cli.IoHelpers
 
             while (String.IsNullOrEmpty(userInput) || !userInput.All(char.IsLetter))
             {
-                _consoleWriter.WriteMessage("Name cannot be empty, contain special characters or numbers.\nTry again.");
+                _consoleWriter.WriteMessage("Name cannot be empty, contain special characters or numbers.\nTry again: ");
                 userInput = _inputReader.ReadInput();
             }
-      
+
             return userInput;
         }
 
@@ -37,7 +37,7 @@ namespace Stage2HW.Cli.IoHelpers
 
             while (String.IsNullOrWhiteSpace(userInput) || userInput.Length > 10)
             {
-                _consoleWriter.WriteMessage("Password cannot be empty or be longer than 10 characters.\nTry again.");
+                _consoleWriter.WriteMessage("Password cannot be empty or be longer than 10 characters.\nTry again: ");
                 userInput = _inputReader.ReadInput();
             }
 
@@ -48,19 +48,15 @@ namespace Stage2HW.Cli.IoHelpers
         {
             string userInput = _inputReader.ReadInput();
 
-            while (String.IsNullOrWhiteSpace(userInput))
+            while (_userService.GetExistingUsers().Any(user => user.UserNickName == userInput) || String.IsNullOrWhiteSpace(userInput))
             {
-                _consoleWriter.WriteMessage("Nickname cannot be empty.\nTry again.");
+                _consoleWriter.WriteMessage("Nickname already in use or invalid characters.\nTry again: ");
                 userInput = _inputReader.ReadInput();
             }
-            if (_userService.GetExistingUsers().Any(user => user.UserNickName == userInput))
-            {
-                _consoleWriter.WriteMessage("Nickname already in use.\nTry another.");
-                userInput = _inputReader.ReadInput();
-            }
+
             return userInput;
         }
-        
+
         public void PauseLoop()
         {
             _consoleWriter.WriteMessage("\nPress ENTER to continue");

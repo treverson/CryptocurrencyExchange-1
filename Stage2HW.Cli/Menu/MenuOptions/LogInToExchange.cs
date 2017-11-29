@@ -26,10 +26,11 @@ namespace Stage2HW.Cli.Menu.MenuOptions
         public void LogInUserToExchange()
         {
             _consoleWriter.ClearConsole();
-            _consoleWriter.WriteMessage("Log in to Cryptocurrency exchange\n");
-            _consoleWriter.WriteMessage("User name: ");
+            _consoleWriter.WriteMessage("##### CRYPTOCURRENCY EXCHANGE #####\n");
+            _consoleWriter.WriteMessage("# Log in \n");
+            _consoleWriter.WriteMessage("  User name: ");
             string userName = _inputReader.ReadInput();
-            _consoleWriter.WriteMessage("Password: ");
+            _consoleWriter.WriteMessage("  Password: ");
             string userPassword = _inputReader.ReadInput();
 
             var activeUser = _userService.LogInUser(userName, userPassword);

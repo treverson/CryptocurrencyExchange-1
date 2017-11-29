@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using Stage2HW.Business.Dtos;
+﻿using Stage2HW.Business.Dtos;
 using Stage2HW.Cli.IoHelpers.Interfaces;
 using Stage2HW.Cli.Menu.Enums;
 using Stage2HW.Cli.Menu.Interfaces;
 using Stage2HW.Cli.Menu.MenuOptions;
+using Stage2HW.Cli.Services.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Stage2HW.Cli.Menu
 {
@@ -14,36 +14,35 @@ namespace Stage2HW.Cli.Menu
     {
         private readonly List<MenuOption> _options = new List<MenuOption>();
 
-        //private readonly IRegisterToExchange _registerUser;
         private readonly IConsoleWriter _consoleWriter;
         private readonly IInputReader _inputReader;
-       // private readonly UserDto _activeUser;
+        private readonly ICryptocurrencyExchangeGenerator _exchangeGenerator;
 
-        public LoggedInMenu(IConsoleWriter consoleWriter, IInputReader inputReader, UserDto activeUser)
+        public LoggedInMenu(IConsoleWriter consoleWriter, IInputReader inputReader, UserDto activeUser, ICryptocurrencyExchangeGenerator exchangeGenerator)
         {
             _consoleWriter = consoleWriter;
             _inputReader = inputReader;
             ActiveUser = activeUser;
+            _exchangeGenerator = exchangeGenerator;
 
             AddOptions();
         }
 
-        public UserDto ActiveUser{ get; set; }
-
+        public UserDto ActiveUser { get; set; }
         public bool Exit { get; set; }
-
 
         public void AddOptions()
         {
-            _options.Add(new MenuOption((int)LoggedInMenuEnum.CheckExchange, "Check exchange", Test));
+            _options.Add(new MenuOption((int)LoggedInMenuEnum.CheckExchange, "Check exchange", _exchangeGenerator.GenerateExchangeRates));
             _options.Add(new MenuOption((int)LoggedInMenuEnum.Logout, "Logout"));
         }
 
         public void PrintMenu()
         {
-            _consoleWriter.WriteMessage("##### Cryptocurrenct Exchange #####\n");
-            _consoleWriter.WriteMessage($"Logged in as: {ActiveUser.UserNickName}\n");
-            
+            _consoleWriter.ClearConsole();
+            _consoleWriter.WriteMessage("##### CRYPTOCURRENCY EXCHANGE #####\n");
+            _consoleWriter.WriteMessage($"# Logged in as: {ActiveUser.UserNickName}\n");
+
             for (int i = 0; i < _options.Count; i++)
             {
                 _consoleWriter.WriteMessage($"{i + 1}. {_options[i].Name}\n");
@@ -59,14 +58,13 @@ namespace Stage2HW.Cli.Menu
             {
                 _consoleWriter.WriteMessage("\nInvalid option, choose again: ");
                 userInput = _inputReader.ReadKey();
-
             }
 
             int choice = Convert.ToInt32(userInput.KeyChar.ToString());
 
             var menuOption = _options.SingleOrDefault(opt => opt.OptionNumber == choice);
 
-            if (choice == (int) LoggedInMenuEnum.Logout)
+            if (choice == (int)LoggedInMenuEnum.Logout)
             {
                 Exit = true;
                 return;
@@ -76,12 +74,5 @@ namespace Stage2HW.Cli.Menu
                 menuOption.CallOption();
             }
         }
-
-        public void Test()
-        {
-            _consoleWriter.WriteMessage("Testing attention please...");
-        }
-
-
     }
 }

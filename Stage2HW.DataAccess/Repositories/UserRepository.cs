@@ -10,11 +10,9 @@ namespace Stage2HW.DataAccess.Repositories
     {
         public List<User> GetExistingUsers()
         {
-            List<User> users = null;
-
             using (var dbContext = new CryptocurrencyExchangeDbContext())
             {
-                return users = dbContext.UsersDbSet.ToList();
+                return dbContext.UsersDbSet.ToList();
             }
         }
 

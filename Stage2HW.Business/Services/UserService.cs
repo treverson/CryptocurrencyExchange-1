@@ -7,10 +7,10 @@ using Stage2HW.DataAccess.Repositories.Interfaces;
 
 namespace Stage2HW.Business.Services
 {
-    class UserService : IUserService
+    internal class UserService : IUserService
     {
-        private IMapper _iMapper;
-        private IUserRepository _userRepository;
+        private readonly IMapper _iMapper;
+        private readonly IUserRepository _userRepository;
 
         public UserService(IUserRepository userRepository)
         {

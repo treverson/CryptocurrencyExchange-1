@@ -1,14 +1,10 @@
 ﻿using Stage2HW.Cli.IoHelpers.Interfaces;
-using Stage2HW.Cli.Menu.Enums;
 using Stage2HW.Cli.Menu.Interfaces;
-using Stage2HW.Cli.Menu.MenuOptions;
 
 namespace Stage2HW.Cli
 {
     internal class ProgramLoop
     {
-        //private MainMenu _mainMenu;
-
         private readonly IMenu _menu;
         private readonly IConsoleWriter _consoleWriter;
 
