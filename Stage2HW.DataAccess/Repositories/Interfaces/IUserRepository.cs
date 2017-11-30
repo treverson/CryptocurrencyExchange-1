@@ -7,6 +7,6 @@ namespace Stage2HW.DataAccess.Repositories.Interfaces
     {
         List<User> GetExistingUsers();
         void AddUser(User newUser);
-        User LogInUser(string userName, string userPassword);
+        User LogInUser(string userName);
     }
 }

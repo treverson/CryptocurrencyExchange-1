@@ -1,6 +1,6 @@
 ﻿namespace Stage2HW.Cli.Menu.Enums
 {
-    enum LoggedInMenuEnum
+    internal enum LoggedInMenuEnum
     {
         CheckExchange =1,
         Logout = 2

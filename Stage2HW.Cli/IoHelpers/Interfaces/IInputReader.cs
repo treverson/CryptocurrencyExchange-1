@@ -2,7 +2,7 @@
 
 namespace Stage2HW.Cli.IoHelpers.Interfaces
 {
-    public interface IInputReader
+    internal interface IInputReader
     {
         string ReadInput();
         ConsoleKeyInfo ReadKey();

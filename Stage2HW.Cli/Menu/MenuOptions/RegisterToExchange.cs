@@ -11,8 +11,7 @@ namespace Stage2HW.Cli.Menu.MenuOptions
         private readonly IValidateInput _validateInput;
         private readonly IUserService _userService;
 
-        public RegisterToExchange(IConsoleWriter consoleWriter, IValidateInput validateInput,
-            IUserService userService)
+        public RegisterToExchange(IConsoleWriter consoleWriter, IValidateInput validateInput, IUserService userService)
         {
             _consoleWriter = consoleWriter;
             _validateInput = validateInput;
@@ -24,10 +23,13 @@ namespace Stage2HW.Cli.Menu.MenuOptions
             _consoleWriter.ClearConsole();
             _consoleWriter.WriteMessage("##### CRYPTOCURRENCY EXCHANGE #####\n");
             _consoleWriter.WriteMessage("# Register new user \n");
+
             _consoleWriter.WriteMessage("State your name: ");
             string userName = _validateInput.ValidateName();
+
             _consoleWriter.WriteMessage("Set your nickname: ");
             string userNickName = _validateInput.ValidateNickName();
+
             _consoleWriter.WriteMessage("Set your password: ");
             string userPassword = _validateInput.ValidatePassword();
 

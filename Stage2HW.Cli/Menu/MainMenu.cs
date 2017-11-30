@@ -6,11 +6,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Stage2HW.Business.Dtos;
-using Stage2HW.Cli.Menu.MenuOptions.Interfaces;
 
 namespace Stage2HW.Cli.Menu
 {
-    class MainMenu : IMenu
+    internal class MainMenu : IMenu
     {
         private readonly List<MenuOption> _options = new List<MenuOption>();
 

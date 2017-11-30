@@ -1,6 +1,6 @@
 ﻿namespace Stage2HW.Cli.Menu.MenuOptions
 {
-    class MenuOption
+    internal class MenuOption
     {
         public delegate void CommandCallBack();
 

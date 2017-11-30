@@ -2,7 +2,6 @@
 using Stage2HW.Business.Services.Interfaces;
 using Stage2HW.Cli.IoHelpers.Interfaces;
 using Stage2HW.Cli.Menu.Interfaces;
-using Stage2HW.Cli.Menu.MenuOptions.Interfaces;
 
 namespace Stage2HW.Cli.Menu.MenuOptions
 {
@@ -33,8 +32,9 @@ namespace Stage2HW.Cli.Menu.MenuOptions
             _consoleWriter.WriteMessage("  Password: ");
             string userPassword = _inputReader.ReadInput();
 
-            var activeUser = _userService.LogInUser(userName, userPassword);
-            if (activeUser == null)
+            var activeUser = _userService.LogInUser(userName);
+
+            if (activeUser == null || activeUser.UserPassword != userPassword)
             {
                 _consoleWriter.WriteMessage("Wrong user name or password.");
                 _validateInput.PauseLoop();

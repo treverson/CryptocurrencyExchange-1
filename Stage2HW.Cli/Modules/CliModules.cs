@@ -4,13 +4,12 @@ using Stage2HW.Cli.IoHelpers.Interfaces;
 using Stage2HW.Cli.Menu;
 using Stage2HW.Cli.Menu.Interfaces;
 using Stage2HW.Cli.Menu.MenuOptions;
-using Stage2HW.Cli.Menu.MenuOptions.Interfaces;
 using Stage2HW.Cli.Services;
 using Stage2HW.Cli.Services.Interfaces;
 
 namespace Stage2HW.Cli.Modules
 {
-    class CliModules : NinjectModule
+    internal class CliModules : NinjectModule
     {
         public override void Load()
         {
@@ -20,7 +19,7 @@ namespace Stage2HW.Cli.Modules
             Bind<IMenu>().To<LoggedInMenu>().WhenInjectedInto<LogInToExchange>();
             Bind<IRegisterToExchange>().To<RegisterToExchange>();
             Bind<IValidateInput>().To<ValidateInput>();
-            Bind<ICryptocurrencyExchangeGenerator>().To<CryptocurrencyExchangeGenerator>();
+            Bind<ICryptocurrencyExchange>().To<CryptocurrencyExchange>();
             Bind<ILogInToExchange>().To<LogInToExchange>();
         }
     }

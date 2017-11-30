@@ -1,6 +1,6 @@
 ﻿namespace Stage2HW.Cli.IoHelpers.Interfaces
 {
-    interface IValidateInput
+    internal interface IValidateInput
     {
         string ValidateName();
         string ValidatePassword();

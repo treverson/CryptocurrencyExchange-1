@@ -1,5 +1,4 @@
 ﻿using Stage2HW.Business.Dtos;
-using Stage2HW.Cli.Menu.MenuOptions;
 
 namespace Stage2HW.Cli.Menu.Interfaces
 {

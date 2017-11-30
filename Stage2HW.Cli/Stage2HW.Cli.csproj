@@ -75,10 +75,8 @@
     <Compile Include="Program.cs" />
     <Compile Include="ProgramLoop.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\BgWorkerResult.cs" />
-    <Compile Include="Services\CryptocurrencyExchangeGenerator.cs" />
-    <Compile Include="Services\Enums\ExchangeMaxMinValuesEnum.cs" />
-    <Compile Include="Services\Interfaces\ICryptocurrencyExchangeGenerator.cs" />
+    <Compile Include="Services\CryptocurrencyExchange.cs" />
+    <Compile Include="Services\Interfaces\ICryptocurrencyExchange.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

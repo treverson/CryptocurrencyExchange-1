@@ -45,9 +45,9 @@ namespace Stage2HW.Business.Services
             _userRepository.AddUser(userEntity);
         }
 
-        public UserDto LogInUser(string userNickName, string userPassword)
+        public UserDto LogInUser(string userNickName)
         {
-            var userEntity = _userRepository.LogInUser(userNickName, userPassword);
+            var userEntity = _userRepository.LogInUser(userNickName);
             var userDto = _iMapper.Map<User, UserDto>(userEntity);
             return userDto;
         }

@@ -1,4 +1,4 @@
-﻿namespace Stage2HW.Cli.Services.Interfaces
+﻿namespace Stage2HW.Business.Services.Enums
 {
     enum ExchangeMaxMinValuesEnum
     {

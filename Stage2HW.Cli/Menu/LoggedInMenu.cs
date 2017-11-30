@@ -16,9 +16,9 @@ namespace Stage2HW.Cli.Menu
 
         private readonly IConsoleWriter _consoleWriter;
         private readonly IInputReader _inputReader;
-        private readonly ICryptocurrencyExchangeGenerator _exchangeGenerator;
+        private readonly ICryptocurrencyExchange _exchangeGenerator;
 
-        public LoggedInMenu(IConsoleWriter consoleWriter, IInputReader inputReader, UserDto activeUser, ICryptocurrencyExchangeGenerator exchangeGenerator)
+        public LoggedInMenu(IConsoleWriter consoleWriter, IInputReader inputReader, UserDto activeUser, ICryptocurrencyExchange exchangeGenerator)
         {
             _consoleWriter = consoleWriter;
             _inputReader = inputReader;
@@ -33,7 +33,7 @@ namespace Stage2HW.Cli.Menu
 
         public void AddOptions()
         {
-            _options.Add(new MenuOption((int)LoggedInMenuEnum.CheckExchange, "Check exchange", _exchangeGenerator.GenerateExchangeRates));
+            _options.Add(new MenuOption((int)LoggedInMenuEnum.CheckExchange, "Check exchange", _exchangeGenerator.RunExchange));
             _options.Add(new MenuOption((int)LoggedInMenuEnum.Logout, "Logout"));
         }
 

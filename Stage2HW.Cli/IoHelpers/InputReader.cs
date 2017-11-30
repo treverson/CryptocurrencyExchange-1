@@ -7,8 +7,7 @@ namespace Stage2HW.Cli.IoHelpers
     {
         public string ReadInput()
         {
-            string input = Console.ReadLine();
-            return input;
+            return Console.ReadLine();
         }
 
         public void WaitForEnter()

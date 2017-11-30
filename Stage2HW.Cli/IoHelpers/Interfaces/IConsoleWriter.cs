@@ -1,6 +1,6 @@
 ﻿namespace Stage2HW.Cli.IoHelpers.Interfaces
 {
-    interface IConsoleWriter
+    internal interface IConsoleWriter
     {
         void ClearConsole();
         void WriteMessage(string message);

@@ -1,11 +1,12 @@
-﻿using System;
-using System.Linq;
+﻿using Stage2HW.Business.Dtos;
 using Stage2HW.Business.Services.Interfaces;
 using Stage2HW.Cli.IoHelpers.Interfaces;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Stage2HW.Cli.IoHelpers
 {
-    class ValidateInput : IValidateInput
+    internal class ValidateInput : IValidateInput
     {
         private readonly IInputReader _inputReader;
         private readonly IConsoleWriter _consoleWriter;
@@ -22,7 +23,7 @@ namespace Stage2HW.Cli.IoHelpers
         {
             string userInput = _inputReader.ReadInput();
 
-            while (String.IsNullOrEmpty(userInput) || !userInput.All(char.IsLetter))
+            while (string.IsNullOrEmpty(userInput) || !userInput.All(char.IsLetter))
             {
                 _consoleWriter.WriteMessage("Name cannot be empty, contain special characters or numbers.\nTry again: ");
                 userInput = _inputReader.ReadInput();
@@ -35,7 +36,7 @@ namespace Stage2HW.Cli.IoHelpers
         {
             string userInput = _inputReader.ReadInput();
 
-            while (String.IsNullOrWhiteSpace(userInput) || userInput.Length > 10)
+            while (string.IsNullOrWhiteSpace(userInput) || userInput.Length > 10)
             {
                 _consoleWriter.WriteMessage("Password cannot be empty or be longer than 10 characters.\nTry again: ");
                 userInput = _inputReader.ReadInput();
@@ -47,8 +48,9 @@ namespace Stage2HW.Cli.IoHelpers
         public string ValidateNickName()
         {
             string userInput = _inputReader.ReadInput();
+            List<UserDto> existingUsers = _userService.GetExistingUsers();
 
-            while (_userService.GetExistingUsers().Any(user => user.UserNickName == userInput) || String.IsNullOrWhiteSpace(userInput))
+            while (existingUsers.Any(user => user.UserNickName == userInput.ToLower()) || string.IsNullOrWhiteSpace(userInput))
             {
                 _consoleWriter.WriteMessage("Nickname already in use or invalid characters.\nTry again: ");
                 userInput = _inputReader.ReadInput();
