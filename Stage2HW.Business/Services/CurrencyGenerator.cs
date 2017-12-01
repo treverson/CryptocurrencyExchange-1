@@ -15,7 +15,7 @@ namespace Stage2HW.Business.Services
         private double _initialLtcValue;
         private readonly Random _randomizer = new Random();
 
-        public event RatesGeneratedHandler NewRatesEvent;
+        public event RatesGeneratedHandler NewRatesGeneratedEvent;
 
         public void RunGenerator()
         {
@@ -46,8 +46,8 @@ namespace Stage2HW.Business.Services
                 EthereumValue = ethereumValue,
                 LiteCoinValue = liteCoinValue
             };
-
-            if (NewRatesEvent != null) NewRatesEvent.Invoke(ratesGenerated);
+            
+            if (NewRatesGeneratedEvent != null) NewRatesGeneratedEvent.Invoke(ratesGenerated);
         }
 
         public double GenerateCryptoCurrency(double initialValue, int minValue, int maxValue)

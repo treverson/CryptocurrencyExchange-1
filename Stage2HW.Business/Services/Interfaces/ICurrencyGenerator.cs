@@ -4,6 +4,6 @@
     {
         double GenerateCryptoCurrency(double initialValue, int minValue, int maxValue);
         void RunGenerator();
-        event RatesGeneratedHandler NewRatesEvent;
+        event RatesGeneratedHandler NewRatesGeneratedEvent;
     }
 }

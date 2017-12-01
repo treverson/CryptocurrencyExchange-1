@@ -32,13 +32,13 @@ namespace Stage2HW.Cli.Services
             _consoleWriter.WriteMessage($"LTC: \n");
             _consoleWriter.WriteMessage($"\nPress ESC to go back");
 
-            _currencyGenerator.NewRatesEvent += WriteNewValues;
+            _currencyGenerator.NewRatesGeneratedEvent += WriteNewValues;
 
             while (_inputReader.ReadKey().Key != ConsoleKey.Escape)
             {
             }
 
-            _currencyGenerator.NewRatesEvent -= WriteNewValues;
+            _currencyGenerator.NewRatesGeneratedEvent -= WriteNewValues;
         }
 
         private void WriteNewValues(RatesGeneratedEventArgs e)
