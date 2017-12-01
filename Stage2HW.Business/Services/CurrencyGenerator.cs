@@ -13,10 +13,9 @@ namespace Stage2HW.Business.Services
         private double _initialBccValue;
         private double _initialEthValue;
         private double _initialLtcValue;
+        private readonly Random _randomizer = new Random();
 
         public event RatesGeneratedHandler NewRatesEvent;
-
-        private readonly Random _randomizer = new Random();
 
         public void RunGenerator()
         {
@@ -39,11 +38,11 @@ namespace Stage2HW.Business.Services
             double bitCoinCashValue = GenerateCryptoCurrency(_initialBccValue, (int)ExchangeMaxMinValuesEnum.BccMinValue, (int)ExchangeMaxMinValuesEnum.BccMaxValue);
             double ethereumValue = GenerateCryptoCurrency(_initialEthValue, (int)ExchangeMaxMinValuesEnum.EthMinValue, (int)ExchangeMaxMinValuesEnum.EthMaxValue);
             double liteCoinValue = GenerateCryptoCurrency(_initialLtcValue, (int)ExchangeMaxMinValuesEnum.LtcMinValue, (int)ExchangeMaxMinValuesEnum.LtcMaxValue);
-
+            
             var ratesGenerated = new RatesGeneratedEventArgs
             {
                 BitCoinValue = bitCoinValue,
-                BitCoinCashValue= bitCoinCashValue,
+                BitCoinCashValue = bitCoinCashValue,
                 EthereumValue = ethereumValue,
                 LiteCoinValue = liteCoinValue
             };
@@ -54,8 +53,17 @@ namespace Stage2HW.Business.Services
         public double GenerateCryptoCurrency(double initialValue, int minValue, int maxValue)
         {
             double variation = _randomizer.Next(-10, 11) / 100.00;
+            var currentValue = initialValue + initialValue * variation;
 
-            return initialValue + initialValue * variation;
+            if (currentValue > maxValue)
+            {
+                return maxValue;
+            }
+            if (currentValue < minValue)
+            {
+                return minValue;
+            }
+            return currentValue;
         }
     }
 }

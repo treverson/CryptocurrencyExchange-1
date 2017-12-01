@@ -2,6 +2,7 @@
 using Stage2HW.Cli.IoHelpers.Interfaces;
 using Stage2HW.Cli.Services.Interfaces;
 using System;
+using Stage2HW.Business.Services.Interfaces;
 
 namespace Stage2HW.Cli.Services
 {
@@ -9,14 +10,15 @@ namespace Stage2HW.Cli.Services
     {
         private readonly IConsoleWriter _consoleWriter;
         private readonly IInputReader _inputReader;
+        private readonly ICurrencyGenerator _currencyGenerator;
 
-        private readonly CurrencyGenerator _generator = new CurrencyGenerator();
-
-        public CryptocurrencyExchange(IConsoleWriter consoleWriter, IInputReader inputReader)
+        public CryptocurrencyExchange(IConsoleWriter consoleWriter, IInputReader inputReader, ICurrencyGenerator currencyGenerator)
         {
             _inputReader = inputReader;
+            _currencyGenerator = currencyGenerator;
             _consoleWriter = consoleWriter;
-            _generator.RunGenerator();
+
+            _currencyGenerator.RunGenerator();
         }
 
         public void RunExchange()
@@ -27,15 +29,16 @@ namespace Stage2HW.Cli.Services
             _consoleWriter.WriteMessage($"BTC: \n");
             _consoleWriter.WriteMessage($"BCC: \n");
             _consoleWriter.WriteMessage($"ETH: \n");
-            _consoleWriter.WriteMessage($"LTC: ");
-            
-             _generator.NewRatesEvent += WriteNewValues;
+            _consoleWriter.WriteMessage($"LTC: \n");
+            _consoleWriter.WriteMessage($"\nPress ESC to go back");
+
+            _currencyGenerator.NewRatesEvent += WriteNewValues;
 
             while (_inputReader.ReadKey().Key != ConsoleKey.Escape)
             {
             }
 
-            _generator.NewRatesEvent -= WriteNewValues;
+            _currencyGenerator.NewRatesEvent -= WriteNewValues;
         }
 
         private void WriteNewValues(RatesGeneratedEventArgs e)
