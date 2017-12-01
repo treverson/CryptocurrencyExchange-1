@@ -9,21 +9,21 @@ namespace Stage2HW.Business.Services
 
     public class CurrencyGenerator : ICurrencyGenerator
     {
-        private double _initialBtcValue;
-        private double _initialBccValue;
-        private double _initialEthValue;
-        private double _initialLtcValue;
+        private double _currentBtcValue;
+        private double _currentBccValue;
+        private double _currentEthValue;
+        private double _currentLtcValue;
         private readonly Random _randomizer = new Random();
 
         public event RatesGeneratedHandler NewRatesGeneratedEvent;
 
         public void RunGenerator()
         {
-            _initialBtcValue = _randomizer.Next((int)ExchangeMaxMinValuesEnum.BtcMinValue, (int)ExchangeMaxMinValuesEnum.BtcMaxValue + 1);
-            _initialBccValue = _randomizer.Next((int)ExchangeMaxMinValuesEnum.BccMinValue, (int)ExchangeMaxMinValuesEnum.BccMaxValue + 1);
-            _initialEthValue = _randomizer.Next((int)ExchangeMaxMinValuesEnum.EthMinValue, (int)ExchangeMaxMinValuesEnum.EthMaxValue + 1);
-            _initialLtcValue = _randomizer.Next((int)ExchangeMaxMinValuesEnum.LtcMinValue, (int)ExchangeMaxMinValuesEnum.LtcMaxValue + 1);
-            
+            _currentBtcValue = _randomizer.Next((int)ExchangeMaxMinValuesEnum.BtcMinValue, (int)ExchangeMaxMinValuesEnum.BtcMaxValue + 1);
+            _currentBccValue = _randomizer.Next((int)ExchangeMaxMinValuesEnum.BccMinValue, (int)ExchangeMaxMinValuesEnum.BccMaxValue + 1);
+            _currentEthValue = _randomizer.Next((int)ExchangeMaxMinValuesEnum.EthMinValue, (int)ExchangeMaxMinValuesEnum.EthMaxValue + 1);
+            _currentLtcValue = _randomizer.Next((int)ExchangeMaxMinValuesEnum.LtcMinValue, (int)ExchangeMaxMinValuesEnum.LtcMaxValue + 1);
+
             Timer t = new Timer
             {
                 Interval = 1000
@@ -34,17 +34,17 @@ namespace Stage2HW.Business.Services
 
         public void GenerateRates(object sender, ElapsedEventArgs elapsedEventArgs)
         {
-            double bitCoinValue = GenerateCryptoCurrency(_initialBtcValue, (int)ExchangeMaxMinValuesEnum.BtcMinValue, (int)ExchangeMaxMinValuesEnum.BtcMaxValue);
-            double bitCoinCashValue = GenerateCryptoCurrency(_initialBccValue, (int)ExchangeMaxMinValuesEnum.BccMinValue, (int)ExchangeMaxMinValuesEnum.BccMaxValue);
-            double ethereumValue = GenerateCryptoCurrency(_initialEthValue, (int)ExchangeMaxMinValuesEnum.EthMinValue, (int)ExchangeMaxMinValuesEnum.EthMaxValue);
-            double liteCoinValue = GenerateCryptoCurrency(_initialLtcValue, (int)ExchangeMaxMinValuesEnum.LtcMinValue, (int)ExchangeMaxMinValuesEnum.LtcMaxValue);
+            _currentBtcValue = GenerateCryptoCurrency(_currentBtcValue, (int)ExchangeMaxMinValuesEnum.BtcMinValue, (int)ExchangeMaxMinValuesEnum.BtcMaxValue);
+            _currentBccValue = GenerateCryptoCurrency(_currentBccValue, (int)ExchangeMaxMinValuesEnum.BccMinValue, (int)ExchangeMaxMinValuesEnum.BccMaxValue);
+            _currentEthValue = GenerateCryptoCurrency(_currentEthValue, (int)ExchangeMaxMinValuesEnum.EthMinValue, (int)ExchangeMaxMinValuesEnum.EthMaxValue);
+            _currentLtcValue = GenerateCryptoCurrency(_currentLtcValue, (int)ExchangeMaxMinValuesEnum.LtcMinValue, (int)ExchangeMaxMinValuesEnum.LtcMaxValue);
             
             var ratesGenerated = new RatesGeneratedEventArgs
             {
-                BitCoinValue = bitCoinValue,
-                BitCoinCashValue = bitCoinCashValue,
-                EthereumValue = ethereumValue,
-                LiteCoinValue = liteCoinValue
+                BitCoinValue = _currentBtcValue,
+                BitCoinCashValue = _currentBccValue,
+                EthereumValue = _currentEthValue,
+                LiteCoinValue = _currentLtcValue
             };
             
             if (NewRatesGeneratedEvent != null) NewRatesGeneratedEvent.Invoke(ratesGenerated);
