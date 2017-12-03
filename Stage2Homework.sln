@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stage2HW.DataAccess", "Stag
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stage2HW.Tests", "Stage2HW.Tests\Stage2HW.Tests.csproj", "{D86C9F6A-DC08-4EAC-A704-522523456A53}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stage2HW.DependencyResolver", "Stage2HW.DependencyResolver\Stage2HW.DependencyResolver.csproj", "{07B2AC39-774C-4CED-BBA1-10B736D3072A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{D86C9F6A-DC08-4EAC-A704-522523456A53}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D86C9F6A-DC08-4EAC-A704-522523456A53}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D86C9F6A-DC08-4EAC-A704-522523456A53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07B2AC39-774C-4CED-BBA1-10B736D3072A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07B2AC39-774C-4CED-BBA1-10B736D3072A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07B2AC39-774C-4CED-BBA1-10B736D3072A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07B2AC39-774C-4CED-BBA1-10B736D3072A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

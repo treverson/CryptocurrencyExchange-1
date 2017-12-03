@@ -33,7 +33,7 @@ namespace Stage2HW.Cli.Menu.MenuOptions
             _consoleWriter.WriteMessage("Set your password: ");
             string userPassword = _validateInput.ValidatePassword();
 
-            UserDto newUser = new UserDto()
+            UserDto newUser = new UserDto
             {
                 UserName = userName,
                 UserNickName = userNickName,

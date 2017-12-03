@@ -24,8 +24,8 @@ namespace Stage2HW.Cli.Services
         public void RunExchange()
         {
             _consoleWriter.ClearConsole();
-            _consoleWriter.WriteMessage("##### CRYPTOCURRENCY EXCHANGE #####");
-            
+            _consoleWriter.WriteMessage("##### CRYPTOCURRENCY EXCHANGE #####\n");
+            _consoleWriter.WriteMessage("|  Currency    |       Price      |\n");
             _currencyGenerator.NewRatesGeneratedEvent += WriteNewValues;
 
             while (_inputReader.ReadKey().Key != ConsoleKey.Escape)
@@ -42,8 +42,11 @@ namespace Stage2HW.Cli.Services
             {
                 foreach (var currency in e.CurrenciesList)
                 {
-                    _consoleWriter.SetCursorPosition(0, i);
-                    _consoleWriter.WriteMessage($"{currency.Name}: {currency.Value.ToString("C")}");
+                    _consoleWriter.SetCursorPosition(3, i);
+                    _consoleWriter.WriteMessage($"{currency.Name}");
+                    _consoleWriter.SetCursorPosition(20, i);
+                    _consoleWriter.WriteMessage($"{currency.Value.ToString("C")}");
+
                     i++;
                 }
             }

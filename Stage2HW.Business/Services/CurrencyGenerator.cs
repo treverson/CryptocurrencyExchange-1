@@ -46,8 +46,8 @@ namespace Stage2HW.Business.Services
 
         public double GenerateRates(double initialValue, int minValue, int maxValue)
         {
-            double variation = _randomizer.Next(-10, 11) / 100.00;
-            var currentValue = initialValue + initialValue * variation;
+            double variationPercent = _randomizer.Next(-10, 11) / 100.00;
+            var currentValue = initialValue + initialValue * variationPercent;
 
             if (currentValue > maxValue)
             {

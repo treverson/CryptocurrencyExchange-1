@@ -2,9 +2,9 @@
 using Stage2HW.Business.Services;
 using Stage2HW.Business.Services.Interfaces;
 
-namespace Stage2HW.Business.Modules
+namespace Stage2HW.DependencyResolver
 {
-    public class BusinessModules : NinjectModule
+    public class BusinessModule : NinjectModule
     {
         public override void Load()
         {

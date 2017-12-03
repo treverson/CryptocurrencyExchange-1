@@ -87,9 +87,9 @@
       <Project>{32c496f0-9bc4-4006-bf4d-fc4eb83bc10c}</Project>
       <Name>Stage2HW.Business</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Stage2HW.DataAccess\Stage2HW.DataAccess.csproj">
-      <Project>{85C1107F-9ACC-41F5-8384-88D457131A25}</Project>
-      <Name>Stage2HW.DataAccess</Name>
+    <ProjectReference Include="..\Stage2HW.DependencyResolver\Stage2HW.DependencyResolver.csproj">
+      <Project>{07B2AC39-774C-4CED-BBA1-10B736D3072A}</Project>
+      <Name>Stage2HW.DependencyResolver</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
