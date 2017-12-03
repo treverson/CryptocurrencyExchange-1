@@ -7,6 +7,6 @@ namespace Stage2HW.Business.Services.Interfaces
     {
         List<UserDto> GetExistingUsers();
         void AddUser(UserDto newUser);
-        UserDto LogInUser(string userName);
+        UserDto GetUser(string userNickName, string userPassword);
     }
 }

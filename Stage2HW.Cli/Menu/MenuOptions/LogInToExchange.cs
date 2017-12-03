@@ -28,13 +28,13 @@ namespace Stage2HW.Cli.Menu.MenuOptions
             _consoleWriter.WriteMessage("##### CRYPTOCURRENCY EXCHANGE #####\n");
             _consoleWriter.WriteMessage("# Log in \n");
             _consoleWriter.WriteMessage("  User name: ");
-            string userName = _inputReader.ReadInput();
+            string userNickName = _inputReader.ReadInput();
             _consoleWriter.WriteMessage("  Password: ");
             string userPassword = _inputReader.ReadInput();
 
-            var activeUser = _userService.LogInUser(userName);
+            var activeUser = _userService.GetUser(userNickName, userPassword);
 
-            if (activeUser == null || activeUser.UserPassword != userPassword)
+            if (activeUser == null)
             {
                 _consoleWriter.WriteMessage("Wrong user name or password.");
                 _validateInput.PauseLoop();
@@ -57,3 +57,4 @@ namespace Stage2HW.Cli.Menu.MenuOptions
         }
     }
 }
+

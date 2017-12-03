@@ -9,7 +9,7 @@ namespace Stage2HW.Business.Modules
         public override void Load()
         {
             Bind<IUserService>().To<UserService>();
-            Bind<ICurrencyGenerator>().To<CurrencyGenerator>();
+            Bind<ICurrencyGenerator>().To<CurrencyGenerator>().InSingletonScope();
         }
     }
 }

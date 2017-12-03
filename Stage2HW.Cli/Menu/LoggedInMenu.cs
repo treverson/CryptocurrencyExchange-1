@@ -4,7 +4,6 @@ using Stage2HW.Cli.Menu.Enums;
 using Stage2HW.Cli.Menu.Interfaces;
 using Stage2HW.Cli.Menu.MenuOptions;
 using Stage2HW.Cli.Services.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -18,11 +17,10 @@ namespace Stage2HW.Cli.Menu
         private readonly IInputReader _inputReader;
         private readonly ICryptocurrencyExchange _exchangeGenerator;
 
-        public LoggedInMenu(IConsoleWriter consoleWriter, IInputReader inputReader, UserDto activeUser, ICryptocurrencyExchange exchangeGenerator)
+        public LoggedInMenu(IConsoleWriter consoleWriter, IInputReader inputReader, ICryptocurrencyExchange exchangeGenerator)
         {
             _consoleWriter = consoleWriter;
             _inputReader = inputReader;
-            ActiveUser = activeUser;
             _exchangeGenerator = exchangeGenerator;
 
             AddOptions();
@@ -52,17 +50,24 @@ namespace Stage2HW.Cli.Menu
 
         public void RunOption()
         {
-            var userInput = _inputReader.ReadKey();
+            MenuOption menuOption = null;
+            int choice;
 
-            while (userInput.Key != ConsoleKey.D1 && userInput.Key != ConsoleKey.D2)
+            do
             {
-                _consoleWriter.WriteMessage("\nInvalid option, choose again: ");
-                userInput = _inputReader.ReadKey();
-            }
+                var userInput = _inputReader.ReadKey();
+                int.TryParse(userInput.KeyChar.ToString(), out choice);
 
-            int choice = Convert.ToInt32(userInput.KeyChar.ToString());
+                if (choice != 0)
+                {
+                    menuOption = _options.SingleOrDefault(opt => opt.OptionNumber == choice);
+                }
+                if (menuOption == null)
+                {
+                    _consoleWriter.WriteMessage("\nInvalid option, choose again.");
+                }
 
-            var menuOption = _options.SingleOrDefault(opt => opt.OptionNumber == choice);
+            }while (menuOption == null);
 
             if (choice == (int)LoggedInMenuEnum.Logout)
             {

@@ -25,13 +25,18 @@ namespace Stage2HW.DataAccess.Repositories
             }
         }
 
-        public User LogInUser(string userNickName)
+        public User GetUser(string userNickName, string userPassword)
         {
             User loggedInUser;
             using (var dbContext = new CryptocurrencyExchangeDbContext())
             {
                 loggedInUser = dbContext.UsersDbSet.SingleOrDefault(user =>
                     user.UserNickName == userNickName);
+
+                if (loggedInUser != null && loggedInUser.UserPassword != userPassword)
+                {
+                    return null;
+                }
             }
             return loggedInUser;
         }
