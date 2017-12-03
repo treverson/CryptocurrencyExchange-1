@@ -2,7 +2,7 @@
 {
     public interface ICurrencyGenerator
     {
-        double GenerateCryptoCurrency(double initialValue, int minValue, int maxValue);
+        double GenerateRates(double initialValue, int minValue, int maxValue);
         void RunGenerator();
         event RatesGeneratedHandler NewRatesGeneratedEvent;
     }

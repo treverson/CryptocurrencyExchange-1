@@ -1,12 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Stage2HW.Business.Services
 {
     public class RatesGeneratedEventArgs : EventArgs
     {
-        public double BitCoinValue;
-        public double BitCoinCashValue;
-        public double EthereumValue;
-        public double LiteCoinValue;
+        public List<CryptoCurrency> CurrenciesList;
     }
 }

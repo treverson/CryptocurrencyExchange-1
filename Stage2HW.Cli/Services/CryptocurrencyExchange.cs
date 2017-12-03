@@ -24,14 +24,8 @@ namespace Stage2HW.Cli.Services
         public void RunExchange()
         {
             _consoleWriter.ClearConsole();
-            _consoleWriter.WriteMessage("##### CRYPTOCURRENCY EXCHANGE #####\n");
-
-            _consoleWriter.WriteMessage($"BTC: \n");
-            _consoleWriter.WriteMessage($"BCC: \n");
-            _consoleWriter.WriteMessage($"ETH: \n");
-            _consoleWriter.WriteMessage($"LTC: \n");
-            _consoleWriter.WriteMessage($"\nPress ESC to go back");
-
+            _consoleWriter.WriteMessage("##### CRYPTOCURRENCY EXCHANGE #####");
+            
             _currencyGenerator.NewRatesGeneratedEvent += WriteNewValues;
 
             while (_inputReader.ReadKey().Key != ConsoleKey.Escape)
@@ -43,14 +37,18 @@ namespace Stage2HW.Cli.Services
 
         private void WriteNewValues(RatesGeneratedEventArgs e)
         {
-            _consoleWriter.SetCursorPosition(5, 1);
-            _consoleWriter.WriteMessage($"{e.BitCoinValue.ToString("C")}");
-            _consoleWriter.SetCursorPosition(5, 2);
-            _consoleWriter.WriteMessage($"{e.BitCoinCashValue.ToString("C")}");
-            _consoleWriter.SetCursorPosition(5, 3);
-            _consoleWriter.WriteMessage($"{e.EthereumValue.ToString("C")}");
-            _consoleWriter.SetCursorPosition(5, 4);
-            _consoleWriter.WriteMessage($"{e.LiteCoinValue.ToString("C")}");
+            int i = 2;
+            do
+            {
+                foreach (var currency in e.CurrenciesList)
+                {
+                    _consoleWriter.SetCursorPosition(0, i);
+                    _consoleWriter.WriteMessage($"{currency.Name}: {currency.Value.ToString("C")}");
+                    i++;
+                }
+            }
+            while (i <= e.CurrenciesList.Count+1);
+            _consoleWriter.WriteMessage($"\n\nPress ESC to go back");
         }
     }
 }

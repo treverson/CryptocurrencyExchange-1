@@ -51,6 +51,7 @@
     <Compile Include="Modules\BusinessModules.cs" />
     <Compile Include="Modules\DataAccessModules.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\CryptoCurrency.cs" />
     <Compile Include="Services\CurrencyGenerator.cs" />
     <Compile Include="Services\Enums\ExchangeMaxMinValuesEnum.cs" />
     <Compile Include="Services\Interfaces\ICurrencyGenerator.cs" />

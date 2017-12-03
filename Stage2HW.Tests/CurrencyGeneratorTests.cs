@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿using System.Collections.Generic;
+using System.Linq;
+using NUnit.Framework;
 using Stage2HW.Business.Services;
 using System.Threading;
 
@@ -18,6 +20,8 @@ namespace Stage2HW.Tests
         private double _bccValueAsParam;
         private double _ethValueAsParam;
         private double _ltcValueAsParam;
+
+        private List<CryptoCurrency> _testCurrenciesList = null;
 
         [Test]
         public void RunGenerator_OnTimerElapsed_RatesGeneratedEventOccurs()
@@ -54,6 +58,7 @@ namespace Stage2HW.Tests
 
             //Assert
             Assert.IsTrue(_wasSubscriberMethodCalled);
+            Assert.IsNotNull(_testCurrenciesList);
             Assert.AreNotEqual(_testBitCoinValue, _btcValueAsParam);
             Assert.AreNotEqual(_testBitCoinCashValue, _bccValueAsParam);
             Assert.AreNotEqual(_testEthereumValue, _ethValueAsParam);
@@ -63,10 +68,11 @@ namespace Stage2HW.Tests
         private void TestSubscriberMethodForEventArgs(RatesGeneratedEventArgs ratesGeneratedEventArgs)
         {
             _wasSubscriberMethodCalled = true;
-            _btcValueAsParam = ratesGeneratedEventArgs.BitCoinCashValue;
-            _bccValueAsParam = ratesGeneratedEventArgs.BitCoinCashValue;
-            _ethValueAsParam = ratesGeneratedEventArgs.EthereumValue;
-            _ltcValueAsParam = ratesGeneratedEventArgs.LiteCoinValue;
+            _testCurrenciesList = ratesGeneratedEventArgs.CurrenciesList;
+            _btcValueAsParam = ratesGeneratedEventArgs.CurrenciesList.First(n => n.Name =="BitCoin").Value;
+            _bccValueAsParam = ratesGeneratedEventArgs.CurrenciesList.First(n => n.Name == "BitCoinCash").Value;
+            _ethValueAsParam = ratesGeneratedEventArgs.CurrenciesList.First(n => n.Name == "Ethereum").Value;
+            _ltcValueAsParam = ratesGeneratedEventArgs.CurrenciesList.First(n => n.Name == "LiteCoin").Value;
         }
 
         [Test]
@@ -80,9 +86,9 @@ namespace Stage2HW.Tests
             const int maxValue = 40000;
 
             //Act
-            var resultHigher = testGenerator.GenerateCryptoCurrency(initialValueHigherThanThreshold, minValue, maxValue);
+            var resultHigher = testGenerator.GenerateRates(initialValueHigherThanThreshold, minValue, maxValue);
 
-            var resultLower = testGenerator.GenerateCryptoCurrency(initialValueLowerThanThreshold, minValue, maxValue);
+            var resultLower = testGenerator.GenerateRates(initialValueLowerThanThreshold, minValue, maxValue);
 
             //Assert
             Assert.AreEqual(resultHigher, maxValue);
