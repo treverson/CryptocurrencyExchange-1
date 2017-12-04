@@ -37,20 +37,18 @@ namespace Stage2HW.Cli.Services
 
         private void WriteNewValues(RatesGeneratedEventArgs e)
         {
-            int i = 2;
-            do
-            {
-                foreach (var currency in e.CurrenciesList)
-                {
-                    _consoleWriter.SetCursorPosition(3, i);
-                    _consoleWriter.WriteMessage($"{currency.Name}");
-                    _consoleWriter.SetCursorPosition(20, i);
-                    _consoleWriter.WriteMessage($"{currency.Value.ToString("C")}");
+            int i = 3;
 
-                    i++;
-                }
+            foreach (var currency in e.CurrenciesList)
+            {
+                _consoleWriter.SetCursorPosition(3, i);
+                _consoleWriter.WriteMessage($"{currency.Name}");
+                _consoleWriter.SetCursorPosition(20, i);
+                _consoleWriter.WriteMessage($"{currency.Value.ToString("C")}");
+
+                i++;
             }
-            while (i <= e.CurrenciesList.Count+1);
+
             _consoleWriter.WriteMessage($"\n\nPress ESC to go back");
         }
     }
