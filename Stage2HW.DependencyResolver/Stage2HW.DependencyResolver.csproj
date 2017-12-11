@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{32C496F0-9BC4-4006-BF4D-FC4EB83BC10C}</ProjectGuid>
+    <ProjectGuid>{07B2AC39-774C-4CED-BBA1-10B736D3072A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Stage2HW.Business</RootNamespace>
-    <AssemblyName>Stage2HW.Business</AssemblyName>
+    <RootNamespace>Stage2HW.DependencyResolver</RootNamespace>
+    <AssemblyName>Stage2HW.DependencyResolver</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,15 +30,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AutoMapper, Version=6.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoMapper.6.2.1\lib\net45\AutoMapper.dll</HintPath>
-    </Reference>
     <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -47,25 +43,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dtos\UserDto.cs" />
+    <Compile Include="BusinessModule.cs" />
+    <Compile Include="DataAccessModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\CryptoCurrency.cs" />
-    <Compile Include="Services\CurrencyGenerator.cs" />
-    <Compile Include="Services\Enums\ExchangeMaxMinValuesEnum.cs" />
-    <Compile Include="Services\Interfaces\ICurrencyGenerator.cs" />
-    <Compile Include="Services\Interfaces\IUserService.cs" />
-    <Compile Include="Services\RatesGeneratedEventArgs.cs" />
-    <Compile Include="Services\UserService.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Stage2HW.Business\Stage2HW.Business.csproj">
+      <Project>{32c496f0-9bc4-4006-bf4d-fc4eb83bc10c}</Project>
+      <Name>Stage2HW.Business</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Stage2HW.DataAccess\Stage2HW.DataAccess.csproj">
       <Project>{85c1107f-9acc-41f5-8384-88d457131a25}</Project>
       <Name>Stage2HW.DataAccess</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
