@@ -6,6 +6,8 @@ using System.Timers;
 
 namespace Stage2HW.Business.Services
 {
+    public enum Percentage { TenPercentDepreciation = -10, TenPercentAppreciation = 11, }
+
     public delegate void RatesGeneratedHandler(RatesGeneratedEventArgs e);
 
     public class CurrencyGenerator : ICurrencyGenerator
@@ -46,7 +48,7 @@ namespace Stage2HW.Business.Services
 
         public double GenerateRates(double initialValue, int minValue, int maxValue)
         {
-            double variationPercent = _randomizer.Next(-10, 11) / 100.00;
+            double variationPercent = _randomizer.Next((int)Percentage.TenPercentDepreciation, (int)Percentage.TenPercentAppreciation) / 100.00;
             var currentValue = initialValue + initialValue * variationPercent;
 
             if (currentValue > maxValue)

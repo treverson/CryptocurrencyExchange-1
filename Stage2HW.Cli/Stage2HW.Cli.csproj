@@ -46,6 +46,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -55,17 +56,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\AppConfig.cs" />
+    <Compile Include="Configuration\ICurrencyExchangeConfig.cs" />
     <Compile Include="IoHelpers\ConsoleWriter.cs" />
     <Compile Include="IoHelpers\Interfaces\IConsoleWriter.cs" />
     <Compile Include="IoHelpers\Interfaces\IInputReader.cs" />
     <Compile Include="IoHelpers\InputReader.cs" />
     <Compile Include="IoHelpers\Interfaces\IValidateInput.cs" />
     <Compile Include="IoHelpers\ValidateInput.cs" />
-    <Compile Include="Menu\Enums\LoggedInMenuEnum.cs" />
     <Compile Include="Menu\Enums\MainMenuEnum.cs" />
+    <Compile Include="Menu\Enums\StartUpMenuEnum.cs" />
     <Compile Include="Menu\Interfaces\IMenu.cs" />
-    <Compile Include="Menu\LoggedInMenu.cs" />
     <Compile Include="Menu\MainMenu.cs" />
+    <Compile Include="Menu\StartUpMenu.cs" />
     <Compile Include="Menu\Interfaces\IRegisterToExchange.cs" />
     <Compile Include="Menu\Interfaces\ILogInToExchange.cs" />
     <Compile Include="Menu\MenuOptions\LogInToExchange.cs" />
@@ -76,6 +79,8 @@
     <Compile Include="ProgramLoop.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CryptocurrencyExchange.cs" />
+    <Compile Include="Services\ExchangeRatesDownloader.cs" />
+    <Compile Include="Services\Interfaces\IExchangeRatesDownloader.cs" />
     <Compile Include="Services\Interfaces\ICryptocurrencyExchange.cs" />
   </ItemGroup>
   <ItemGroup>

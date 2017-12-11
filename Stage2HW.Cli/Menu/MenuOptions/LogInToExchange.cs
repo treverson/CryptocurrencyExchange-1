@@ -11,15 +11,15 @@ namespace Stage2HW.Cli.Menu.MenuOptions
         private readonly IInputReader _inputReader;
         private readonly IValidateInput _validateInput;
         private readonly IUserService _userService;
-        private readonly IMenu _loggedInMenu;
+        private readonly IMenu _mainMenu;
 
-        public LogInToExchange(IUserService userService, IConsoleWriter consoleWriter, IInputReader inputReader, IValidateInput validateInput, IMenu loggedInMenu)
+        public LogInToExchange(IUserService userService, IConsoleWriter consoleWriter, IInputReader inputReader, IValidateInput validateInput, IMenu mainMenu)
         {
             _userService = userService;
             _consoleWriter = consoleWriter;
             _inputReader = inputReader;
             _validateInput = validateInput;
-            _loggedInMenu = loggedInMenu;
+            _mainMenu = mainMenu;
         }
 
         public void LogInUserToExchange()
@@ -41,17 +41,17 @@ namespace Stage2HW.Cli.Menu.MenuOptions
                 return;
             }
 
-            RunLoggedInMenu(activeUser);
-            _loggedInMenu.Exit = false;
+            RunMainMenu(activeUser);
+            _mainMenu.Exit = false;
         }
 
-        public void RunLoggedInMenu(UserDto activeUser)
+        public void RunMainMenu(UserDto activeUser)
         {
-            _loggedInMenu.ActiveUser = activeUser;
-            while (!_loggedInMenu.Exit)
+            _mainMenu.ActiveUser = activeUser;
+            while (!_mainMenu.Exit)
             {
-                _loggedInMenu.PrintMenu();
-                _loggedInMenu.RunOption();
+                _mainMenu.PrintMenu();
+                _mainMenu.RunOption();
                 _consoleWriter.ClearConsole();
             }
         }

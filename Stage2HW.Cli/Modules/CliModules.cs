@@ -1,4 +1,5 @@
 ﻿using Ninject.Modules;
+using Stage2HW.Cli.Configuration;
 using Stage2HW.Cli.IoHelpers;
 using Stage2HW.Cli.IoHelpers.Interfaces;
 using Stage2HW.Cli.Menu;
@@ -15,12 +16,15 @@ namespace Stage2HW.Cli.Modules
         {
             Bind<IConsoleWriter>().To<ConsoleWriter>();
             Bind<IInputReader>().To<InputReader>();
-            Bind<IMenu>().To<MainMenu>();
-            Bind<IMenu>().To<LoggedInMenu>().WhenInjectedInto<LogInToExchange>();
+            Bind<IMenu>().To<StartUpMenu>();
+            Bind<IMenu>().To<MainMenu>().WhenInjectedInto<LogInToExchange>();
             Bind<IRegisterToExchange>().To<RegisterToExchange>();
             Bind<IValidateInput>().To<ValidateInput>();
             Bind<ICryptocurrencyExchange>().To<CryptocurrencyExchange>();
             Bind<ILogInToExchange>().To<LogInToExchange>();
+
+            //new ones
+            Bind<IExchangeRatesDownloader>().To<ExchangeRatesDownloader>();
         }
     }
 }

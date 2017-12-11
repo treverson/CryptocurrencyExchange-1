@@ -1,49 +1,54 @@
 ﻿using Stage2HW.Business.Dtos;
 using Stage2HW.Cli.IoHelpers.Interfaces;
-using Stage2HW.Cli.Menu.Enums;
 using Stage2HW.Cli.Menu.Interfaces;
 using Stage2HW.Cli.Menu.MenuOptions;
-using Stage2HW.Cli.Services.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Stage2HW.Cli.Menu
 {
-    internal class LoggedInMenu : IMenu
+    internal class StartUpMenu : IMenu
     {
         private readonly List<MenuOption> _options = new List<MenuOption>();
 
+        private readonly IRegisterToExchange _registerUser;
         private readonly IConsoleWriter _consoleWriter;
         private readonly IInputReader _inputReader;
-        private readonly ICryptocurrencyExchange _exchangeGenerator;
+        private readonly ILogInToExchange _logInToExchange;
 
-        public LoggedInMenu(IConsoleWriter consoleWriter, IInputReader inputReader, ICryptocurrencyExchange exchangeGenerator)
+        public StartUpMenu(IConsoleWriter consoleWriter, IInputReader inputReader, IRegisterToExchange registerUser, ILogInToExchange logInToExchange)
         {
             _consoleWriter = consoleWriter;
             _inputReader = inputReader;
-            _exchangeGenerator = exchangeGenerator;
+            _registerUser = registerUser;
+            _logInToExchange = logInToExchange;
 
             AddOptions();
         }
 
-        public UserDto ActiveUser { get; set; }
         public bool Exit { get; set; }
+        public UserDto ActiveUser { get; set; }
 
         public void AddOptions()
         {
-            _options.Add(new MenuOption((int)LoggedInMenuEnum.CheckExchange, "Check exchange", _exchangeGenerator.RunExchange));
-            _options.Add(new MenuOption((int)LoggedInMenuEnum.Logout, "Logout"));
+            _options.Add(new MenuOption("Log in", _logInToExchange.LogInUserToExchange));
+            _options.Add(new MenuOption("Register", _registerUser.RegisterUserToExchange));
+            _options.Add(new MenuOption("Exit"));
+
+            foreach (var option in _options)
+            {
+                option.OptionNumber = _options.IndexOf(option)+1;
+            }
         }
 
         public void PrintMenu()
         {
-            _consoleWriter.ClearConsole();
+            _consoleWriter.WriteMessage("######## STAGE2 HOMEWORK 1 ########\n");
             _consoleWriter.WriteMessage("##### CRYPTOCURRENCY EXCHANGE #####\n");
-            _consoleWriter.WriteMessage($"# Logged in as: {ActiveUser.UserNickName}\n");
 
-            for (int i = 0; i < _options.Count; i++)
+            foreach (var option in _options)
             {
-                _consoleWriter.WriteMessage($"{i + 1}. {_options[i].Name}\n");
+                _consoleWriter.WriteMessage($"{_options.IndexOf(option)+1}. {option.Name}\n");
             }
             _consoleWriter.WriteMessage("Choose option: ");
         }
@@ -60,16 +65,16 @@ namespace Stage2HW.Cli.Menu
 
                 if (choice != 0)
                 {
-                    menuOption = _options.SingleOrDefault(opt => opt.OptionNumber == choice);
+                     menuOption = _options.SingleOrDefault(opt=> opt.OptionNumber == _options[choice-1].OptionNumber);
                 }
                 if (menuOption == null)
                 {
                     _consoleWriter.WriteMessage("\nInvalid option, choose again.");
                 }
 
-            }while (menuOption == null);
+            } while (menuOption == null);
 
-            if (choice == (int)LoggedInMenuEnum.Logout)
+            if (choice == _options.Last().OptionNumber)
             {
                 Exit = true;
                 return;
