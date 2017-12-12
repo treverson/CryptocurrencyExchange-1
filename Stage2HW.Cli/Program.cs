@@ -9,27 +9,7 @@ namespace Stage2HW.Cli
         static void Main()
         {
             IKernel kernel = new StandardKernel(new BusinessModule(), new DataAccessModule(), new CliModules());
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            
             var programLoop = kernel.Get<ProgramLoop>();
 
             programLoop.Run();

@@ -6,13 +6,17 @@ using System.Timers;
 
 namespace Stage2HW.Business.Services
 {
-    public enum Percentage { TenPercentDepreciation = -10, TenPercentAppreciation = 11, }
+    public enum Percentage
+    {
+        TenPercentDepreciation = -10,
+        TenPercentAppreciation = 11,
+    }
 
     public delegate void RatesGeneratedHandler(RatesGeneratedEventArgs e);
 
     public class CurrencyGenerator : ICurrencyGenerator
     {
-        private readonly List<CryptoCurrency> _cryptocurrencies = new List<CryptoCurrency>();
+        private readonly List<CryptoCurrencyGenerated> _cryptocurrencies = new List<CryptoCurrencyGenerated>();
 
         private readonly Random _randomizer = new Random();
 
@@ -64,7 +68,7 @@ namespace Stage2HW.Business.Services
 
         private void InitializeCryptocurrencies()
         {
-            CryptoCurrency bitCoin = new CryptoCurrency
+            CryptoCurrencyGenerated bitCoin = new CryptoCurrencyGenerated
             {
                 Name = "BitCoin",
                 MinValue = (int) ExchangeMaxMinValuesEnum.BtcMinValue,
@@ -72,7 +76,7 @@ namespace Stage2HW.Business.Services
                 Value = _randomizer.Next((int) ExchangeMaxMinValuesEnum.BtcMinValue, (int)ExchangeMaxMinValuesEnum.BtcMaxValue + 1)
             };
 
-            CryptoCurrency bitCoinCash = new CryptoCurrency
+            CryptoCurrencyGenerated bitCoinCash = new CryptoCurrencyGenerated
             {
                 Name = "BitCoinCash",
                 MinValue = (int)ExchangeMaxMinValuesEnum.BccMinValue,
@@ -80,7 +84,7 @@ namespace Stage2HW.Business.Services
                 Value = _randomizer.Next((int)ExchangeMaxMinValuesEnum.BccMinValue, (int)ExchangeMaxMinValuesEnum.BccMaxValue + 1)
             };
 
-            CryptoCurrency ethereum = new CryptoCurrency
+            CryptoCurrencyGenerated ethereum = new CryptoCurrencyGenerated
             {
                 Name = "Ethereum",
                 MinValue = (int)ExchangeMaxMinValuesEnum.EthMinValue,
@@ -88,7 +92,7 @@ namespace Stage2HW.Business.Services
                 Value = _randomizer.Next((int)ExchangeMaxMinValuesEnum.EthMinValue, (int)ExchangeMaxMinValuesEnum.EthMaxValue + 1)
             };
 
-            CryptoCurrency liteCoin = new CryptoCurrency
+            CryptoCurrencyGenerated liteCoin = new CryptoCurrencyGenerated
             {
                 Name = "LiteCoin",
                 MinValue = (int)ExchangeMaxMinValuesEnum.LtcMinValue,

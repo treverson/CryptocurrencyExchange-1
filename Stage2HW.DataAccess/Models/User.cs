@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Stage2HW.DataAccess.Models
 {
@@ -11,5 +12,7 @@ namespace Stage2HW.DataAccess.Models
         public string UserNickName { get; set; }
         [Required]
         public string UserPassword { get; set; }
+        public List<Transaction> Transactions { get; set; }
+        //public List<Currency> Currencies { get; set; }
     }
 }

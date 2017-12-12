@@ -10,7 +10,8 @@ namespace Stage2HW.DataAccess.Data
         {}
 
         public DbSet<User> UsersDbSet { get; set; }
-
+        public DbSet<Transaction> TransactionsDbSet { get; set; }
+             
         private static string GetConnectionString()
         {
             return ConfigurationManager.ConnectionStrings["CryptocurrencyExchangeDb"].ConnectionString;

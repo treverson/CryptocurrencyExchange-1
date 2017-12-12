@@ -1,6 +1,6 @@
 ﻿namespace Stage2HW.Cli.Services.Interfaces
 {
-    internal interface ICryptocurrencyExchange
+    internal interface IDummyCryptocurrencyExchange
     {
         void RunExchange();
     }

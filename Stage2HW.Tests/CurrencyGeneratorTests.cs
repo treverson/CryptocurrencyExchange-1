@@ -21,7 +21,7 @@ namespace Stage2HW.Tests
         private double _ethValueAsParam;
         private double _ltcValueAsParam;
 
-        private List<CryptoCurrency> _testCurrenciesList = null;
+        private List<CryptoCurrencyGenerated> _testCurrenciesList = null;
 
         [Test]
         public void RunGenerator_OnTimerElapsed_RatesGeneratedEventOccurs()

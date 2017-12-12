@@ -43,8 +43,8 @@ namespace Stage2HW.Cli.Menu
 
         public void PrintMenu()
         {
-            _consoleWriter.WriteMessage("######## STAGE2 HOMEWORK 1 ########\n");
-            _consoleWriter.WriteMessage("##### CRYPTOCURRENCY EXCHANGE #####\n");
+            _consoleWriter.WriteMessage("################# STAGE2 HOMEWORK #################\n");
+            _consoleWriter.WriteMessage("############# CRYPTOCURRENCY EXCHANGE #############\n");
 
             foreach (var option in _options)
             {
