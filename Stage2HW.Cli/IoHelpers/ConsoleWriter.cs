@@ -10,6 +10,13 @@ namespace Stage2HW.Cli.IoHelpers
             Console.Write(message);
         }
 
+        public void WriteMessageInColor(string message)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write(message);
+            Console.ResetColor();
+        }
+
         public void ClearConsole()
         {
             Console.Clear();

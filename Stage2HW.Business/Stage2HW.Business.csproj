@@ -57,6 +57,7 @@
     <Compile Include="Services\CryptoCurrencyGenerated.cs" />
     <Compile Include="Dtos\DownloadedData.cs" />
     <Compile Include="Services\CurrencyGenerator.cs" />
+    <Compile Include="Services\Enums\CurrencyNameEnum.cs" />
     <Compile Include="Services\Enums\ExchangeMaxMinValuesEnum.cs" />
     <Compile Include="Services\ExchangeRatesProvider.cs" />
     <Compile Include="Services\Interfaces\ICurrencyExchangeConfig.cs" />

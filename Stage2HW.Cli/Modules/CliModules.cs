@@ -28,6 +28,12 @@ namespace Stage2HW.Cli.Modules
 
             //new ones
             Bind<ICurrencyExchangeConfig>().To<AppConfig>();
-        }
+            Bind<IAccountOperations>().To<AccountOperations>();
+            Bind<IShowUser>().To<ShowUser>().InSingletonScope();
+
+            //Bind<IMenu>().To<MainMenu>().WhenInjectedInto<AccountOperations>();
+           // Bind<IActiveUser>().To<MainMenu>();
+
+;        }
     }
 }

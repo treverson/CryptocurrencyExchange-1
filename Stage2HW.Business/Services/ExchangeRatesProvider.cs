@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Timers;
+using Stage2HW.Business.Services.Enums;
 
 namespace Stage2HW.Business.Services
 {
@@ -14,19 +15,17 @@ namespace Stage2HW.Business.Services
     public class ExchangeRatesProvider : IExchangeRatesProvider
     {
         private readonly ICurrencyExchangeConfig _currencyExchangeConfig;
-
-        private DownloadedData _btcData;
-        private DownloadedData _bccData;
-        private DownloadedData _ethData;
-        private DownloadedData _ltcData;
+        
+       // private DownloadedData _btcData;
+       // private DownloadedData _bccData;
+       // private DownloadedData _ethData;
+       // private DownloadedData _ltcData;
 
         //private List<Currency> _currencies = new List<Currency>();
-        public List<DownloadedData> _downloadedData;
+       // public List<DownloadedData> _downloadedData;
 
         public event RatesDownloadedHandler NewRatesDownloadedEvent;
         public List<Currency> Currencies { get; set; }
-        
-        
 
         public ExchangeRatesProvider(ICurrencyExchangeConfig currencyExchangeConfig)
         {
@@ -50,7 +49,7 @@ namespace Stage2HW.Business.Services
             DownloadRates();
         }
 
-        public void DownloadRates()
+        public void DownloadRates() //rename to GetRates
         {
             var httpClient = new HttpClient();
 
@@ -59,34 +58,47 @@ namespace Stage2HW.Business.Services
             var ethResponse = httpClient.GetAsync(_currencyExchangeConfig.BitBayEthPlnAddress).Result.Content.ReadAsStringAsync().Result;
             var ltcResponse = httpClient.GetAsync(_currencyExchangeConfig.BitBayLtcPlnAddress).Result.Content.ReadAsStringAsync().Result;
 
-            var responseList = new List<string>
+            Currencies.Single(c => c.CurrencyName == CurrencyNameEnum.BTC).Last = JsonConvert.DeserializeObject<DownloadedData>(btcResponse).Last;
+            Currencies.Single(c => c.CurrencyName == CurrencyNameEnum.BCC).Last = JsonConvert.DeserializeObject<DownloadedData>(bccResponse).Last;
+            Currencies.Single(c => c.CurrencyName == CurrencyNameEnum.ETH).Last = JsonConvert.DeserializeObject<DownloadedData>(ethResponse).Last;
+            Currencies.Single(c => c.CurrencyName == CurrencyNameEnum.LTC).Last = JsonConvert.DeserializeObject<DownloadedData>(ltcResponse).Last;
+
+            var ratesDownloaded = new RatesDownloadedEventArgs
             {
-                btcResponse,
-                bccResponse,
-                ethResponse,
-                ltcResponse
+                CurrenciesList = Currencies
             };
 
-            SerializeData(responseList);
+            if (NewRatesDownloadedEvent != null) NewRatesDownloadedEvent.Invoke(ratesDownloaded);
+
+            //var responseList = new List<string>
+            //{
+            //    btcResponse,
+            //    bccResponse,
+            //    ethResponse,
+            //    ltcResponse
+            //};
+
+            // SerializeData(responseList);
         }
 
-        public void SerializeData(List<string> responsesList)
-        {
-            _btcData = JsonConvert.DeserializeObject<DownloadedData>(responsesList[0]);
-            _bccData = JsonConvert.DeserializeObject<DownloadedData>(responsesList[1]);
-            _ethData = JsonConvert.DeserializeObject<DownloadedData>(responsesList[2]);
-            _ltcData = JsonConvert.DeserializeObject<DownloadedData>(responsesList[3]);
+        //public void SerializeData(List<string> responsesList)
+        //{
 
-            var downloadedData = new List<DownloadedData>
-            {
-                _btcData,
-                _bccData,
-                _ethData,
-                _ltcData
-            };
+        //    _btcData = JsonConvert.DeserializeObject<DownloadedData>(responsesList[0]);
+        //    _bccData = JsonConvert.DeserializeObject<DownloadedData>(responsesList[1]);
+        //    _ethData = JsonConvert.DeserializeObject<DownloadedData>(responsesList[2]);
+        //    _ltcData = JsonConvert.DeserializeObject<DownloadedData>(responsesList[3]);
+
+        //    //var downloadedData = new List<DownloadedData>
+        //    //{
+        //    //    _btcData,
+        //    //    _bccData,
+        //    //    _ethData,
+        //    //    _ltcData
+        //    //};
             
-            UpdateExchangeRates(/*_btcData, _bccData, _ethData, _ltcData*/);
-        }
+        // //   UpdateExchangeRates();
+        //}
         
         /*********metoda do przemyslenia***********/
         //public void SerializeData(string response)
@@ -96,27 +108,27 @@ namespace Stage2HW.Business.Services
         //}
         /*----------------------------------------*/
 
-        public void UpdateExchangeRates(/*DownloadedData btcData, DownloadedData bccData, DownloadedData ethData, DownloadedData ltcData*/)
-        {
-            Currencies.Single(c => c.Name == "BitCoin").Ask = _btcData.Ask;
-            Currencies.Single(c => c.Name == "BitCoin").Bid = _btcData.Bid;
+        //public void UpdateExchangeRates(/*DownloadedData btcData, DownloadedData bccData, DownloadedData ethData, DownloadedData ltcData*/)
+       // {
+            //Currencies.Single(c => c.CurrencyName == CurrencyNameEnum.BTC).Ask = _btcData.Ask;
+            //Currencies.Single(c => c.CurrencyName == CurrencyNameEnum.BTC).Bid = _btcData.Bid;
 
-            Currencies.Single(c => c.Name == "BitCoinCash").Ask = _bccData.Ask;
-            Currencies.Single(c => c.Name == "BitCoinCash").Bid = _bccData.Bid;
+            //Currencies.Single(c => c.CurrencyName == CurrencyNameEnum.BCC).Ask = _bccData.Ask;
+            //Currencies.Single(c => c.CurrencyName == CurrencyNameEnum.BCC).Bid = _bccData.Bid;
 
-            Currencies.Single(c => c.Name == "Ethereum").Ask = _ethData.Ask;
-            Currencies.Single(c => c.Name == "Ethereum").Bid = _ethData.Bid;
+            //Currencies.Single(c => c.CurrencyName == CurrencyNameEnum.ETH).Ask = _ethData.Ask;
+            //Currencies.Single(c => c.CurrencyName == CurrencyNameEnum.ETH).Bid = _ethData.Bid;
 
-            Currencies.Single(c => c.Name == "LiteCoin").Ask = _ltcData.Ask;
-            Currencies.Single(c => c.Name == "LiteCoin").Bid = _ltcData.Bid;
+            //Currencies.Single(c => c.CurrencyName == CurrencyNameEnum.LTC).Ask = _ltcData.Ask;
+            //Currencies.Single(c => c.CurrencyName == CurrencyNameEnum.LTC).Bid = _ltcData.Bid;
 
-            var ratesDownloaded = new RatesDownloadedEventArgs
-            {
-                CurrenciesList = Currencies
-            };
+            //var ratesDownloaded = new RatesDownloadedEventArgs
+            //{
+            //    CurrenciesList = Currencies
+            //};
 
-            if(NewRatesDownloadedEvent != null) NewRatesDownloadedEvent.Invoke(ratesDownloaded);
-        }
+            //if(NewRatesDownloadedEvent != null) NewRatesDownloadedEvent.Invoke(ratesDownloaded);
+      //  }
 
         ///<summary>
         ///PLN is a base currency
@@ -126,35 +138,35 @@ namespace Stage2HW.Business.Services
         {
             Currency pln = new Currency
             {
-                Name = "PLN",
-                Bid = 1,
-                Ask = 1
+                CurrencyName = CurrencyNameEnum.PLN,
+                //Bid = 1,
+                //Ask = 1
             };
 
             Currency bitCoin = new Currency
             {
-                Name = "BitCoin",
+                CurrencyName = CurrencyNameEnum.BTC,
                 //Bid = _btcData.Bid,
                 //Ask = _btcData.Ask
             };
 
             Currency bitCoinCash = new Currency
             {
-                Name = "BitCoinCash",
+                CurrencyName = CurrencyNameEnum.BCC,
                 //Bid = _bccData.Bid,
                 //Ask = _bccData.Ask
             };
 
             Currency ethereum = new Currency
             {
-                Name = "Ethereum",
+                CurrencyName = CurrencyNameEnum.ETH,
                 //Bid = _ethData.Bid,
                 //Ask = _ethData.Ask
             };
 
             Currency liteCoin = new Currency
             {
-                Name = "LiteCoin",
+                CurrencyName = CurrencyNameEnum.LTC,
                 //Bid = _ltcData.Bid,
                 //Ask = _ltcData.Ask
             };

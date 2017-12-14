@@ -7,11 +7,11 @@ namespace Stage2HW.DataAccess.Models
     {
         public int Id { get; set; }
         [Required]
-        public string UserName { get; set; }
+        public string Name { get; set; }
         [Required]
-        public string UserNickName { get; set; }
+        public string Login { get; set; }
         [Required]
-        public string UserPassword { get; set; }
+        public string Password { get; set; }
         public List<Transaction> Transactions { get; set; }
         //public List<Currency> Currencies { get; set; }
     }

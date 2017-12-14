@@ -3,6 +3,7 @@ using Stage2HW.Business.Services.Interfaces;
 using Stage2HW.Cli.IoHelpers.Interfaces;
 using System;
 using System.Linq;
+using Stage2HW.Business.Services.Enums;
 using Stage2HW.Cli.Services.Interfaces;
 
 namespace Stage2HW.Cli.Services
@@ -40,30 +41,30 @@ namespace Stage2HW.Cli.Services
         {
             _consoleWriter.ClearConsole();
             _consoleWriter.WriteMessage("############# CRYPTOCURRENCY EXCHANGE #############\n");
-            _consoleWriter.WriteMessage("|   Currency   |       ASK       |       BID      |\n");
+            _consoleWriter.WriteMessage("|    Currency     |        LAST       |\n");
         }
-
+        
         public void UpdateValues(RatesDownloadedEventArgs e)
         {
-            _exchangeRatesProvider.Currencies.Single(c => c.Name == "BitCoin").Ask =
-                e.CurrenciesList.Single(c => c.Name == "BitCoin").Ask;
-            _exchangeRatesProvider.Currencies.Single(c => c.Name == "BitCoin").Bid =
-                e.CurrenciesList.Single(c => c.Name == "BitCoin").Bid;
+            _exchangeRatesProvider.Currencies.Single(c => c.CurrencyName == CurrencyNameEnum.BTC).Last =
+                e.CurrenciesList.Single(c => c.CurrencyName == CurrencyNameEnum.BTC).Last;
+            //_exchangeRatesProvider.Currencies.Single(c => c.CurrencyName == CurrencyNameEnum.BTC).Bid =
+            //    e.CurrenciesList.Single(c => c.CurrencyName == CurrencyNameEnum.BTC).Bid;
 
-            _exchangeRatesProvider.Currencies.Single(c => c.Name == "BitCoinCash").Ask =
-                e.CurrenciesList.Single(c => c.Name == "BitCoinCash").Ask;
-            _exchangeRatesProvider.Currencies.Single(c => c.Name == "BitCoinCash").Bid =
-                e.CurrenciesList.Single(c => c.Name == "BitCoinCash").Bid;
+            _exchangeRatesProvider.Currencies.Single(c => c.CurrencyName == CurrencyNameEnum.BCC).Last =
+                e.CurrenciesList.Single(c => c.CurrencyName == CurrencyNameEnum.BCC).Last;
+            //_exchangeRatesProvider.Currencies.Single(c => c.CurrencyName == CurrencyNameEnum.BCC).Bid =
+            //    e.CurrenciesList.Single(c => c.CurrencyName == CurrencyNameEnum.BCC).Bid;
 
-            _exchangeRatesProvider.Currencies.Single(c => c.Name == "Ethereum").Ask =
-                e.CurrenciesList.Single(c => c.Name == "Ethereum").Ask;
-            _exchangeRatesProvider.Currencies.Single(c => c.Name == "Ethereum").Bid =
-                e.CurrenciesList.Single(c => c.Name == "Ethereum").Bid;
+            _exchangeRatesProvider.Currencies.Single(c => c.CurrencyName == CurrencyNameEnum.ETH).Last =
+                e.CurrenciesList.Single(c => c.CurrencyName == CurrencyNameEnum.ETH).Last;
+            //_exchangeRatesProvider.Currencies.Single(c => c.CurrencyName == CurrencyNameEnum.ETH).Bid =
+            //    e.CurrenciesList.Single(c => c.CurrencyName == CurrencyNameEnum.ETH).Bid;
 
-            _exchangeRatesProvider.Currencies.Single(c => c.Name == "LiteCoin").Ask =
-                e.CurrenciesList.Single(c => c.Name == "LiteCoin").Ask;
-            _exchangeRatesProvider.Currencies.Single(c => c.Name == "LiteCoin").Bid =
-                e.CurrenciesList.Single(c => c.Name == "LiteCoin").Bid;
+            _exchangeRatesProvider.Currencies.Single(c => c.CurrencyName == CurrencyNameEnum.LTC).Last =
+                e.CurrenciesList.Single(c => c.CurrencyName == CurrencyNameEnum.LTC).Last;
+            //_exchangeRatesProvider.Currencies.Single(c => c.CurrencyName == CurrencyNameEnum.LTC).Bid =
+            //    e.CurrenciesList.Single(c => c.CurrencyName == CurrencyNameEnum.LTC).Bid;
 
             WriteNewValues();
         }
@@ -73,12 +74,13 @@ namespace Stage2HW.Cli.Services
             int i = 3;
             foreach (var currency in _exchangeRatesProvider.Currencies)
             {
-                _consoleWriter.SetCursorPosition(2, i);
-                _consoleWriter.WriteMessage($"{currency.Name}");
-                _consoleWriter.SetCursorPosition(18, i);
-                _consoleWriter.WriteMessage($"{currency.Ask.ToString("C")}");
-                _consoleWriter.SetCursorPosition(36, i);
-                _consoleWriter.WriteMessage($"{currency.Bid.ToString("C")}");
+                _consoleWriter.SetCursorPosition(7, i);
+                _consoleWriter.WriteMessage($"{currency.CurrencyName}");
+                _consoleWriter.SetCursorPosition(21, i);
+                _consoleWriter.WriteMessage($"{currency.Last.ToString("C")}");
+                
+                //_consoleWriter.SetCursorPosition(36, i);
+                //_consoleWriter.WriteMessage($"{currency.Bid.ToString("C")}");
                 i++;
             }
 

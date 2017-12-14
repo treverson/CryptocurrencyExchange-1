@@ -27,7 +27,7 @@ namespace Stage2HW.Cli.Menu
         }
 
         public bool Exit { get; set; }
-        public UserDto ActiveUser { get; set; }
+      //  public UserDto ActiveUser { get; set; }
 
         public void AddOptions()
         {
@@ -63,7 +63,7 @@ namespace Stage2HW.Cli.Menu
                 var userInput = _inputReader.ReadKey();
                 int.TryParse(userInput.KeyChar.ToString(), out choice);
 
-                if (choice != 0)
+                if (choice != 0 && choice <= _options.Count)
                 {
                      menuOption = _options.SingleOrDefault(opt=> opt.OptionNumber == _options[choice-1].OptionNumber);
                 }

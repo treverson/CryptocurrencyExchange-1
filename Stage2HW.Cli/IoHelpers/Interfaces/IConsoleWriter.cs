@@ -4,6 +4,7 @@
     {
         void ClearConsole();
         void WriteMessage(string message);
+        void WriteMessageInColor(string message);
         void SetCursorPosition(int left, int top);
     }
 }

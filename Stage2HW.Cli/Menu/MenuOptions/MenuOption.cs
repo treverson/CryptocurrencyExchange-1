@@ -8,16 +8,14 @@
         public string Name { get; }
         public int OptionNumber { get; set; }
 
-        public MenuOption(/*int optionNumber,*/ string name, CommandCallBack callback)
+        public MenuOption(string name, CommandCallBack callback)
         {
-            //OptionNumber = optionNumber;
             CallOption = callback;
             Name = name;
         }
 
-        public MenuOption(/*int optionNumber,*/ string name)
+        public MenuOption(string name)
         {
-          //  OptionNumber = optionNumber;
             Name = name;
         }
     }
