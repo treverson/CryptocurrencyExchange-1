@@ -98,12 +98,14 @@ namespace Stage2HW.Cli.Menu.MenuOptions
         public void ViewHistory()
         {
             DisplayHeader();
-            _consoleWriter.WriteMessage("Transactions history: \n");
 
             var transactionHistory = GetHistory();
-            _consoleWriter.WriteMessage($"Fiat (PLN) balance: {transactionHistory.Sum(a=>a.Fiat):C}");
+            _consoleWriter.WriteMessage($"\nFiat (PLN) balance: {transactionHistory.Sum(a => a.Fiat):C}\n");
+
+            _consoleWriter.WriteMessage("Transactions history: \n");
+
             DisplayHistoryHeader();
-            var i = 5;
+            var i = 7;
             foreach (var transaction in transactionHistory)
             {
                 if (transaction.CurrencyName == CurrencyNameEnum.Pln.ToString())
@@ -149,17 +151,17 @@ namespace Stage2HW.Cli.Menu.MenuOptions
 
         internal void DisplayHistoryHeader()
         {
-            _consoleWriter.SetCursorPosition(1, 4);
+            _consoleWriter.SetCursorPosition(1, 5);
             _consoleWriter.WriteMessage("Id |");
-            _consoleWriter.SetCursorPosition(5, 4);
+            _consoleWriter.SetCursorPosition(5, 5);
             _consoleWriter.WriteMessage("Currency Name |");
-            _consoleWriter.SetCursorPosition(22, 4);
+            _consoleWriter.SetCursorPosition(22, 5);
             _consoleWriter.WriteMessage("Exchange Rate  |");
-            _consoleWriter.SetCursorPosition(44, 4);
+            _consoleWriter.SetCursorPosition(44, 5);
             _consoleWriter.WriteMessage("Amount      |");
-            _consoleWriter.SetCursorPosition(62, 4);
+            _consoleWriter.SetCursorPosition(62, 5);
             _consoleWriter.WriteMessage("Fiat (PLN)     |");
-            _consoleWriter.SetCursorPosition(88, 4);
+            _consoleWriter.SetCursorPosition(88, 5);
             _consoleWriter.WriteMessage("Date          |");
         }
 
@@ -171,13 +173,13 @@ namespace Stage2HW.Cli.Menu.MenuOptions
             var i = 1;
             foreach (var currency in _exchangeRatesProvider.Currencies)
             {
-                _consoleWriter.WriteMessage($"{i}. {currency.CurrencyName}\n");
+                _consoleWriter.WriteMessage($"{i}. {currency.CurrencyName}, Last: {currency.Last:C}\n");
                 i++;
             }
 
             var userChosenCurrency = GetUserCurrencyChoice();
 
-            _consoleWriter.WriteMessage($"Buying {userChosenCurrency.CurrencyName}, Last: {userChosenCurrency.Last:C}\nEnter amount to buy: ");
+            _consoleWriter.WriteMessage($"\nBuying {userChosenCurrency.CurrencyName}, Last: {userChosenCurrency.Last:C}\nEnter amount to buy: ");
             var buyAmount = _validateInput.ValidateAmount();
 
             var userFiatBalance = GetAccountBalance();
@@ -224,7 +226,7 @@ namespace Stage2HW.Cli.Menu.MenuOptions
             var i = 1;
             foreach (var currency in _exchangeRatesProvider.Currencies)
             {
-                var amount = temp.Where(c => c.CurrencyName == currency.CurrencyName.ToString()).Sum(a => a.Amount);
+                var amount = Math.Round(temp.Where(c => c.CurrencyName == currency.CurrencyName.ToString()).Sum(a => a.Amount),7);
 
                 if (amount > 0)
                 {
@@ -246,7 +248,7 @@ namespace Stage2HW.Cli.Menu.MenuOptions
             var userChosenCurrency = GetCurrencyFromUserTransactions(userOwnedCurrencies);
             var userChosenCurrencyBalance = _userService.UpdateUserTransactions(userChosenCurrency.CurrencyName.ToString());
 
-            _consoleWriter.WriteMessage($"Selling { userChosenCurrency.CurrencyName}, last: {userChosenCurrency.Last:C}\nCurrent balance: {userChosenCurrencyBalance}\nEnter amount to sell: ");
+            _consoleWriter.WriteMessage($"\nSelling { userChosenCurrency.CurrencyName}, last: {userChosenCurrency.Last:C}\nCurrent balance: {userChosenCurrencyBalance}\nEnter amount to sell: ");
             var sellAmount = Math.Round(_validateInput.ValidateAmount(),7);
 
             while (sellAmount > userChosenCurrencyBalance)

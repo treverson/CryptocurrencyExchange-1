@@ -73,7 +73,7 @@ namespace Stage2HW.Cli.IoHelpers
 
             while (string.IsNullOrWhiteSpace(userInput) || !double.TryParse(userInput, out result) || result < 0)
             {
-                _consoleWriter.WriteMessage("Wrong input, try again: ");
+                _consoleWriter.WriteMessage("Wrong input,\n try again: ");
                 userInput = _inputReader.ReadInput();
             }
 
