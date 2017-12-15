@@ -71,7 +71,7 @@ namespace Stage2HW.Cli.IoHelpers
             string userInput = _inputReader.ReadInput();
             double result;
 
-            while (string.IsNullOrWhiteSpace(userInput) || !double.TryParse(userInput, out result))
+            while (string.IsNullOrWhiteSpace(userInput) || !double.TryParse(userInput, out result) || result < 0)
             {
                 _consoleWriter.WriteMessage("Wrong input, try again: ");
                 userInput = _inputReader.ReadInput();

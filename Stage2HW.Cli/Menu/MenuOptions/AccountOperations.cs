@@ -101,6 +101,7 @@ namespace Stage2HW.Cli.Menu.MenuOptions
             _consoleWriter.WriteMessage("Transactions history: \n");
 
             var transactionHistory = GetHistory();
+            _consoleWriter.WriteMessage($"Fiat (PLN) balance: {transactionHistory.Sum(a=>a.Fiat):C}");
             DisplayHistoryHeader();
             var i = 5;
             foreach (var transaction in transactionHistory)
@@ -148,17 +149,17 @@ namespace Stage2HW.Cli.Menu.MenuOptions
 
         internal void DisplayHistoryHeader()
         {
-            _consoleWriter.SetCursorPosition(1, 3);
+            _consoleWriter.SetCursorPosition(1, 4);
             _consoleWriter.WriteMessage("Id |");
-            _consoleWriter.SetCursorPosition(5, 3);
+            _consoleWriter.SetCursorPosition(5, 4);
             _consoleWriter.WriteMessage("Currency Name |");
-            _consoleWriter.SetCursorPosition(22, 3);
+            _consoleWriter.SetCursorPosition(22, 4);
             _consoleWriter.WriteMessage("Exchange Rate  |");
-            _consoleWriter.SetCursorPosition(44, 3);
+            _consoleWriter.SetCursorPosition(44, 4);
             _consoleWriter.WriteMessage("Amount      |");
-            _consoleWriter.SetCursorPosition(62, 3);
+            _consoleWriter.SetCursorPosition(62, 4);
             _consoleWriter.WriteMessage("Fiat (PLN)     |");
-            _consoleWriter.SetCursorPosition(88, 3);
+            _consoleWriter.SetCursorPosition(88, 4);
             _consoleWriter.WriteMessage("Date          |");
         }
 
@@ -215,38 +216,42 @@ namespace Stage2HW.Cli.Menu.MenuOptions
         public void SellCurrencies()
         {
             DisplayHeader();
+            _consoleWriter.WriteMessage("# Sell cryptocurrencies\n");
 
-            _consoleWriter.WriteMessage("Choose cryptocurrency to sell: \n");
+            var userOwnedCurrencies = new List<Currency>();
+            var temp = GetHistory();
 
-            var userTrasactions = GetHistory().Where(c => c.CurrencyName == CurrencyNameEnum.Btc.ToString() || c.CurrencyName == CurrencyNameEnum.Bcc.ToString() 
-                                                                            || c.CurrencyName == CurrencyNameEnum.Ltc.ToString() || c.CurrencyName == CurrencyNameEnum.Eth.ToString())
-                                              .GroupBy(n => n.CurrencyName)
-                                              .Select(g => g.First())
-                                              .ToList();
-         
             var i = 1;
-            foreach (var transaction in userTrasactions)
+            foreach (var currency in _exchangeRatesProvider.Currencies)
             {
-                _consoleWriter.WriteMessage($"{i}. {transaction.CurrencyName}\n");
-                i++;
+                var amount = temp.Where(c => c.CurrencyName == currency.CurrencyName.ToString()).Sum(a => a.Amount);
+
+                if (amount > 0)
+                {
+                    _consoleWriter.WriteMessage($"{i}. {currency.CurrencyName}\n");
+                    userOwnedCurrencies.Add(currency);
+                    i++;
+                }
             }
 
-            var userChosenCurrency = GetCurrencyFromUserTransactions(userTrasactions);
-            var userChosenCurrencyBalance = _userService.UpdateUserTransactions(userChosenCurrency.CurrencyName.ToString());
-
-            if (userChosenCurrencyBalance == 0.00)
+            if (userOwnedCurrencies.Count == 0)
             {
-                _consoleWriter.WriteMessage($"You've sold all previously owned {userChosenCurrency.CurrencyName}. Buy some more and profit!");
+                _consoleWriter.WriteMessage("You don't have any currencies to sell\n");
                 _validateInput.PauseLoop();
                 return;
             }
+
+            _consoleWriter.WriteMessage("Choose cryptocurrency to sell: \n");
+
+            var userChosenCurrency = GetCurrencyFromUserTransactions(userOwnedCurrencies);
+            var userChosenCurrencyBalance = _userService.UpdateUserTransactions(userChosenCurrency.CurrencyName.ToString());
 
             _consoleWriter.WriteMessage($"Selling { userChosenCurrency.CurrencyName}, last: {userChosenCurrency.Last:C}\nCurrent balance: {userChosenCurrencyBalance}\nEnter amount to sell: ");
             var sellAmount = Math.Round(_validateInput.ValidateAmount(),7);
 
             while (sellAmount > userChosenCurrencyBalance)
             {
-                _consoleWriter.WriteMessage("Not enough coins. Press ENTER to try again or press ESCAPE to go back.");
+                _consoleWriter.WriteMessage("\nNot enough coins. Press ENTER to try again or press ESCAPE to go back.");
 
                 var userPressed = _inputReader.ReadKey();
 
@@ -275,28 +280,24 @@ namespace Stage2HW.Cli.Menu.MenuOptions
             _validateInput.PauseLoop();
         }
 
-        internal Currency GetCurrencyFromUserTransactions(List<TransactionDto> userTrasactions)
+        internal Currency GetCurrencyFromUserTransactions(List<Currency> userCurrencies)
         {
-            TransactionDto transaction = null;
+            Currency currency = null;
             do
             {
                 var userInput = _inputReader.ReadKey();
                 int.TryParse(userInput.KeyChar.ToString(), out int choice);
-                if (choice != 0 && choice <= userTrasactions.Count)
+                if (choice != 0 && choice <= userCurrencies.Count)
                 {
-                    transaction = userTrasactions[choice - 1];
+                    currency = userCurrencies[choice - 1];
                 }
                 else
                 {
                     _consoleWriter.WriteMessage("\nInvalid option, choose again.");
                 }
-            } while (transaction == null);
+            } while (currency== null);
 
-            Currency currencyExtractedFromTransaction =
-                _exchangeRatesProvider.Currencies.SingleOrDefault(c =>
-                    c.CurrencyName.ToString() == transaction.CurrencyName);
-
-            return currencyExtractedFromTransaction;
+            return currency;
         }
 
         internal Currency GetUserCurrencyChoice()
