@@ -1,15 +1,13 @@
-﻿using Stage2HW.Business.Dtos;
-using Stage2HW.Cli.IoHelpers.Interfaces;
+﻿using Stage2HW.Cli.IoHelpers.Interfaces;
 using Stage2HW.Cli.Menu.Interfaces;
 using Stage2HW.Cli.Menu.MenuOptions;
 using Stage2HW.Cli.Services.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
-using Stage2HW.Business.Services.Interfaces;
 
 namespace Stage2HW.Cli.Menu
 {
-    internal class MainMenu : IMenu//, IActiveUser
+    internal class MainMenu : IMenu
     {
         private readonly List<MenuOption> _options = new List<MenuOption>();
 
@@ -36,13 +34,13 @@ namespace Stage2HW.Cli.Menu
 
         public void AddOptions()
         {
-            _options.Add(new MenuOption("Check exchange generated", _dumycryptoccurrencyExchange.RunExchange));
             _options.Add(new MenuOption("Check BitBay exchange", _cryptocurrencyExchange.RunExchange));
             _options.Add(new MenuOption("Deposit funds", _accountOperations.DepositFunds));
             _options.Add(new MenuOption("Withdraw funds", _accountOperations.WithdrawFunds));
             _options.Add(new MenuOption("Buy currencies", _accountOperations.BuyCurrencies));
             _options.Add(new MenuOption("Sell currencies",_accountOperations.SellCurrencies));
             _options.Add(new MenuOption("View account history", _accountOperations.ViewHistory));
+            _options.Add(new MenuOption("Check dummy exchange generator", _dumycryptoccurrencyExchange.RunExchange));
             _options.Add(new MenuOption("Logout"));
 
             foreach (var option in _options)

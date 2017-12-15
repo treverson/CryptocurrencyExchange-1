@@ -46,25 +46,19 @@ namespace Stage2HW.Cli.Services
         
         public void UpdateValues(RatesDownloadedEventArgs e)
         {
-            _exchangeRatesProvider.Currencies.Single(c => c.CurrencyName == CurrencyNameEnum.BTC).Last =
-                e.CurrenciesList.Single(c => c.CurrencyName == CurrencyNameEnum.BTC).Last;
-            //_exchangeRatesProvider.Currencies.Single(c => c.CurrencyName == CurrencyNameEnum.BTC).Bid =
-            //    e.CurrenciesList.Single(c => c.CurrencyName == CurrencyNameEnum.BTC).Bid;
+            _exchangeRatesProvider.Currencies.Single(c => c.CurrencyName == CurrencyNameEnum.Btc).Last =
+                e.CurrenciesList.Single(c => c.CurrencyName == CurrencyNameEnum.Btc).Last;
+           
 
-            _exchangeRatesProvider.Currencies.Single(c => c.CurrencyName == CurrencyNameEnum.BCC).Last =
-                e.CurrenciesList.Single(c => c.CurrencyName == CurrencyNameEnum.BCC).Last;
-            //_exchangeRatesProvider.Currencies.Single(c => c.CurrencyName == CurrencyNameEnum.BCC).Bid =
-            //    e.CurrenciesList.Single(c => c.CurrencyName == CurrencyNameEnum.BCC).Bid;
+            _exchangeRatesProvider.Currencies.Single(c => c.CurrencyName == CurrencyNameEnum.Bcc).Last =
+                e.CurrenciesList.Single(c => c.CurrencyName == CurrencyNameEnum.Bcc).Last;
+           
 
-            _exchangeRatesProvider.Currencies.Single(c => c.CurrencyName == CurrencyNameEnum.ETH).Last =
-                e.CurrenciesList.Single(c => c.CurrencyName == CurrencyNameEnum.ETH).Last;
-            //_exchangeRatesProvider.Currencies.Single(c => c.CurrencyName == CurrencyNameEnum.ETH).Bid =
-            //    e.CurrenciesList.Single(c => c.CurrencyName == CurrencyNameEnum.ETH).Bid;
+            _exchangeRatesProvider.Currencies.Single(c => c.CurrencyName == CurrencyNameEnum.Eth).Last =
+                e.CurrenciesList.Single(c => c.CurrencyName == CurrencyNameEnum.Eth).Last;
 
-            _exchangeRatesProvider.Currencies.Single(c => c.CurrencyName == CurrencyNameEnum.LTC).Last =
-                e.CurrenciesList.Single(c => c.CurrencyName == CurrencyNameEnum.LTC).Last;
-            //_exchangeRatesProvider.Currencies.Single(c => c.CurrencyName == CurrencyNameEnum.LTC).Bid =
-            //    e.CurrenciesList.Single(c => c.CurrencyName == CurrencyNameEnum.LTC).Bid;
+            _exchangeRatesProvider.Currencies.Single(c => c.CurrencyName == CurrencyNameEnum.Ltc).Last =
+                e.CurrenciesList.Single(c => c.CurrencyName == CurrencyNameEnum.Ltc).Last;
 
             WriteNewValues();
         }
@@ -78,9 +72,7 @@ namespace Stage2HW.Cli.Services
                 _consoleWriter.WriteMessage($"{currency.CurrencyName}");
                 _consoleWriter.SetCursorPosition(21, i);
                 _consoleWriter.WriteMessage($"{currency.Last.ToString("C")}");
-                
-                //_consoleWriter.SetCursorPosition(36, i);
-                //_consoleWriter.WriteMessage($"{currency.Bid.ToString("C")}");
+
                 i++;
             }
 

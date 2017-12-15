@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
+﻿using System;
 using Stage2HW.DataAccess.Data;
 using Stage2HW.DataAccess.Models;
 using Stage2HW.DataAccess.Repositories.Interfaces;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Stage2HW.DataAccess.Repositories
 {
@@ -41,34 +41,13 @@ namespace Stage2HW.DataAccess.Repositories
             return loggedInUser;
         }
 
-        //public void RegisterDeposit(Transaction deposit)
-        //{
-        //    using (var dbContext = new CryptocurrencyExchangeDbContext())
-        //    {
-        //        dbContext.TransactionsDbSet.Add(deposit);
-        //        dbContext.SaveChanges();
-        //    }
-        //}
-
         public List<Transaction> GetTransactionsHistory(int activeUserId)
         {
-           //new List<Transaction>();
-
             using (var dbContext = new CryptocurrencyExchangeDbContext())
             {
-                /* List<Transaction> transactionsHistory =*/
                 return dbContext.TransactionsDbSet.Where(t => t.UserId == activeUserId).ToList();
             }
         }
-
-        //public void RegisterWithdrawal(Transaction withdrawal)
-        //{
-        //    using (var dbContext = new CryptocurrencyExchangeDbContext())
-        //    {
-        //        dbContext.TransactionsDbSet.Add(withdrawal);
-        //        dbContext.SaveChanges();
-        //    }
-        //}
 
         public void RegisterTransaction(Transaction transaction)
         {
@@ -76,6 +55,14 @@ namespace Stage2HW.DataAccess.Repositories
             {
                 dbContext.TransactionsDbSet.Add(transaction);
                 dbContext.SaveChanges();
+            }
+        }
+
+        public double UpdateUserTransactions(string currencyName)
+        {
+            using (var dbContext = new CryptocurrencyExchangeDbContext())
+            {
+                return Math.Round(dbContext.TransactionsDbSet.Where(c => c.CurrencyName == currencyName).Sum(x => x.Amount), 7);
             }
         }
 

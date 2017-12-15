@@ -1,6 +1,4 @@
-﻿using Stage2HW.Business.Dtos;
-
-namespace Stage2HW.Cli.IoHelpers.Interfaces
+﻿namespace Stage2HW.Cli.IoHelpers.Interfaces
 {
     public interface IDisplayHeader
     {

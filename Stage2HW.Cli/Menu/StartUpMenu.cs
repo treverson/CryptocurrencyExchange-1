@@ -1,5 +1,4 @@
-﻿using Stage2HW.Business.Dtos;
-using Stage2HW.Cli.IoHelpers.Interfaces;
+﻿using Stage2HW.Cli.IoHelpers.Interfaces;
 using Stage2HW.Cli.Menu.Interfaces;
 using Stage2HW.Cli.Menu.MenuOptions;
 using System.Collections.Generic;
@@ -27,7 +26,6 @@ namespace Stage2HW.Cli.Menu
         }
 
         public bool Exit { get; set; }
-      //  public UserDto ActiveUser { get; set; }
 
         public void AddOptions()
         {

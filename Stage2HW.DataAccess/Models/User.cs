@@ -13,6 +13,5 @@ namespace Stage2HW.DataAccess.Models
         [Required]
         public string Password { get; set; }
         public List<Transaction> Transactions { get; set; }
-        //public List<Currency> Currencies { get; set; }
     }
 }

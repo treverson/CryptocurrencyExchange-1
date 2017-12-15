@@ -1,5 +1,4 @@
 ﻿using Ninject.Modules;
-using Stage2HW.Business.Services;
 using Stage2HW.Business.Services.Interfaces;
 using Stage2HW.Cli.Configuration;
 using Stage2HW.Cli.IoHelpers;
@@ -25,15 +24,9 @@ namespace Stage2HW.Cli.Modules
             Bind<IDummyCryptocurrencyExchange>().To<DummyCryptocurrencyExchange>();
             Bind<ILogInToExchange>().To<LogInToExchange>();
             Bind<ICryptocurrencyExchange>().To<CryptocurrencyExchange>();
-
-            //new ones
             Bind<ICurrencyExchangeConfig>().To<AppConfig>();
             Bind<IAccountOperations>().To<AccountOperations>();
             Bind<IShowUser>().To<ShowUser>().InSingletonScope();
-
-            //Bind<IMenu>().To<MainMenu>().WhenInjectedInto<AccountOperations>();
-           // Bind<IActiveUser>().To<MainMenu>();
-
-;        }
+;       }
     }
 }

@@ -2,10 +2,10 @@
 {
     public enum CurrencyNameEnum
     {
-        PLN,
-        BTC,
-        BCC,
-        ETH,
-        LTC,
+        Pln,
+        Btc,
+        Bcc,
+        Eth,
+        Ltc,
     }
 }

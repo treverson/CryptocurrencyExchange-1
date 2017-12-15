@@ -1,6 +1,4 @@
-﻿using Stage2HW.Business.Dtos;
-
-namespace Stage2HW.Cli.Menu.Interfaces
+﻿namespace Stage2HW.Cli.Menu.Interfaces
 {
     internal interface IAccountOperations
     {

@@ -1,14 +1,10 @@
-﻿using Stage2HW.Business.Dtos;
-
-namespace Stage2HW.Cli.Menu.Interfaces
+﻿namespace Stage2HW.Cli.Menu.Interfaces
 {
     internal interface IMenu
     {
-        //void DisplayHeader();
         void PrintMenu();
         void RunOption();
         void AddOptions();
         bool Exit { get; set; }
-       // UserDto ActiveUser { get; set; }
     }
 }

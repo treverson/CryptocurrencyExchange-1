@@ -66,8 +66,6 @@
     <Compile Include="IoHelpers\Interfaces\IValidateInput.cs" />
     <Compile Include="IoHelpers\ValidateInput.cs" />
     <Compile Include="Menu\ShowUser.cs" />
-    <Compile Include="Menu\Enums\MainMenuEnum.cs" />
-    <Compile Include="Menu\Enums\StartUpMenuEnum.cs" />
     <Compile Include="Menu\Interfaces\IMenu.cs" />
     <Compile Include="Menu\MainMenu.cs" />
     <Compile Include="Menu\MenuOptions\AccountOperations.cs" />

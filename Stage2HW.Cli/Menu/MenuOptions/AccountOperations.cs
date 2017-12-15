@@ -27,7 +27,6 @@ namespace Stage2HW.Cli.Menu.MenuOptions
             _showUser = showUser;
             _exchangeRatesProvider = exchangeRatesProvider;
             _inputReader = inputReader;
-            //  _menu = menu;
         }
 
         public void DepositFunds()
@@ -36,32 +35,15 @@ namespace Stage2HW.Cli.Menu.MenuOptions
 
             _consoleWriter.WriteMessage("Enter deposit amount (PLN): ");
             var depositAmount = _validateInput.ValidateAmount();
-            TransactionDto deposit;
 
-            if (_showUser.ActiveUser.Transactions.Count == 0)
+            var deposit = new TransactionDto
             {
-                /* TransactionDto */
-                deposit = new TransactionDto
-                {
-                    Amount = depositAmount,
-                    CurrencyName = "PLN",
-                    TransactionDate = DateTime.Now,
-                    UserId = _showUser.ActiveUser.Id,
-                    Fiat = depositAmount
-                };
-            }
-            else
-            {
-                /*TransactionDto */
-                deposit = new TransactionDto
-                {
-                    Amount = depositAmount,
-                    CurrencyName = "PLN",
-                    TransactionDate = DateTime.Now,
-                    UserId = _showUser.ActiveUser.Id,
-                    Fiat = _showUser.ActiveUser.Transactions.SingleOrDefault().Fiat + depositAmount
-                };
-            }
+                Amount = depositAmount,
+                CurrencyName = CurrencyNameEnum.Pln.ToString(),
+                TransactionDate = DateTime.Now,
+                UserId = _showUser.ActiveUser.Id,
+                Fiat = depositAmount
+            };
 
             _userService.RegisterTransaction(deposit);
 
@@ -94,13 +76,13 @@ namespace Stage2HW.Cli.Menu.MenuOptions
                 }
             }
 
-            TransactionDto withdrawal = new TransactionDto
+            var withdrawal = new TransactionDto
             {
                 Amount = -withdrawalAmount,
-                CurrencyName = "PLN",
+                CurrencyName = CurrencyNameEnum.Pln.ToString(),
                 TransactionDate = DateTime.Now,
                 UserId = _showUser.ActiveUser.Id,
-                Fiat = /*_showUser.ActiveUser.Transactions.Single().Fiat */-withdrawalAmount
+                Fiat = -withdrawalAmount
             };
             _userService.RegisterTransaction(withdrawal);
 
@@ -123,13 +105,13 @@ namespace Stage2HW.Cli.Menu.MenuOptions
             var i = 5;
             foreach (var transaction in transactionHistory)
             {
-                if (transaction.CurrencyName == CurrencyNameEnum.PLN.ToString())
+                if (transaction.CurrencyName == CurrencyNameEnum.Pln.ToString())
                 {
                     _consoleWriter.SetCursorPosition(2, i);
                     _consoleWriter.WriteMessage($"{transaction.Id}");
                     _consoleWriter.SetCursorPosition(10, i);
                     _consoleWriter.WriteMessage($"{transaction.CurrencyName}");
-                    _consoleWriter.SetCursorPosition(27, i); //dla innych 24
+                    _consoleWriter.SetCursorPosition(27, i);
                     _consoleWriter.WriteMessage($"n/a");
                     _consoleWriter.SetCursorPosition(45, i);
                     _consoleWriter.WriteMessage($"{transaction.Amount}");
@@ -149,11 +131,10 @@ namespace Stage2HW.Cli.Menu.MenuOptions
                     _consoleWriter.SetCursorPosition(45, i);
                     _consoleWriter.WriteMessageInColor($"{transaction.Amount}");
                     _consoleWriter.SetCursorPosition(62, i);
-                    _consoleWriter.WriteMessage($"{transaction.Fiat:C}");
+                    _consoleWriter.WriteMessageInColor($"{transaction.Fiat:C}");
                     _consoleWriter.SetCursorPosition(80, i);
                     _consoleWriter.WriteMessageInColor($"{transaction.TransactionDate}");
                 }
-
                 i++;
             }
             _consoleWriter.WriteMessage("\n\nPress ENTER to continue.");
@@ -195,7 +176,7 @@ namespace Stage2HW.Cli.Menu.MenuOptions
 
             var userChosenCurrency = GetUserCurrencyChoice();
 
-            _consoleWriter.WriteMessage($"Buying {userChosenCurrency.CurrencyName}\nEnter amount to buy: ");
+            _consoleWriter.WriteMessage($"Buying {userChosenCurrency.CurrencyName}, Last: {userChosenCurrency.Last:C}\nEnter amount to buy: ");
             var buyAmount = _validateInput.ValidateAmount();
 
             var userFiatBalance = GetAccountBalance();
@@ -226,17 +207,23 @@ namespace Stage2HW.Cli.Menu.MenuOptions
             };
 
             _userService.RegisterTransaction(boughtCurrency);
+
+            _consoleWriter.WriteMessage($"Bought {boughtCurrency.Amount} {boughtCurrency.CurrencyName} for {-boughtCurrency.Fiat:C}");
+            _validateInput.PauseLoop();
         }
 
         public void SellCurrencies()
         {
             DisplayHeader();
+
             _consoleWriter.WriteMessage("Choose cryptocurrency to sell: \n");
 
-            var userTrasactions = GetHistory().Where(c => c.CurrencyName == "BTC" || c.CurrencyName == "BCC" || c.CurrencyName == "LTC" || c.CurrencyName == "ETH")
-                                                   .GroupBy(n => n.CurrencyName)
-                                                   .Select(g => g.First())
-                                                   .ToList();
+            var userTrasactions = GetHistory().Where(c => c.CurrencyName == CurrencyNameEnum.Btc.ToString() || c.CurrencyName == CurrencyNameEnum.Bcc.ToString() 
+                                                                            || c.CurrencyName == CurrencyNameEnum.Ltc.ToString() || c.CurrencyName == CurrencyNameEnum.Eth.ToString())
+                                              .GroupBy(n => n.CurrencyName)
+                                              .Select(g => g.First())
+                                              .ToList();
+         
             var i = 1;
             foreach (var transaction in userTrasactions)
             {
@@ -245,14 +232,19 @@ namespace Stage2HW.Cli.Menu.MenuOptions
             }
 
             var userChosenCurrency = GetCurrencyFromUserTransactions(userTrasactions);
-            var userChosenCurrencyBalance = userTrasactions
-                .Where(c => c.CurrencyName == userChosenCurrency.CurrencyName.ToString()).Sum(x => x.Amount);
+            var userChosenCurrencyBalance = _userService.UpdateUserTransactions(userChosenCurrency.CurrencyName.ToString());
 
-            _consoleWriter.WriteMessage($"Selling { userChosenCurrency.CurrencyName}, current balance: {userChosenCurrencyBalance}\nEnter amount to sell: ");
-            var sellAmount = _validateInput.ValidateAmount();
+            if (userChosenCurrencyBalance == 0.00)
+            {
+                _consoleWriter.WriteMessage($"You've sold all previously owned {userChosenCurrency.CurrencyName}. Buy some more and profit!");
+                _validateInput.PauseLoop();
+                return;
+            }
+
+            _consoleWriter.WriteMessage($"Selling { userChosenCurrency.CurrencyName}, last: {userChosenCurrency.Last:C}\nCurrent balance: {userChosenCurrencyBalance}\nEnter amount to sell: ");
+            var sellAmount = Math.Round(_validateInput.ValidateAmount(),7);
 
             while (sellAmount > userChosenCurrencyBalance)
-            // while (sellAmount  > userCryptocurrencies.Where(c=>c.CurrencyName == userChosenCurrency.CurrencyName).Sum(x=>x.Last))
             {
                 _consoleWriter.WriteMessage("Not enough coins. Press ENTER to try again or press ESCAPE to go back.");
 
@@ -267,9 +259,9 @@ namespace Stage2HW.Cli.Menu.MenuOptions
                 }
             }
 
-            TransactionDto soldCurrency = new TransactionDto
+            var soldCurrency = new TransactionDto
             {
-                Amount = sellAmount,
+                Amount = -sellAmount,
                 CurrencyName = userChosenCurrency.CurrencyName.ToString(),
                 TransactionDate = DateTime.Now,
                 ExchangeRate = userChosenCurrency.Last,
@@ -277,7 +269,10 @@ namespace Stage2HW.Cli.Menu.MenuOptions
                 Fiat = sellAmount * userChosenCurrency.Last
             };
 
-            _userService.RegisterTransaction(soldCurrency); 
+            _userService.RegisterTransaction(soldCurrency);
+
+            _consoleWriter.WriteMessage($"Sold {-soldCurrency.Amount} {soldCurrency.CurrencyName} for {soldCurrency.Fiat:C}");
+            _validateInput.PauseLoop();
         }
 
         internal Currency GetCurrencyFromUserTransactions(List<TransactionDto> userTrasactions)
@@ -300,6 +295,7 @@ namespace Stage2HW.Cli.Menu.MenuOptions
             Currency currencyExtractedFromTransaction =
                 _exchangeRatesProvider.Currencies.SingleOrDefault(c =>
                     c.CurrencyName.ToString() == transaction.CurrencyName);
+
             return currencyExtractedFromTransaction;
         }
 
@@ -332,4 +328,3 @@ namespace Stage2HW.Cli.Menu.MenuOptions
         }
     }
 }
-

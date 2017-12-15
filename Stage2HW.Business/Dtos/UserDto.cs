@@ -9,6 +9,5 @@ namespace Stage2HW.Business.Dtos
         public string Login { get; set; }
         public string Password { get; set; }
         public List<TransactionDto> Transactions { get; set; }
-        //public List<Currency> Currencies { get; set; }
     }
 }

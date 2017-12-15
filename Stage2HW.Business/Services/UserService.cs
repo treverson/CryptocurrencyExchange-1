@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using Stage2HW.Business.Dtos;
-using Stage2HW.DataAccess.Models;
-using System.Collections.Generic;
 using Stage2HW.Business.Services.Interfaces;
+using Stage2HW.DataAccess.Models;
 using Stage2HW.DataAccess.Repositories.Interfaces;
+using System.Collections.Generic;
 
 namespace Stage2HW.Business.Services
 {
@@ -55,27 +55,18 @@ namespace Stage2HW.Business.Services
             var userDto = _iMapper.Map<User, UserDto>(userEntity);
             return userDto;
         }
-        //-----uniwersal
+  
         public void RegisterTransaction(TransactionDto transaction)
         {
             var transactionEntity = _iMapper.Map<TransactionDto, Transaction>(transaction);
 
             _userRepository.RegisterTransaction(transactionEntity);
         }
-        //uniwersasl
-        //public void RegisterDeposit(TransactionDto deposit)
-        //{
-        //    var depositEntity = _iMapper.Map<TransactionDto, Transaction>(deposit);
 
-        //    _userRepository.RegisterDeposit(depositEntity);
-        //}
-
-        //public void RegisterWithdrawal(TransactionDto withdrawal)
-        //{
-        //    var withdrawalEntity = _iMapper.Map<TransactionDto, Transaction>(withdrawal);
-
-        //    _userRepository.RegisterWithdrawal(withdrawalEntity);
-        //}
+        public double UpdateUserTransactions(string currencyName)
+        {
+            return _userRepository.UpdateUserTransactions(currencyName);
+        }
 
         public List<TransactionDto> GetTransactionHistory(int activeUserId)
         {
@@ -92,7 +83,5 @@ namespace Stage2HW.Business.Services
 
             return transactionsHistory;
         }
-
-     
     }
 }
