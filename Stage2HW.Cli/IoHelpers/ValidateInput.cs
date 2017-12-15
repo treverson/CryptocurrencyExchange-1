@@ -4,6 +4,8 @@ using Stage2HW.Business.Services.Interfaces;
 using Stage2HW.Cli.IoHelpers.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
+
 
 namespace Stage2HW.Cli.IoHelpers
 {

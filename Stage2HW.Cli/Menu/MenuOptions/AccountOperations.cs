@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Stage2HW.Business.Dtos;
 using Stage2HW.Business.Services.Enums;
 using Stage2HW.Business.Services.Interfaces;
 using Stage2HW.Cli.IoHelpers.Interfaces;
 using Stage2HW.Cli.Menu.Interfaces;
 
+[assembly: InternalsVisibleTo("Stage2HW.Tests")]
 namespace Stage2HW.Cli.Menu.MenuOptions
 {
     internal class AccountOperations : IAccountOperations
@@ -18,6 +20,11 @@ namespace Stage2HW.Cli.Menu.MenuOptions
         private readonly IShowUser _showUser;
 
         private readonly IInputReader _inputReader;
+
+        public AccountOperations()
+        {
+            
+        }
 
         public AccountOperations(IUserService userService, IConsoleWriter consoleWriter, IInputReader inputReader, IValidateInput validateInput, IShowUser showUser, IExchangeRatesProvider exchangeRatesProvider)
         {
@@ -168,6 +175,8 @@ namespace Stage2HW.Cli.Menu.MenuOptions
         public void BuyCurrencies()
         {
             DisplayHeader();
+            _consoleWriter.WriteMessage("# Buy cryptocurrencies\n");
+
             _consoleWriter.WriteMessage("Choose cryptocurrency to buy: \n");
 
             var i = 1;
