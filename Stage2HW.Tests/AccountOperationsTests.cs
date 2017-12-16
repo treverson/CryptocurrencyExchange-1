@@ -13,58 +13,54 @@ namespace Stage2HW.Tests
     public class AccountOperationsTests
     {
         [Test]
-        public void DepositFunds_()
+        public void DepositFunds_ValidDepositList_GetTransactionReturnsDepositList()
         {
             //Arrange
+            DateTime testDate = new DateTime(2017, 1, 1, 0, 0, 0);
             var userRepositoryMoq = new Mock<IUserRepository>();
 
-            var operations = new AccountOperations();
+            int userId = 0;
 
+            User testUser = new User()
+            {
+                Id = userId,
+            };
 
-            DateTime testDate = new DateTime(2017,1,1,0,0,0);
-            
-            var testTransaction = new Transaction
+            var mockTransaction = new Transaction()
             {
                 CurrencyName = "PLN",
-                Amount = 250,
-                Fiat = 250,
+                Amount = 1500,
+                Fiat = 1500,
                 Id = 1,
-                UserId = 1,
-                TransactionDate = testDate,
-                ExchangeRate = 0
+                UserId = testUser.Id,
+                TransactionDate = testDate
             };
 
-            List<Transaction> testList = new List<Transaction>()
+            var mockTransactionTwo = new Transaction()
             {
-                testTransaction,
-            };
-
-            var testUser = new User
-            {
+                CurrencyName = "PLN",
+                Amount = 2000,
+                Fiat = 2000,
                 Id = 1,
-                Transactions = testList,
+                UserId = testUser.Id,
+                TransactionDate = testDate
             };
 
-            userRepositoryMoq.Setup(x => x.RegisterTransaction(testTransaction));
-            userRepositoryMoq.Setup(x => x.GetTransactionsHistory(testUser.Id)).Returns(new List<Transaction>
+            var testTransactionsList = new List<Transaction>()
             {
-                new Transaction()
-                {
-                    Amount = 250,
-                    Fiat = 250,
-                    UserId = 1,
-                }
-            });
+                mockTransaction, mockTransactionTwo
+            };
+
+            userRepositoryMoq.Setup(c => c.GetTransactionsHistory(It.IsAny<int>())).Callback<int>((i) => userId = i).Returns(testTransactionsList);
 
             //Act
-
-            var result = userRepositoryMoq.Object.GetTransactionsHistory(testUser.Id).SingleOrDefault();
-
+            userRepositoryMoq.Object.GetTransactionsHistory(1);
 
             //Assert
+            userRepositoryMoq.Verify(c => c.GetTransactionsHistory(It.IsAny<int>()), Times.Once());
 
-            Assert.AreEqual(testTransaction.Amount, result.Amount);
-            Assert.AreEqual(testTransaction.Fiat, result.Fiat);
+            Assert.AreEqual(testTransactionsList.Count, 2);
+            Assert.AreEqual(testUser.Id, mockTransaction.UserId);
         }
     }
 }
