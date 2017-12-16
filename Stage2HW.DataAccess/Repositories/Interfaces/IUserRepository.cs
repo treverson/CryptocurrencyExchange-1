@@ -10,6 +10,6 @@ namespace Stage2HW.DataAccess.Repositories.Interfaces
         User GetUser(string userLogin, string userPassword);
         List<Transaction> GetTransactionsHistory(int activeUserId);
         void RegisterTransaction(Transaction transaction);
-        double UpdateUserTransactions(string currencyName);
+        double GetUserCryptocurrencyBalance(string currencyName);
     }
 }

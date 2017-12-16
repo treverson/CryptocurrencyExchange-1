@@ -10,6 +10,6 @@ namespace Stage2HW.Business.Services.Interfaces
         UserDto GetUser(string userLogin, string userPassword);
         List<TransactionDto> GetTransactionHistory(int activeUserId);
         void RegisterTransaction(TransactionDto transaction);
-        double UpdateUserTransactions(string currencyName);
+        double GetUserCryptocurrencyBalance(string currencyName);
     }
 }

@@ -8,6 +8,7 @@ using Stage2HW.Business.Services.Interfaces;
 using Stage2HW.Cli.IoHelpers.Interfaces;
 using Stage2HW.Cli.Menu.Interfaces;
 
+[assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
 [assembly: InternalsVisibleTo("Stage2HW.Tests")]
 namespace Stage2HW.Cli.Menu.MenuOptions
 {
@@ -255,7 +256,7 @@ namespace Stage2HW.Cli.Menu.MenuOptions
             _consoleWriter.WriteMessage("Choose cryptocurrency to sell: \n");
 
             var userChosenCurrency = GetCurrencyFromUserTransactions(userOwnedCurrencies);
-            var userChosenCurrencyBalance = _userService.UpdateUserTransactions(userChosenCurrency.CurrencyName.ToString());
+            var userChosenCurrencyBalance = _userService.GetUserCryptocurrencyBalance(userChosenCurrency.CurrencyName.ToString());
 
             _consoleWriter.WriteMessage($"\nSelling { userChosenCurrency.CurrencyName}, last: {userChosenCurrency.Last:C}\nCurrent balance: {userChosenCurrencyBalance}\nEnter amount to sell: ");
             var sellAmount = Math.Round(_validateInput.ValidateAmount(),7);
@@ -279,7 +280,7 @@ namespace Stage2HW.Cli.Menu.MenuOptions
             {
                 Amount = -sellAmount,
                 CurrencyName = userChosenCurrency.CurrencyName.ToString(),
-                TransactionDate = DateTime.Now,
+                TransactionDate = DateTime.Now, 
                 ExchangeRate = userChosenCurrency.Last,
                 UserId = _showUser.ActiveUser.Id,
                 Fiat = sellAmount * userChosenCurrency.Last

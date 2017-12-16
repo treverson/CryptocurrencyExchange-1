@@ -45,7 +45,7 @@ namespace Stage2HW.DataAccess.Repositories
         {
             using (var dbContext = new CryptocurrencyExchangeDbContext())
             {
-                return dbContext.TransactionsDbSet.Where(t => t.UserId == activeUserId).ToList();
+                return dbContext.TransactionsDbSet.Where(t => t.UserId == activeUserId).OrderBy(d => d.TransactionDate).ToList();
             }
         }
 
@@ -58,20 +58,11 @@ namespace Stage2HW.DataAccess.Repositories
             }
         }
 
-        public double UpdateUserTransactions(string currencyName)
+        public double GetUserCryptocurrencyBalance(string currencyName)
         {
             using (var dbContext = new CryptocurrencyExchangeDbContext())
             {
                 return Math.Round(dbContext.TransactionsDbSet.Where(c => c.CurrencyName == currencyName).Sum(x => x.Amount), 7);
-            }
-        }
-
-        public void RegisterBuyingCurrency(Transaction transaction)
-        {
-            using (var dbContext = new CryptocurrencyExchangeDbContext())
-            {
-                dbContext.TransactionsDbSet.Add(transaction);
-                dbContext.SaveChanges();
             }
         }
     }

@@ -1,7 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-
-[assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
-namespace Stage2HW.Cli.IoHelpers.Interfaces
+﻿namespace Stage2HW.Cli.IoHelpers.Interfaces
 {
     internal interface IValidateInput
     {

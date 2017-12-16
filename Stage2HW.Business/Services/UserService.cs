@@ -63,9 +63,9 @@ namespace Stage2HW.Business.Services
             _userRepository.RegisterTransaction(transactionEntity);
         }
 
-        public double UpdateUserTransactions(string currencyName)
+        public double GetUserCryptocurrencyBalance(string currencyName)
         {
-            return _userRepository.UpdateUserTransactions(currencyName);
+            return _userRepository.GetUserCryptocurrencyBalance(currencyName);
         }
 
         public List<TransactionDto> GetTransactionHistory(int activeUserId)
