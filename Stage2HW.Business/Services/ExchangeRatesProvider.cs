@@ -9,13 +9,12 @@ using System.Timers;
 
 namespace Stage2HW.Business.Services
 {
-    public delegate void RatesDownloadedHandler(RatesDownloadedEventArgs e);
-
     public class ExchangeRatesProvider : IExchangeRatesProvider
     {
         private readonly ICurrencyExchangeConfig _currencyExchangeConfig;
 
-        public event RatesDownloadedHandler NewRatesDownloadedEvent;
+        public event NewExchangeRatesHandler NewExchangeRatesEvent;
+     
         public List<Currency> Currencies { get; set; }
 
         public ExchangeRatesProvider(ICurrencyExchangeConfig currencyExchangeConfig)
@@ -25,7 +24,7 @@ namespace Stage2HW.Business.Services
             GetRates();
         }
 
-        public void RunProvider()
+        public void Run()
         {
             Timer t = new Timer
             {
@@ -54,21 +53,15 @@ namespace Stage2HW.Business.Services
             Currencies.Single(c => c.CurrencyName == CurrencyNameEnum.Eth).LastPrice = JsonConvert.DeserializeObject<DownloadedData>(ethResponse).Last;
             Currencies.Single(c => c.CurrencyName == CurrencyNameEnum.Ltc).LastPrice = JsonConvert.DeserializeObject<DownloadedData>(ltcResponse).Last;
 
-            var ratesDownloaded = new RatesDownloadedEventArgs
+            var ratesDownloaded = new NewExchangeRatesEventArgs
             {
                 CurrenciesList = Currencies
             };
-
-            if (NewRatesDownloadedEvent != null) NewRatesDownloadedEvent.Invoke(ratesDownloaded);
+            if(NewExchangeRatesEvent != null) NewExchangeRatesEvent.Invoke(ratesDownloaded);
         }
 
         private void InitializeCryptocurrencies()
         {
-            Currency pln = new Currency
-            {
-                CurrencyName = CurrencyNameEnum.Pln,
-            };
-
             Currency bitCoin = new Currency
             {
                 CurrencyName = CurrencyNameEnum.Btc,

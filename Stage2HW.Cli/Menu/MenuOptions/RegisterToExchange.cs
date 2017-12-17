@@ -27,7 +27,7 @@ namespace Stage2HW.Cli.Menu.MenuOptions
             _consoleWriter.WriteMessage("State your name: ");
             string userName = _validateInput.ValidateName();
 
-            _consoleWriter.WriteMessage("Set your nickname: ");
+            _consoleWriter.WriteMessage("Set your login: ");
             string userLogin = _validateInput.ValidateNickName();
 
             _consoleWriter.WriteMessage("Set your password: ");

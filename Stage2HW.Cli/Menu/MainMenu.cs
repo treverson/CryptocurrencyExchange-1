@@ -14,16 +14,14 @@ namespace Stage2HW.Cli.Menu
 
         private readonly IConsoleWriter _consoleWriter;
         private readonly IInputReader _inputReader;
-        private readonly IDummyCryptocurrencyExchange _dummycryptocurrencyExchange;
         private readonly ICryptocurrencyExchange _cryptocurrencyExchange;
         private readonly IAccountOperations _accountOperations;
         private readonly IShowUser _showUser;
 
-        public MainMenu(IConsoleWriter consoleWriter, IInputReader inputReader, IDummyCryptocurrencyExchange dummyCryptocurrencyExchange, ICryptocurrencyExchange cryptocurrencyExchange, IAccountOperations accountOperations, IShowUser showUser)
+        public MainMenu(IConsoleWriter consoleWriter, IInputReader inputReader, ICryptocurrencyExchange cryptocurrencyExchange, IAccountOperations accountOperations, IShowUser showUser)
         {
             _consoleWriter = consoleWriter;
             _inputReader = inputReader;
-            _dummycryptocurrencyExchange = dummyCryptocurrencyExchange;
             _cryptocurrencyExchange = cryptocurrencyExchange;
             _accountOperations = accountOperations;
             _showUser = showUser;
@@ -41,7 +39,6 @@ namespace Stage2HW.Cli.Menu
             _options.Add(new MenuOption("Buy currencies", _accountOperations.BuyCurrencies));
             _options.Add(new MenuOption("Sell currencies",_accountOperations.SellCurrencies));
             _options.Add(new MenuOption("View account history", _accountOperations.ViewHistory));
-            _options.Add(new MenuOption("Check dummy exchange generator", _dummycryptocurrencyExchange.RunExchange));
             _options.Add(new MenuOption("Logout"));
 
             foreach (var option in _options)

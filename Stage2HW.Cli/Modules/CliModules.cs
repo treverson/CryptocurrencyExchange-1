@@ -13,6 +13,12 @@ namespace Stage2HW.Cli.Modules
 {
     public class CliModules : NinjectModule
     {
+        private readonly ICurrencyExchangeConfig _currencyExchangeConfig;
+
+        public CliModules(ICurrencyExchangeConfig currencyExchangeConfig)
+        {
+            _currencyExchangeConfig = currencyExchangeConfig;
+        }
         public override void Load()
         {
             Bind<IConsoleWriter>().To<ConsoleWriter>();
@@ -22,9 +28,14 @@ namespace Stage2HW.Cli.Modules
             Bind<IRegisterToExchange>().To<RegisterToExchange>();
             Bind<IValidateInput>().To<ValidateInput>();
 
-            Bind<ICryptocurrencyExchange>().To<CryptocurrencyExchange>();
-       
-            Bind<IDummyCryptocurrencyExchange>().To<DummyCryptocurrencyExchange>();
+            if (_currencyExchangeConfig.ExchangeType == "BitBay")
+            {
+                Bind<ICryptocurrencyExchange>().To<CryptocurrencyExchange>();
+            }
+            else
+            {
+                Bind<ICryptocurrencyExchange>().To<DummyCryptocurrencyExchange>();
+            }
 
             Bind<ILogInToExchange>().To<LogInToExchange>();
             Bind<ICurrencyExchangeConfig>().To<AppConfig>();

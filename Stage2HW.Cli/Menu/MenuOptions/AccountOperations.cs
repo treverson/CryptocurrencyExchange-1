@@ -61,7 +61,7 @@ namespace Stage2HW.Cli.Menu.MenuOptions
             DisplayHeader();
             var accountBalance = GetAccountBalance();
 
-            _consoleWriter.WriteMessage($"Your account balance: {accountBalance.ToString("C")}");
+            _consoleWriter.WriteMessage($"Your account balance: {accountBalance:C}");
 
             _consoleWriter.WriteMessage("\nEnter withdrawal amount (PLN): ");
             var withdrawalAmount = _validateInput.ValidateAmount();
@@ -132,13 +132,13 @@ namespace Stage2HW.Cli.Menu.MenuOptions
             var i = 1;
             foreach (var currency in _exchangeRatesProvider.Currencies)
             {
-                _consoleWriter.WriteMessage($"{i}. {currency.CurrencyName}, Last: {currency.LastPrice:C}\n");
+                _consoleWriter.WriteMessage($"{i}. {currency.CurrencyName}, Last price: {currency.LastPrice:C}\n");
                 i++;
             }
 
             var userChosenCurrency = GetUserCurrencyChoice();
 
-            _consoleWriter.WriteMessage($"\nBuying {userChosenCurrency.CurrencyName}, Last: {userChosenCurrency.LastPrice:C}\nEnter amount to buy: ");
+            _consoleWriter.WriteMessage($"\nBuying {userChosenCurrency.CurrencyName}, Last price: {userChosenCurrency.LastPrice:C}\nEnter amount to buy: ");
             var buyAmount = _validateInput.ValidateAmount();
 
             var userFiatBalance = GetAccountBalance();
@@ -209,7 +209,7 @@ namespace Stage2HW.Cli.Menu.MenuOptions
             var userChosenCurrency = GetCurrencyFromUserTransactions(userOwnedCurrencies);
             var userChosenCurrencyBalance = _userService.GetUserCryptocurrencyBalance(userChosenCurrency.CurrencyName.ToString());
 
-            _consoleWriter.WriteMessage($"\nSelling { userChosenCurrency.CurrencyName}, last: {userChosenCurrency.LastPrice:C}\nCurrent balance: {userChosenCurrencyBalance}\nEnter amount to sell: ");
+            _consoleWriter.WriteMessage($"\nSelling { userChosenCurrency.CurrencyName}, last price: {userChosenCurrency.LastPrice:C}\nCurrent balance: {userChosenCurrencyBalance}\nEnter amount to sell: ");
             var sellAmount = Math.Round(_validateInput.ValidateAmount(),7);
 
             while (sellAmount > userChosenCurrencyBalance)

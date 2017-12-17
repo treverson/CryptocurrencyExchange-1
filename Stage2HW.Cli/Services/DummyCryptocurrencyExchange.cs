@@ -6,19 +6,19 @@ using System;
 
 namespace Stage2HW.Cli.Services
 {
-    internal class DummyCryptocurrencyExchange : IDummyCryptocurrencyExchange//4 ICryptocurrencyExchange
+    internal class DummyCryptocurrencyExchange : ICryptocurrencyExchange
     {
         private readonly IConsoleWriter _consoleWriter;
         private readonly IInputReader _inputReader;
-        private readonly ICurrencyGenerator _currencyGenerator;
+        private readonly IExchangeRatesProvider _exchangeRatesProvider;
 
-        public DummyCryptocurrencyExchange(IConsoleWriter consoleWriter, IInputReader inputReader, ICurrencyGenerator currencyGenerator)
+        public DummyCryptocurrencyExchange(IConsoleWriter consoleWriter, IInputReader inputReader, IExchangeRatesProvider exchangeRatesProvider)
         {
             _inputReader = inputReader;
-            _currencyGenerator = currencyGenerator;
+            _exchangeRatesProvider = exchangeRatesProvider;
             _consoleWriter = consoleWriter;
             
-            _currencyGenerator.RunGenerator();
+            _exchangeRatesProvider.Run();
         }
 
         public void RunExchange()
@@ -26,25 +26,24 @@ namespace Stage2HW.Cli.Services
             _consoleWriter.ClearConsole();
             _consoleWriter.WriteMessage("##### DUMMY CRYPTOCURRENCY EXCHANGE #####\n");
             _consoleWriter.WriteMessage("|  Currency    |       Price      |\n");
-            _currencyGenerator.NewRatesGeneratedEvent += WriteNewValues;
 
+            _exchangeRatesProvider.NewExchangeRatesEvent += WriteNewValues;
             while (_inputReader.ReadKey().Key != ConsoleKey.Escape)
             {
             }
-
-            _currencyGenerator.NewRatesGeneratedEvent -= WriteNewValues;
+            _exchangeRatesProvider.NewExchangeRatesEvent -= WriteNewValues;
         }
 
-        private void WriteNewValues(RatesGeneratedEventArgs e)
+        private void WriteNewValues(NewExchangeRatesEventArgs e)
         {
             int i = 3;
 
             foreach (var currency in e.CurrenciesList)
             {
                 _consoleWriter.SetCursorPosition(3, i);
-                _consoleWriter.WriteMessage($"{currency.Name}");
+                _consoleWriter.WriteMessage($"{currency.CurrencyName}");
                 _consoleWriter.SetCursorPosition(20, i);
-                _consoleWriter.WriteMessage($"{currency.Value:C}");
+                _consoleWriter.WriteMessage($"{currency.LastPrice:C}");
 
                 i++;
             }

@@ -20,7 +20,7 @@ namespace Stage2HW.Cli.Services
             _consoleWriter = consoleWriter;
             _exchangeRatesProvider = exchangeRatesProvider;
 
-            _exchangeRatesProvider.RunProvider();
+            _exchangeRatesProvider.Run();
         }
 
         public void RunExchange()
@@ -28,13 +28,13 @@ namespace Stage2HW.Cli.Services
             PrintHeader();
             WriteNewValues();
 
-            _exchangeRatesProvider.NewRatesDownloadedEvent += UpdateValues;
+            _exchangeRatesProvider.NewExchangeRatesEvent += UpdateValues;
 
             while (_inputReader.ReadKey().Key != ConsoleKey.Escape)
             {
             }
 
-            _exchangeRatesProvider.NewRatesDownloadedEvent -= UpdateValues;
+            _exchangeRatesProvider.NewExchangeRatesEvent -= UpdateValues;
         }
 
         private void PrintHeader()
@@ -44,7 +44,7 @@ namespace Stage2HW.Cli.Services
             _consoleWriter.WriteMessage("|    Currency     |        Last Price      |\n");
         }
         
-        public void UpdateValues(RatesDownloadedEventArgs e)
+        public void UpdateValues(NewExchangeRatesEventArgs e)
         {
             _exchangeRatesProvider.Currencies.Single(c => c.CurrencyName == CurrencyNameEnum.Btc).LastPrice =
                 e.CurrenciesList.Single(c => c.CurrencyName == CurrencyNameEnum.Btc).LastPrice;

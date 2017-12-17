@@ -3,10 +3,12 @@ using Stage2HW.Business.Dtos;
 
 namespace Stage2HW.Business.Services.Interfaces
 {
+    public delegate void NewExchangeRatesHandler(NewExchangeRatesEventArgs e);
+
     public interface IExchangeRatesProvider
     {
-        void RunProvider();
-        event RatesDownloadedHandler NewRatesDownloadedEvent;
+        void Run();
         List<Currency> Currencies { get; set; }
+        event NewExchangeRatesHandler NewExchangeRatesEvent;
     }
 }

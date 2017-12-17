@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using Stage2HW.Business.Dtos;
+﻿using Stage2HW.Business.Dtos;
 using Stage2HW.Business.Services.Enums;
 using Stage2HW.Cli.IoHelpers.Interfaces;
+using System;
+using System.Collections.Generic;
 
 namespace Stage2HW.Cli.IoHelpers
 {
@@ -13,13 +13,6 @@ namespace Stage2HW.Cli.IoHelpers
             Console.Write(message);
         }
 
-        public void WriteMessageInColor(string message)
-        {
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write(message);
-            Console.ResetColor();
-        }
-
         public void ClearConsole()
         {
             Console.Clear();
@@ -28,11 +21,6 @@ namespace Stage2HW.Cli.IoHelpers
         public void SetCursorPosition(int left, int top)
         {
             Console.SetCursorPosition(left, top);
-        }
-
-        public void SetColorToGreen()
-        {
-            Console.ForegroundColor = ConsoleColor.Green;
         }
 
         public void DisplayHistoryHeader()
@@ -61,9 +49,9 @@ namespace Stage2HW.Cli.IoHelpers
                     Console.ForegroundColor = ConsoleColor.Green;
                 }
 
-                Console.SetCursorPosition(2, i);
+                SetCursorPosition(2, i);
                 Console.Write($"{transaction.Id}");
-                Console.SetCursorPosition(10, i);
+                SetCursorPosition(10, i);
                 Console.Write($"{transaction.CurrencyName}");
                 if (transaction.CurrencyName == CurrencyNameEnum.Pln.ToString())
                 {
@@ -75,11 +63,11 @@ namespace Stage2HW.Cli.IoHelpers
                     Console.SetCursorPosition(24, i);
                     Console.Write($"{transaction.ExchangeRate:C}");
                 }
-                Console.SetCursorPosition(45, i);
+                SetCursorPosition(45, i);
                 Console.Write($"{transaction.Amount}");
-                Console.SetCursorPosition(62, i);
+                SetCursorPosition(62, i);
                 Console.Write($"{transaction.Fiat:C}");
-                Console.SetCursorPosition(80, i);
+                SetCursorPosition(80, i);
                 Console.Write($"{transaction.TransactionDate}");
 
                 Console.ResetColor();

@@ -83,7 +83,6 @@
     <Compile Include="Services\CryptocurrencyExchange.cs" />
     <Compile Include="Services\DummyCryptocurrencyExchange.cs" />
     <Compile Include="Services\Interfaces\ICryptocurrencyExchange.cs" />
-    <Compile Include="Services\Interfaces\IDummyCryptocurrencyExchange.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

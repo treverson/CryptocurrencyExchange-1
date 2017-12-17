@@ -6,5 +6,7 @@ namespace Stage2HW.Business.Dtos
     {
         public CurrencyNameEnum CurrencyName { get; set; }
         public double LastPrice { get; set; }
+        public int MaxValue { get; set; }
+        public int MinValue { get; set; }
     }
 }

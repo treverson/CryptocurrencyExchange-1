@@ -29,7 +29,7 @@ namespace Stage2HW.Cli.Menu.MenuOptions
             _consoleWriter.ClearConsole();
             _consoleWriter.WriteMessage("############# CRYPTOCURRENCY EXCHANGE #############\n");
             _consoleWriter.WriteMessage("# Log in \n");
-            _consoleWriter.WriteMessage("  User name: ");
+            _consoleWriter.WriteMessage("  Login: ");
             string userLogin = _inputReader.ReadInput();
             _consoleWriter.WriteMessage("  Password: ");
             string userPassword = _inputReader.ReadInput();
@@ -38,7 +38,7 @@ namespace Stage2HW.Cli.Menu.MenuOptions
 
             if (_showUser.ActiveUser == null)
             {
-                _consoleWriter.WriteMessage("Wrong user name or password.");
+                _consoleWriter.WriteMessage("Wrong login or password.");
                 _validateInput.PauseLoop();
                 return;
             }
