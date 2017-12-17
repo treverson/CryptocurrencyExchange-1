@@ -55,33 +55,10 @@ namespace Stage2HW.Business.Services
             var userDto = _iMapper.Map<User, UserDto>(userEntity);
             return userDto;
         }
-  
-        public void RegisterTransaction(TransactionDto transaction)
-        {
-            var transactionEntity = _iMapper.Map<TransactionDto, Transaction>(transaction);
-
-            _userRepository.RegisterTransaction(transactionEntity);
-        }
 
         public double GetUserCryptocurrencyBalance(string currencyName)
         {
             return _userRepository.GetUserCryptocurrencyBalance(currencyName);
-        }
-
-        public List<TransactionDto> GetTransactionHistory(int activeUserId)
-        {
-            var transactionsHistoryEntity = _userRepository.GetTransactionsHistory(activeUserId);
-
-            var transactionsHistory = new List<TransactionDto>();
-            
-            foreach (var transaction in transactionsHistoryEntity)
-            {
-                var temp = _iMapper.Map<Transaction, TransactionDto>(transaction);
-
-                transactionsHistory.Add(temp);
-            }
-
-            return transactionsHistory;
         }
     }
 }

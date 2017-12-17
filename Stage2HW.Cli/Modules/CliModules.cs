@@ -21,9 +21,12 @@ namespace Stage2HW.Cli.Modules
             Bind<IMenu>().To<MainMenu>().WhenInjectedInto<LogInToExchange>();
             Bind<IRegisterToExchange>().To<RegisterToExchange>();
             Bind<IValidateInput>().To<ValidateInput>();
-            Bind<IDummyCryptocurrencyExchange>().To<DummyCryptocurrencyExchange>();
-            Bind<ILogInToExchange>().To<LogInToExchange>();
+
             Bind<ICryptocurrencyExchange>().To<CryptocurrencyExchange>();
+       
+            Bind<IDummyCryptocurrencyExchange>().To<DummyCryptocurrencyExchange>();
+
+            Bind<ILogInToExchange>().To<LogInToExchange>();
             Bind<ICurrencyExchangeConfig>().To<AppConfig>();
             Bind<IAccountOperations>().To<AccountOperations>();
             Bind<IShowUser>().To<ShowUser>().InSingletonScope();

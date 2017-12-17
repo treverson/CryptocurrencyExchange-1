@@ -11,6 +11,7 @@ namespace Stage2HW.DependencyResolver
             Bind<IUserService>().To<UserService>();
             Bind<ICurrencyGenerator>().To<CurrencyGenerator>().InSingletonScope();
             Bind<IExchangeRatesProvider>().To<ExchangeRatesProvider>().InSingletonScope();
+            Bind<ITransactionService>().To<TransactionService>();
         }
     }
 }

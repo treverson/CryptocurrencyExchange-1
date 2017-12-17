@@ -4,9 +4,6 @@ using Stage2HW.DataAccess.Models;
 using Stage2HW.DataAccess.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
-using Stage2HW.Business.Dtos;
-using Stage2HW.Business.Services.Interfaces;
-using Stage2HW.Cli.Menu.Interfaces;
 
 namespace Stage2HW.Tests
 {
@@ -17,13 +14,13 @@ namespace Stage2HW.Tests
         public void GetTransactionsHistory_GetsAnId_IsRunOnce()
         {
             //Arrange
-            var userRepositoryMoq = new Mock<IUserRepository>();
+            var transactionsRepositoryMoq = new Mock<ITransactionRepository>();
 
             //Act
-            userRepositoryMoq.Object.GetTransactionsHistory(1);
+            transactionsRepositoryMoq.Object.GetTransactionsHistory(1);
 
             //Assert
-            userRepositoryMoq.Verify(c => c.GetTransactionsHistory(It.IsAny<int>()), Times.Once());
+            transactionsRepositoryMoq.Verify(c => c.GetTransactionsHistory(It.IsAny<int>()), Times.Once());
         }
 
         [Test]
@@ -31,7 +28,7 @@ namespace Stage2HW.Tests
         {
             //Arrange
             DateTime testDate = new DateTime(2017, 1, 1, 0, 0, 0);
-            var userRepositoryMoq = new Mock<IUserRepository>();
+            var transactionsRepositoryMoq = new Mock<ITransactionRepository>();
 
             int userId = 0;
             User testUser = new User()
@@ -64,13 +61,13 @@ namespace Stage2HW.Tests
                 mockDeposit, mockDepositTwo
             };
 
-            userRepositoryMoq.Setup(c => c.GetTransactionsHistory(It.IsAny<int>())).Callback<int>((i) => userId = i).Returns(testTransactionsList);
+            transactionsRepositoryMoq.Setup(c => c.GetTransactionsHistory(It.IsAny<int>())).Callback<int>((i) => userId = i).Returns(testTransactionsList);
 
             //Act
-            userRepositoryMoq.Object.GetTransactionsHistory(1);
+            transactionsRepositoryMoq.Object.GetTransactionsHistory(1);
 
             //Assert
-            userRepositoryMoq.Verify(c => c.GetTransactionsHistory(It.IsAny<int>()), Times.Once());
+            transactionsRepositoryMoq.Verify(c => c.GetTransactionsHistory(It.IsAny<int>()), Times.Once());
 
             Assert.AreEqual(testTransactionsList.Count, 2);
             Assert.AreEqual(testUser.Id, mockDeposit.UserId);

@@ -1,23 +1,23 @@
 ﻿using Stage2HW.Business.Services;
+using Stage2HW.Business.Services.Interfaces;
 using Stage2HW.Cli.IoHelpers.Interfaces;
 using Stage2HW.Cli.Services.Interfaces;
 using System;
-using Stage2HW.Business.Services.Interfaces;
 
 namespace Stage2HW.Cli.Services
 {
-    internal class DummyCryptocurrencyExchange : IDummyCryptocurrencyExchange
+    internal class DummyCryptocurrencyExchange : IDummyCryptocurrencyExchange//4 ICryptocurrencyExchange
     {
         private readonly IConsoleWriter _consoleWriter;
         private readonly IInputReader _inputReader;
         private readonly ICurrencyGenerator _currencyGenerator;
-        
+
         public DummyCryptocurrencyExchange(IConsoleWriter consoleWriter, IInputReader inputReader, ICurrencyGenerator currencyGenerator)
         {
             _inputReader = inputReader;
             _currencyGenerator = currencyGenerator;
             _consoleWriter = consoleWriter;
-
+            
             _currencyGenerator.RunGenerator();
         }
 
@@ -44,7 +44,7 @@ namespace Stage2HW.Cli.Services
                 _consoleWriter.SetCursorPosition(3, i);
                 _consoleWriter.WriteMessage($"{currency.Name}");
                 _consoleWriter.SetCursorPosition(20, i);
-                _consoleWriter.WriteMessage($"{currency.Value.ToString("C")}");
+                _consoleWriter.WriteMessage($"{currency.Value:C}");
 
                 i++;
             }

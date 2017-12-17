@@ -4,6 +4,7 @@ using Stage2HW.Cli.Menu.MenuOptions;
 using Stage2HW.Cli.Services.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
+using Ninject;
 
 namespace Stage2HW.Cli.Menu
 {
@@ -13,16 +14,16 @@ namespace Stage2HW.Cli.Menu
 
         private readonly IConsoleWriter _consoleWriter;
         private readonly IInputReader _inputReader;
-        private readonly IDummyCryptocurrencyExchange _dumycryptoccurrencyExchange;
+        private readonly IDummyCryptocurrencyExchange _dummycryptocurrencyExchange;
         private readonly ICryptocurrencyExchange _cryptocurrencyExchange;
         private readonly IAccountOperations _accountOperations;
         private readonly IShowUser _showUser;
 
-        public MainMenu(IConsoleWriter consoleWriter, IInputReader inputReader, IDummyCryptocurrencyExchange crypotcurrencyExchange, ICryptocurrencyExchange cryptocurrencyExchange, IAccountOperations accountOperations, IShowUser showUser)
+        public MainMenu(IConsoleWriter consoleWriter, IInputReader inputReader, IDummyCryptocurrencyExchange dummyCryptocurrencyExchange, ICryptocurrencyExchange cryptocurrencyExchange, IAccountOperations accountOperations, IShowUser showUser)
         {
             _consoleWriter = consoleWriter;
             _inputReader = inputReader;
-            _dumycryptoccurrencyExchange = crypotcurrencyExchange;
+            _dummycryptocurrencyExchange = dummyCryptocurrencyExchange;
             _cryptocurrencyExchange = cryptocurrencyExchange;
             _accountOperations = accountOperations;
             _showUser = showUser;
@@ -40,7 +41,7 @@ namespace Stage2HW.Cli.Menu
             _options.Add(new MenuOption("Buy currencies", _accountOperations.BuyCurrencies));
             _options.Add(new MenuOption("Sell currencies",_accountOperations.SellCurrencies));
             _options.Add(new MenuOption("View account history", _accountOperations.ViewHistory));
-            _options.Add(new MenuOption("Check dummy exchange generator", _dumycryptoccurrencyExchange.RunExchange));
+            _options.Add(new MenuOption("Check dummy exchange generator", _dummycryptocurrencyExchange.RunExchange));
             _options.Add(new MenuOption("Logout"));
 
             foreach (var option in _options)

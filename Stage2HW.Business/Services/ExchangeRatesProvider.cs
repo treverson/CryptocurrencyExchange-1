@@ -35,12 +35,12 @@ namespace Stage2HW.Business.Services
             t.Elapsed += StartDownload;
         }
 
-        public void StartDownload(object sender, ElapsedEventArgs elapsedEventArgs)
+        private void StartDownload(object sender, ElapsedEventArgs elapsedEventArgs)
         {
             GetRates();
         }
 
-        public void GetRates()
+        private void GetRates()
         {
             var httpClient = new HttpClient();
 
@@ -49,10 +49,10 @@ namespace Stage2HW.Business.Services
             var ethResponse = httpClient.GetAsync(_currencyExchangeConfig.BitBayEthPlnAddress).Result.Content.ReadAsStringAsync().Result;
             var ltcResponse = httpClient.GetAsync(_currencyExchangeConfig.BitBayLtcPlnAddress).Result.Content.ReadAsStringAsync().Result;
 
-            Currencies.Single(c => c.CurrencyName == CurrencyNameEnum.Btc).Last = JsonConvert.DeserializeObject<DownloadedData>(btcResponse).Last;
-            Currencies.Single(c => c.CurrencyName == CurrencyNameEnum.Bcc).Last = JsonConvert.DeserializeObject<DownloadedData>(bccResponse).Last;
-            Currencies.Single(c => c.CurrencyName == CurrencyNameEnum.Eth).Last = JsonConvert.DeserializeObject<DownloadedData>(ethResponse).Last;
-            Currencies.Single(c => c.CurrencyName == CurrencyNameEnum.Ltc).Last = JsonConvert.DeserializeObject<DownloadedData>(ltcResponse).Last;
+            Currencies.Single(c => c.CurrencyName == CurrencyNameEnum.Btc).LastPrice = JsonConvert.DeserializeObject<DownloadedData>(btcResponse).Last;
+            Currencies.Single(c => c.CurrencyName == CurrencyNameEnum.Bcc).LastPrice = JsonConvert.DeserializeObject<DownloadedData>(bccResponse).Last;
+            Currencies.Single(c => c.CurrencyName == CurrencyNameEnum.Eth).LastPrice = JsonConvert.DeserializeObject<DownloadedData>(ethResponse).Last;
+            Currencies.Single(c => c.CurrencyName == CurrencyNameEnum.Ltc).LastPrice = JsonConvert.DeserializeObject<DownloadedData>(ltcResponse).Last;
 
             var ratesDownloaded = new RatesDownloadedEventArgs
             {
