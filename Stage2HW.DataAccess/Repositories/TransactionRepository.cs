@@ -8,7 +8,7 @@ namespace Stage2HW.DataAccess.Repositories
 {
     public class TransactionRepository : ITransactionRepository
     {
-        public List<Transaction> GetTransactionsHistory(int activeUserId)
+        public IEnumerable<Transaction> GetTransactionsHistory(int activeUserId)
         {
             using (var dbContext = new CryptocurrencyExchangeDbContext())
             {

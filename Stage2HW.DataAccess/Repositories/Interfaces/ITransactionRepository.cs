@@ -5,7 +5,7 @@ namespace Stage2HW.DataAccess.Repositories.Interfaces
 {
     public interface ITransactionRepository
     {
-        List<Transaction> GetTransactionsHistory(int activeUserId);
+        IEnumerable<Transaction> GetTransactionsHistory(int activeUserId);
         void RegisterTransaction(Transaction transaction);
     }
 }
