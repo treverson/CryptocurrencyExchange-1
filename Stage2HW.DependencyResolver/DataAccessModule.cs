@@ -10,7 +10,9 @@ namespace Stage2HW.DependencyResolver
         {
             Bind<IUserRepository>().To<UserRepository>();
             Bind<ITransactionRepository>().To<CloudTransactionRepository>();
-            // Bind<ITransactionRepository>().To<TransactionRepository>();
+
+            //for local SQL database
+            //Bind<ITransactionRepository>().To<TransactionRepository>();
         }
     }
 }

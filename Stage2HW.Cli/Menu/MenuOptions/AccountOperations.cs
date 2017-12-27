@@ -14,7 +14,6 @@ namespace Stage2HW.Cli.Menu.MenuOptions
 {
     internal class AccountOperations : IAccountOperations
     {
-        private readonly IUserService _userService;
         private readonly IConsoleWriter _consoleWriter;
         private readonly IValidateInput _validateInput;
         private readonly IExchangeRatesProvider _exchangeRatesProvider;
@@ -23,9 +22,8 @@ namespace Stage2HW.Cli.Menu.MenuOptions
 
         private readonly IInputReader _inputReader;
 
-        public AccountOperations(IUserService userService, IConsoleWriter consoleWriter, IInputReader inputReader, IValidateInput validateInput, IShowUser showUser, IExchangeRatesProvider exchangeRatesProvider, ITransactionService transactionService)
+        public AccountOperations(IConsoleWriter consoleWriter, IInputReader inputReader, IValidateInput validateInput, IShowUser showUser, IExchangeRatesProvider exchangeRatesProvider, ITransactionService transactionService)
         {
-            _userService = userService;
             _consoleWriter = consoleWriter;
             _validateInput = validateInput;
             _showUser = showUser;
@@ -45,7 +43,7 @@ namespace Stage2HW.Cli.Menu.MenuOptions
             {
                 Amount = depositAmount,
                 CurrencyName = CurrencyNameEnum.Pln.ToString(),
-                TransactionDate = DateTime.Now,
+                TransactionDate = DateTime.Now.ToString("G"),
                 UserId = _showUser.ActiveUser.Id,
                 Fiat = depositAmount
             };
@@ -85,7 +83,7 @@ namespace Stage2HW.Cli.Menu.MenuOptions
             {
                 Amount = -withdrawalAmount,
                 CurrencyName = CurrencyNameEnum.Pln.ToString(),
-                TransactionDate = DateTime.Now,
+                TransactionDate = DateTime.Now.ToString("G"),
                 UserId = _showUser.ActiveUser.Id,
                 Fiat = -withdrawalAmount
             };
@@ -164,7 +162,7 @@ namespace Stage2HW.Cli.Menu.MenuOptions
             {
                 Amount = buyAmount,
                 CurrencyName = userChosenCurrency.CurrencyName.ToString(),
-                TransactionDate = DateTime.Now,
+                TransactionDate = DateTime.Now.ToString("G"),
                 ExchangeRate = userChosenCurrency.LastPrice,
                 UserId = _showUser.ActiveUser.Id,
                 Fiat = -buyAmount * userChosenCurrency.LastPrice
@@ -207,7 +205,7 @@ namespace Stage2HW.Cli.Menu.MenuOptions
             _consoleWriter.WriteMessage("Choose cryptocurrency to sell: \n");
 
             var userChosenCurrency = GetCurrencyFromUserTransactions(userOwnedCurrencies);
-            var userChosenCurrencyBalance = _userService.GetUserCryptocurrencyBalance(userChosenCurrency.CurrencyName.ToString());
+            var userChosenCurrencyBalance = _transactionService.GetUserCryptocurrencyBalance(userChosenCurrency.CurrencyName.ToString(), _showUser.ActiveUser.Id);
 
             _consoleWriter.WriteMessage($"\nSelling { userChosenCurrency.CurrencyName}, last price: {userChosenCurrency.LastPrice:C}\nCurrent balance: {userChosenCurrencyBalance}\nEnter amount to sell: ");
             var sellAmount = Math.Round(_validateInput.ValidateAmount(),7);
@@ -233,7 +231,7 @@ namespace Stage2HW.Cli.Menu.MenuOptions
             {
                 Amount = -sellAmount,
                 CurrencyName = userChosenCurrency.CurrencyName.ToString(),
-                TransactionDate = DateTime.Now, 
+                TransactionDate = DateTime.Now.ToString("G"), 
                 ExchangeRate = userChosenCurrency.LastPrice,
                 UserId = _showUser.ActiveUser.Id,
                 Fiat = sellAmount * userChosenCurrency.LastPrice

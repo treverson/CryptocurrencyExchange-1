@@ -1,4 +1,5 @@
-﻿using Stage2HW.DataAccess.Data;
+﻿using System;
+using Stage2HW.DataAccess.Data;
 using Stage2HW.DataAccess.Models;
 using Stage2HW.DataAccess.Repositories.Interfaces;
 using System.Collections.Generic;
@@ -22,6 +23,14 @@ namespace Stage2HW.DataAccess.Repositories
             {
                 dbContext.TransactionsDbSet.Add(transaction);
                 dbContext.SaveChanges();
+            }
+        }
+
+        public double GetUserCryptocurrencyBalance(string currencyName, int userId)
+        {
+            using (var dbContext = new CryptocurrencyExchangeDbContext())
+            {
+                return Math.Round(dbContext.TransactionsDbSet.Where(c => c.CurrencyName == currencyName).Sum(x => x.Amount), 7);
             }
         }
     }

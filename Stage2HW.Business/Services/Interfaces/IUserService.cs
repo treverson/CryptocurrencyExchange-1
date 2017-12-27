@@ -8,6 +8,5 @@ namespace Stage2HW.Business.Services.Interfaces
         List<UserDto> GetExistingUsers();
         void AddUser(UserDto newUser);
         UserDto GetUser(string userLogin, string userPassword);
-        double GetUserCryptocurrencyBalance(string currencyName);
     }
 }

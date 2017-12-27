@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Table;
-using System.Configuration;
 
 namespace Stage2HW.DataAccess.Repositories
 {
@@ -11,21 +15,15 @@ namespace Stage2HW.DataAccess.Repositories
 
         public BaseAzureTableStorageRepository(string tableName)
         {
-            var cloudStorageAccount = 
-                CloudStorageAccount.Parse(ConfigurationManager.AppSettings["azureExchangeTableStorageConnectionString"]);
+            var cloudStorageAccount =
+                CloudStorageAccount.Parse(
+                    ConfigurationManager.AppSettings["azureExchangeTableStorageConnectionString"]);
 
             var tableClient = cloudStorageAccount.CreateCloudTableClient();
 
             TableReference = tableClient.GetTableReference(tableName);
 
             TableReference.CreateIfNotExists();
-            //if (!TableReference.CreateIfNotExists())
-            //{
-            //    Console.WriteLine("Table {0} already exists", TableReference.Name);
-            //    return;
-            //}
-
-            //Console.WriteLine("Table {0} connected", TableReference.Name);
         }
     }
 }

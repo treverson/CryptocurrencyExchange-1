@@ -67,7 +67,7 @@ namespace Stage2HW.Cli.IoHelpers
                 Console.Write($"{transaction.Amount}");
                 SetCursorPosition(62, i);
                 Console.Write($"{transaction.Fiat:C}");
-                SetCursorPosition(80, i);
+                SetCursorPosition(81, i);
                 Console.Write($"{transaction.TransactionDate}");
 
                 Console.ResetColor();

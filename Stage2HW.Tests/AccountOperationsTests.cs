@@ -27,7 +27,7 @@ namespace Stage2HW.Tests
         public void DepositFunds_ValidDepositList_GetTransactionReturnsDepositList()
         {
             //Arrange
-            DateTime testDate = new DateTime(2017, 1, 1, 0, 0, 0);
+            string testDate = new DateTime(2017, 1, 1, 0, 0, 0).ToString("d");
             var transactionsRepositoryMoq = new Mock<ITransactionRepository>();
 
             int userId = 0;

@@ -41,12 +41,12 @@ namespace Stage2HW.DataAccess.Repositories
             return loggedInUser;
         }
 
-        public double GetUserCryptocurrencyBalance(string currencyName)
-        {
-            using (var dbContext = new CryptocurrencyExchangeDbContext())
-            {
-                return Math.Round(dbContext.TransactionsDbSet.Where(c => c.CurrencyName == currencyName).Sum(x => x.Amount), 7);
-            }
-        }
+        //public double GetUserCryptocurrencyBalance(string currencyName)
+        //{
+        //    using (var dbContext = new CryptocurrencyExchangeDbContext())
+        //    {
+        //        return Math.Round(dbContext.TransactionsDbSet.Where(c => c.CurrencyName == currencyName).Sum(x => x.Amount), 7);
+        //    }
+        //}
     }
 }
