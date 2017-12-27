@@ -27,21 +27,21 @@ namespace Stage2HW.Cli.Menu.MenuOptions
             _consoleWriter.WriteMessage("State your name: ");
             string userName = _validateInput.ValidateName();
 
-            _consoleWriter.WriteMessage("Set your nickname: ");
-            string userNickName = _validateInput.ValidateNickName();
+            _consoleWriter.WriteMessage("Set your login: ");
+            string userLogin = _validateInput.ValidateNickName();
 
             _consoleWriter.WriteMessage("Set your password: ");
             string userPassword = _validateInput.ValidatePassword();
 
             UserDto newUser = new UserDto
             {
-                UserName = userName,
-                UserNickName = userNickName,
-                UserPassword = userPassword
+                Name = userName,
+                Login = userLogin,
+                Password = userPassword
             };
 
             _userService.AddUser(newUser);
-            _consoleWriter.WriteMessage($"User {newUser.UserNickName} successfuly registered!");
+            _consoleWriter.WriteMessage($"User {newUser.Login} successfully registered!");
             _validateInput.PauseLoop();
         }
     }

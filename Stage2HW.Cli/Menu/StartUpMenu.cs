@@ -1,5 +1,4 @@
-﻿using Stage2HW.Business.Dtos;
-using Stage2HW.Cli.IoHelpers.Interfaces;
+﻿using Stage2HW.Cli.IoHelpers.Interfaces;
 using Stage2HW.Cli.Menu.Interfaces;
 using Stage2HW.Cli.Menu.MenuOptions;
 using System.Collections.Generic;
@@ -27,7 +26,6 @@ namespace Stage2HW.Cli.Menu
         }
 
         public bool Exit { get; set; }
-        public UserDto ActiveUser { get; set; }
 
         public void AddOptions()
         {
@@ -43,8 +41,8 @@ namespace Stage2HW.Cli.Menu
 
         public void PrintMenu()
         {
-            _consoleWriter.WriteMessage("######## STAGE2 HOMEWORK 1 ########\n");
-            _consoleWriter.WriteMessage("##### CRYPTOCURRENCY EXCHANGE #####\n");
+            _consoleWriter.WriteMessage("################# STAGE2 HOMEWORK #################\n");
+            _consoleWriter.WriteMessage("############# CRYPTOCURRENCY EXCHANGE #############\n");
 
             foreach (var option in _options)
             {
@@ -63,7 +61,7 @@ namespace Stage2HW.Cli.Menu
                 var userInput = _inputReader.ReadKey();
                 int.TryParse(userInput.KeyChar.ToString(), out choice);
 
-                if (choice != 0)
+                if (choice != 0 && choice <= _options.Count)
                 {
                      menuOption = _options.SingleOrDefault(opt=> opt.OptionNumber == _options[choice-1].OptionNumber);
                 }

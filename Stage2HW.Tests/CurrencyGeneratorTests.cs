@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using NUnit.Framework;
+﻿using NUnit.Framework;
+using Stage2HW.Business.Dtos;
 using Stage2HW.Business.Services;
+using Stage2HW.Business.Services.Enums;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 
 namespace Stage2HW.Tests
@@ -21,7 +23,7 @@ namespace Stage2HW.Tests
         private double _ethValueAsParam;
         private double _ltcValueAsParam;
 
-        private List<CryptoCurrency> _testCurrenciesList = null;
+        private List<Currency> _testCurrenciesList = null;
 
         [Test]
         public void RunGenerator_OnTimerElapsed_RatesGeneratedEventOccurs()
@@ -30,8 +32,8 @@ namespace Stage2HW.Tests
             var testGenerator = new CurrencyGenerator();
 
             //Act
-            testGenerator.RunGenerator();
-            testGenerator.NewRatesGeneratedEvent += TestSubscriberMethod;
+            testGenerator.Run();
+            testGenerator.NewExchangeRatesEvent += TestSubscriberMethod;
 
             Thread.Sleep(1500);
 
@@ -39,7 +41,7 @@ namespace Stage2HW.Tests
             Assert.IsTrue(_wasSubscriberMethodCalled);
         }
 
-        private void TestSubscriberMethod(RatesGeneratedEventArgs ratesGeneratedEventArgs)
+        private void TestSubscriberMethod(NewExchangeRatesEventArgs ratesGeneratedEventArgs)
         {
             _wasSubscriberMethodCalled = true;
         }
@@ -52,8 +54,8 @@ namespace Stage2HW.Tests
 
             //Act
             Assert.IsFalse(_wasSubscriberMethodCalled);
-            testGenerator.RunGenerator();
-            testGenerator.NewRatesGeneratedEvent += TestSubscriberMethodForEventArgs;
+            testGenerator.Run();
+            testGenerator.NewExchangeRatesEvent += TestSubscriberMethodForEventArgs;
             Thread.Sleep(1500);
 
             //Assert
@@ -65,14 +67,14 @@ namespace Stage2HW.Tests
             Assert.AreNotEqual(_testLiteCoinValue, _ltcValueAsParam);
         }
 
-        private void TestSubscriberMethodForEventArgs(RatesGeneratedEventArgs ratesGeneratedEventArgs)
+        private void TestSubscriberMethodForEventArgs(NewExchangeRatesEventArgs ratesGeneratedEventArgs)
         {
             _wasSubscriberMethodCalled = true;
             _testCurrenciesList = ratesGeneratedEventArgs.CurrenciesList;
-            _btcValueAsParam = ratesGeneratedEventArgs.CurrenciesList.First(n => n.Name =="BitCoin").Value;
-            _bccValueAsParam = ratesGeneratedEventArgs.CurrenciesList.First(n => n.Name == "BitCoinCash").Value;
-            _ethValueAsParam = ratesGeneratedEventArgs.CurrenciesList.First(n => n.Name == "Ethereum").Value;
-            _ltcValueAsParam = ratesGeneratedEventArgs.CurrenciesList.First(n => n.Name == "LiteCoin").Value;
+            _btcValueAsParam = ratesGeneratedEventArgs.CurrenciesList.First(n => n.CurrencyName == CurrencyNameEnum.Btc).LastPrice;
+            _bccValueAsParam = ratesGeneratedEventArgs.CurrenciesList.First(n => n.CurrencyName == CurrencyNameEnum.Bcc).LastPrice;
+            _ethValueAsParam = ratesGeneratedEventArgs.CurrenciesList.First(n => n.CurrencyName == CurrencyNameEnum.Eth).LastPrice;
+            _ltcValueAsParam = ratesGeneratedEventArgs.CurrenciesList.First(n => n.CurrencyName == CurrencyNameEnum.Ltc).LastPrice;
         }
 
         [Test]

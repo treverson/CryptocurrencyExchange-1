@@ -1,10 +1,10 @@
-﻿using Stage2HW.Business.Dtos;
-using Stage2HW.Cli.IoHelpers.Interfaces;
+﻿using Stage2HW.Cli.IoHelpers.Interfaces;
 using Stage2HW.Cli.Menu.Interfaces;
 using Stage2HW.Cli.Menu.MenuOptions;
 using Stage2HW.Cli.Services.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
+using Ninject;
 
 namespace Stage2HW.Cli.Menu
 {
@@ -14,24 +14,31 @@ namespace Stage2HW.Cli.Menu
 
         private readonly IConsoleWriter _consoleWriter;
         private readonly IInputReader _inputReader;
-        private readonly ICryptocurrencyExchange _cryptoccurrencyExchange;
+        private readonly ICryptocurrencyExchange _cryptocurrencyExchange;
+        private readonly IAccountOperations _accountOperations;
+        private readonly IShowUser _showUser;
 
-
-        public MainMenu(IConsoleWriter consoleWriter, IInputReader inputReader, ICryptocurrencyExchange crypotcurrencyExchange)
+        public MainMenu(IConsoleWriter consoleWriter, IInputReader inputReader, ICryptocurrencyExchange cryptocurrencyExchange, IAccountOperations accountOperations, IShowUser showUser)
         {
             _consoleWriter = consoleWriter;
             _inputReader = inputReader;
-            _cryptoccurrencyExchange = crypotcurrencyExchange;
+            _cryptocurrencyExchange = cryptocurrencyExchange;
+            _accountOperations = accountOperations;
+            _showUser = showUser;
 
             AddOptions();
         }
 
-        public UserDto ActiveUser { get; set; }
         public bool Exit { get; set; }
 
         public void AddOptions()
         {
-            _options.Add(new MenuOption("Check exchange generated", _cryptoccurrencyExchange.RunExchange));
+            _options.Add(new MenuOption("Check BitBay exchange", _cryptocurrencyExchange.RunExchange));
+            _options.Add(new MenuOption("Deposit funds", _accountOperations.DepositFunds));
+            _options.Add(new MenuOption("Withdraw funds", _accountOperations.WithdrawFunds));
+            _options.Add(new MenuOption("Buy currencies", _accountOperations.BuyCurrencies));
+            _options.Add(new MenuOption("Sell currencies",_accountOperations.SellCurrencies));
+            _options.Add(new MenuOption("View account history", _accountOperations.ViewHistory));
             _options.Add(new MenuOption("Logout"));
 
             foreach (var option in _options)
@@ -40,11 +47,16 @@ namespace Stage2HW.Cli.Menu
             }
         }
 
-        public void PrintMenu()
+        public void DisplayHeader()
         {
             _consoleWriter.ClearConsole();
-            _consoleWriter.WriteMessage("##### CRYPTOCURRENCY EXCHANGE #####\n");
-            _consoleWriter.WriteMessage($"# Logged in as: {ActiveUser.UserNickName}\n");
+            _consoleWriter.WriteMessage("############# CRYPTOCURRENCY EXCHANGE #############\n");
+            _consoleWriter.WriteMessage($"# Logged in as: {_showUser.ActiveUser.Login}\n");
+        }
+
+        public void PrintMenu()
+        {
+            DisplayHeader();
 
             foreach (var option in _options)
             {
@@ -58,13 +70,13 @@ namespace Stage2HW.Cli.Menu
         {
             MenuOption menuOption = null;
             int choice;
-
+            
             do
             {
                 var userInput = _inputReader.ReadKey();
                 int.TryParse(userInput.KeyChar.ToString(), out choice);
 
-                if (choice != 0)
+                if (choice != 0 && choice <= _options.Count)
                 {
                     menuOption = _options.SingleOrDefault(opt => opt.OptionNumber == _options[choice - 1].OptionNumber);
                 }

@@ -50,7 +50,7 @@ namespace Stage2HW.Cli.IoHelpers
             string userInput = _inputReader.ReadInput();
             List<UserDto> existingUsers = _userService.GetExistingUsers();
 
-            while (existingUsers.Any(user => user.UserNickName == userInput.ToLower()) || string.IsNullOrWhiteSpace(userInput))
+            while (existingUsers.Any(user => user.Login == userInput.ToLower()) || string.IsNullOrWhiteSpace(userInput))
             {
                 _consoleWriter.WriteMessage("Nickname already in use or invalid characters.\nTry again: ");
                 userInput = _inputReader.ReadInput();
@@ -63,6 +63,20 @@ namespace Stage2HW.Cli.IoHelpers
         {
             _consoleWriter.WriteMessage("\nPress ENTER to continue");
             _inputReader.WaitForEnter();
+        }
+
+        public double ValidateAmount()
+        {
+            string userInput = _inputReader.ReadInput();
+            double result;
+
+            while (string.IsNullOrWhiteSpace(userInput) || !double.TryParse(userInput, out result) || result < 0)
+            {
+                _consoleWriter.WriteMessage("Wrong input,\n try again: ");
+                userInput = _inputReader.ReadInput();
+            }
+
+            return result;
         }
     }
 }

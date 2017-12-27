@@ -3,6 +3,5 @@
     internal interface ICryptocurrencyExchange
     {
         void RunExchange();
-
     }
 }

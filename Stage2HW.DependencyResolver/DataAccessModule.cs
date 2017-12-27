@@ -9,6 +9,7 @@ namespace Stage2HW.DependencyResolver
         public override void Load()
         {
             Bind<IUserRepository>().To<UserRepository>();
+            Bind<ITransactionRepository>().To<TransactionRepository>();
         }
     }
 }

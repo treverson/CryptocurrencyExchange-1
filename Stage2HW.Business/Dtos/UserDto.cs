@@ -1,10 +1,13 @@
-﻿namespace Stage2HW.Business.Dtos
+﻿using System.Collections.Generic;
+
+namespace Stage2HW.Business.Dtos
 {
     public class UserDto
     {
         public int Id { get; set; }
-        public string UserName { get; set; }
-        public string UserNickName { get; set; }
-        public string UserPassword { get; set; }
+        public string Name { get; set; }
+        public string Login { get; set; }
+        public string Password { get; set; }
+        public List<TransactionDto> Transactions { get; set; }
     }
 }

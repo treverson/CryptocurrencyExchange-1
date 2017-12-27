@@ -6,5 +6,6 @@
         string ValidatePassword();
         string ValidateNickName();
         void PauseLoop();
+        double ValidateAmount();
     }
 }

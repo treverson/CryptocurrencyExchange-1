@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using Stage2HW.Business.Dtos;
+﻿using Stage2HW.Business.Dtos;
+using System.Collections.Generic;
 
 namespace Stage2HW.Business.Services.Interfaces
 {
@@ -7,6 +7,7 @@ namespace Stage2HW.Business.Services.Interfaces
     {
         List<UserDto> GetExistingUsers();
         void AddUser(UserDto newUser);
-        UserDto GetUser(string userNickName, string userPassword);
+        UserDto GetUser(string userLogin, string userPassword);
+        double GetUserCryptocurrencyBalance(string currencyName);
     }
 }

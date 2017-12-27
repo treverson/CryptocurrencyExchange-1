@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using Stage2HW.Business.Dtos;
-using Stage2HW.DataAccess.Models;
-using System.Collections.Generic;
 using Stage2HW.Business.Services.Interfaces;
+using Stage2HW.DataAccess.Models;
 using Stage2HW.DataAccess.Repositories.Interfaces;
+using System.Collections.Generic;
 
 namespace Stage2HW.Business.Services
 {
@@ -54,6 +54,11 @@ namespace Stage2HW.Business.Services
             }
             var userDto = _iMapper.Map<User, UserDto>(userEntity);
             return userDto;
+        }
+
+        public double GetUserCryptocurrencyBalance(string currencyName)
+        {
+            return _userRepository.GetUserCryptocurrencyBalance(currencyName);
         }
     }
 }

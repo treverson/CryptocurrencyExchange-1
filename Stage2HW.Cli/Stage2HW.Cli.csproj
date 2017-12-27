@@ -57,17 +57,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\AppConfig.cs" />
-    <Compile Include="Configuration\ICurrencyExchangeConfig.cs" />
     <Compile Include="IoHelpers\ConsoleWriter.cs" />
+    <Compile Include="IoHelpers\Interfaces\IShowUser.cs" />
+    <Compile Include="IoHelpers\Interfaces\IDisplayHeader.cs" />
     <Compile Include="IoHelpers\Interfaces\IConsoleWriter.cs" />
     <Compile Include="IoHelpers\Interfaces\IInputReader.cs" />
     <Compile Include="IoHelpers\InputReader.cs" />
     <Compile Include="IoHelpers\Interfaces\IValidateInput.cs" />
     <Compile Include="IoHelpers\ValidateInput.cs" />
-    <Compile Include="Menu\Enums\MainMenuEnum.cs" />
-    <Compile Include="Menu\Enums\StartUpMenuEnum.cs" />
+    <Compile Include="Menu\ShowUser.cs" />
     <Compile Include="Menu\Interfaces\IMenu.cs" />
     <Compile Include="Menu\MainMenu.cs" />
+    <Compile Include="Menu\MenuOptions\AccountOperations.cs" />
+    <Compile Include="Menu\Interfaces\IAccountOperations.cs" />
     <Compile Include="Menu\StartUpMenu.cs" />
     <Compile Include="Menu\Interfaces\IRegisterToExchange.cs" />
     <Compile Include="Menu\Interfaces\ILogInToExchange.cs" />
@@ -79,8 +81,7 @@
     <Compile Include="ProgramLoop.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CryptocurrencyExchange.cs" />
-    <Compile Include="Services\ExchangeRatesDownloader.cs" />
-    <Compile Include="Services\Interfaces\IExchangeRatesDownloader.cs" />
+    <Compile Include="Services\DummyCryptocurrencyExchange.cs" />
     <Compile Include="Services\Interfaces\ICryptocurrencyExchange.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -93,7 +94,7 @@
       <Name>Stage2HW.Business</Name>
     </ProjectReference>
     <ProjectReference Include="..\Stage2HW.DependencyResolver\Stage2HW.DependencyResolver.csproj">
-      <Project>{07B2AC39-774C-4CED-BBA1-10B736D3072A}</Project>
+      <Project>{07b2ac39-774c-4ced-bba1-10b736d3072a}</Project>
       <Name>Stage2HW.DependencyResolver</Name>
     </ProjectReference>
   </ItemGroup>

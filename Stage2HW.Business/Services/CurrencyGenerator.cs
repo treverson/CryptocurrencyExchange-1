@@ -3,22 +3,27 @@ using Stage2HW.Business.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Timers;
+using Stage2HW.Business.Dtos;
 
 namespace Stage2HW.Business.Services
 {
-    public enum Percentage { TenPercentDepreciation = -10, TenPercentAppreciation = 11, }
-
-    public delegate void RatesGeneratedHandler(RatesGeneratedEventArgs e);
-
-    public class CurrencyGenerator : ICurrencyGenerator
+    public enum Percentage
     {
-        private readonly List<CryptoCurrency> _cryptocurrencies = new List<CryptoCurrency>();
+        TenPercentDepreciation = -10,
+        TenPercentAppreciation = 11,
+    }
 
+    public delegate void RatesGeneratedHandler(NewExchangeRatesEventArgs e);
+
+    public class CurrencyGenerator : IExchangeRatesProvider
+    {
         private readonly Random _randomizer = new Random();
 
-        public event RatesGeneratedHandler NewRatesGeneratedEvent;
+        public List<Currency> Currencies { get; set; }
 
-        public void RunGenerator()
+        public event NewExchangeRatesHandler NewExchangeRatesEvent;
+      
+        public void Run()
         {
             InitializeCryptocurrencies();
 
@@ -32,18 +37,17 @@ namespace Stage2HW.Business.Services
 
         public void GenerateExchangeBehaviour(object sender, ElapsedEventArgs elapsedEventArgs)
         {
-            foreach (var cryptoCurrency in _cryptocurrencies)
+            foreach (var cryptocurrency in Currencies)
             {
-                cryptoCurrency.Value = GenerateRates(cryptoCurrency.Value, cryptoCurrency.MinValue,
-                    cryptoCurrency.MaxValue);
+                cryptocurrency.LastPrice = GenerateRates(cryptocurrency.LastPrice, cryptocurrency.MinValue,
+                    cryptocurrency.MaxValue);
             }
-            
-            var ratesGenerated = new RatesGeneratedEventArgs
+
+            var ratesGenerated = new NewExchangeRatesEventArgs
             {
-                CurrenciesList = _cryptocurrencies
+                CurrenciesList = Currencies
             };
-            
-            if (NewRatesGeneratedEvent != null) NewRatesGeneratedEvent.Invoke(ratesGenerated);
+            if (NewExchangeRatesEvent != null) NewExchangeRatesEvent.Invoke(ratesGenerated);
         }
 
         public double GenerateRates(double initialValue, int minValue, int maxValue)
@@ -64,42 +68,41 @@ namespace Stage2HW.Business.Services
 
         private void InitializeCryptocurrencies()
         {
-            CryptoCurrency bitCoin = new CryptoCurrency
+            Currency bitCoin = new Currency
             {
-                Name = "BitCoin",
-                MinValue = (int) ExchangeMaxMinValuesEnum.BtcMinValue,
-                MaxValue = (int) ExchangeMaxMinValuesEnum.BtcMaxValue,
-                Value = _randomizer.Next((int) ExchangeMaxMinValuesEnum.BtcMinValue, (int)ExchangeMaxMinValuesEnum.BtcMaxValue + 1)
+                CurrencyName = CurrencyNameEnum.Btc,
+                MinValue = (int)ExchangeMaxMinValuesEnum.BtcMinValue,
+                MaxValue = (int)ExchangeMaxMinValuesEnum.BtcMaxValue,
             };
 
-            CryptoCurrency bitCoinCash = new CryptoCurrency
+            Currency bitCoinCash = new Currency
             {
-                Name = "BitCoinCash",
+                CurrencyName = CurrencyNameEnum.Bcc,
                 MinValue = (int)ExchangeMaxMinValuesEnum.BccMinValue,
                 MaxValue = (int)ExchangeMaxMinValuesEnum.BccMaxValue,
-                Value = _randomizer.Next((int)ExchangeMaxMinValuesEnum.BccMinValue, (int)ExchangeMaxMinValuesEnum.BccMaxValue + 1)
             };
 
-            CryptoCurrency ethereum = new CryptoCurrency
+            Currency ethereum = new Currency
             {
-                Name = "Ethereum",
+                CurrencyName = CurrencyNameEnum.Eth,
                 MinValue = (int)ExchangeMaxMinValuesEnum.EthMinValue,
                 MaxValue = (int)ExchangeMaxMinValuesEnum.EthMaxValue,
-                Value = _randomizer.Next((int)ExchangeMaxMinValuesEnum.EthMinValue, (int)ExchangeMaxMinValuesEnum.EthMaxValue + 1)
             };
 
-            CryptoCurrency liteCoin = new CryptoCurrency
+            Currency liteCoin = new Currency
             {
-                Name = "LiteCoin",
+                CurrencyName = CurrencyNameEnum.Ltc,
                 MinValue = (int)ExchangeMaxMinValuesEnum.LtcMinValue,
                 MaxValue = (int)ExchangeMaxMinValuesEnum.LtcMaxValue,
-                Value = _randomizer.Next((int)ExchangeMaxMinValuesEnum.LtcMinValue, (int)ExchangeMaxMinValuesEnum.LtcMaxValue + 1)
             };
 
-            _cryptocurrencies.Add(bitCoin);
-            _cryptocurrencies.Add(bitCoinCash);
-            _cryptocurrencies.Add(ethereum);
-            _cryptocurrencies.Add(liteCoin);
+            Currencies = new List<Currency>
+            {
+                bitCoin,
+                bitCoinCash,
+                ethereum,
+                liteCoin
+            };
         }
     }
 }

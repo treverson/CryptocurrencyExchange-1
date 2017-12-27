@@ -12,42 +12,43 @@ namespace Stage2HW.Cli.Menu.MenuOptions
         private readonly IValidateInput _validateInput;
         private readonly IUserService _userService;
         private readonly IMenu _mainMenu;
+        private readonly IShowUser _showUser;
 
-        public LogInToExchange(IUserService userService, IConsoleWriter consoleWriter, IInputReader inputReader, IValidateInput validateInput, IMenu mainMenu)
+        public LogInToExchange(IUserService userService, IConsoleWriter consoleWriter, IInputReader inputReader, IValidateInput validateInput, IMenu mainMenu, IShowUser showUser)
         {
             _userService = userService;
             _consoleWriter = consoleWriter;
             _inputReader = inputReader;
             _validateInput = validateInput;
             _mainMenu = mainMenu;
+            _showUser = showUser;
         }
 
         public void LogInUserToExchange()
         {
             _consoleWriter.ClearConsole();
-            _consoleWriter.WriteMessage("##### CRYPTOCURRENCY EXCHANGE #####\n");
+            _consoleWriter.WriteMessage("############# CRYPTOCURRENCY EXCHANGE #############\n");
             _consoleWriter.WriteMessage("# Log in \n");
-            _consoleWriter.WriteMessage("  User name: ");
-            string userNickName = _inputReader.ReadInput();
+            _consoleWriter.WriteMessage("  Login: ");
+            string userLogin = _inputReader.ReadInput();
             _consoleWriter.WriteMessage("  Password: ");
             string userPassword = _inputReader.ReadInput();
 
-            var activeUser = _userService.GetUser(userNickName, userPassword);
+            _showUser.ActiveUser = _userService.GetUser(userLogin, userPassword);
 
-            if (activeUser == null)
+            if (_showUser.ActiveUser == null)
             {
-                _consoleWriter.WriteMessage("Wrong user name or password.");
+                _consoleWriter.WriteMessage("Wrong login or password.");
                 _validateInput.PauseLoop();
                 return;
             }
 
-            RunMainMenu(activeUser);
+            RunMainMenu(_showUser.ActiveUser);
             _mainMenu.Exit = false;
         }
 
         public void RunMainMenu(UserDto activeUser)
         {
-            _mainMenu.ActiveUser = activeUser;
             while (!_mainMenu.Exit)
             {
                 _mainMenu.PrintMenu();
