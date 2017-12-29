@@ -41,6 +41,7 @@ namespace Stage2HW.Cli.IoHelpers
 
         public void DisplayTransactionsHistory(List<TransactionDto> transactionHistory)
         {
+            int j = 1;
             int i = 7;
             foreach (var transaction in transactionHistory)
             {
@@ -50,7 +51,7 @@ namespace Stage2HW.Cli.IoHelpers
                 }
 
                 SetCursorPosition(2, i);
-                Console.Write($"{transaction.Id}");
+                Console.Write($"{j}");
                 SetCursorPosition(10, i);
                 Console.Write($"{transaction.CurrencyName}");
                 if (transaction.CurrencyName == CurrencyNameEnum.Pln.ToString())
@@ -71,6 +72,7 @@ namespace Stage2HW.Cli.IoHelpers
                 Console.Write($"{transaction.TransactionDate}");
 
                 Console.ResetColor();
+                j++;
                 i++;
             }
         }

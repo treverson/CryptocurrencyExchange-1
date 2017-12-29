@@ -43,7 +43,7 @@ namespace Stage2HW.Cli.Menu.MenuOptions
             {
                 Amount = depositAmount,
                 CurrencyName = CurrencyNameEnum.Pln.ToString(),
-                TransactionDate = DateTime.Now.ToString("G"),
+                TransactionDate = DateTime.Now,//.ToString("G"),
                 UserId = _showUser.ActiveUser.Id,
                 Fiat = depositAmount
             };
@@ -83,7 +83,7 @@ namespace Stage2HW.Cli.Menu.MenuOptions
             {
                 Amount = -withdrawalAmount,
                 CurrencyName = CurrencyNameEnum.Pln.ToString(),
-                TransactionDate = DateTime.Now.ToString("G"),
+                TransactionDate = DateTime.Now,
                 UserId = _showUser.ActiveUser.Id,
                 Fiat = -withdrawalAmount
             };
@@ -162,7 +162,7 @@ namespace Stage2HW.Cli.Menu.MenuOptions
             {
                 Amount = buyAmount,
                 CurrencyName = userChosenCurrency.CurrencyName.ToString(),
-                TransactionDate = DateTime.Now.ToString("G"),
+                TransactionDate = DateTime.Now,
                 ExchangeRate = userChosenCurrency.LastPrice,
                 UserId = _showUser.ActiveUser.Id,
                 Fiat = -buyAmount * userChosenCurrency.LastPrice
@@ -231,7 +231,7 @@ namespace Stage2HW.Cli.Menu.MenuOptions
             {
                 Amount = -sellAmount,
                 CurrencyName = userChosenCurrency.CurrencyName.ToString(),
-                TransactionDate = DateTime.Now.ToString("G"),
+                TransactionDate = DateTime.Now,
                 ExchangeRate = userChosenCurrency.LastPrice,
                 UserId = _showUser.ActiveUser.Id,
                 Fiat = sellAmount * userChosenCurrency.LastPrice
@@ -256,7 +256,7 @@ namespace Stage2HW.Cli.Menu.MenuOptions
                 _consoleWriter.WriteMessage("\nDownload successful.");
                 _validateInput.PauseLoop();
             }
-            catch (Exception e)
+            catch
             {
                 _consoleWriter.WriteMessage($"Encountered an error with the download path.\nTry e.g. C:\\Users\\{Environment.UserName}\\Desktop");
                 _validateInput.PauseLoop();

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Stage2HW.Business.Dtos
+﻿namespace Stage2HW.Business.Dtos
 {
     public class UserDto
     {
@@ -8,6 +6,6 @@ namespace Stage2HW.Business.Dtos
         public string Name { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
-        public List<TransactionDto> Transactions { get; set; }
+       // public List<TransactionDto> Transactions { get; set; }
     }
 }

@@ -27,7 +27,7 @@ namespace Stage2HW.Tests
         public void DepositFunds_ValidDepositList_GetTransactionReturnsDepositList()
         {
             //Arrange
-            string testDate = new DateTime(2017, 1, 1, 0, 0, 0).ToString("d");
+            DateTime testDate = new DateTime(2017, 1, 1, 0, 0, 0);
             var transactionsRepositoryMoq = new Mock<ITransactionRepository>();
 
             int userId = 0;
@@ -41,7 +41,6 @@ namespace Stage2HW.Tests
                 CurrencyName = "PLN",
                 Amount = 1500,
                 Fiat = 1500,
-                Id = 1,
                 UserId = testUser.Id,
                 TransactionDate = testDate
             };
@@ -51,7 +50,6 @@ namespace Stage2HW.Tests
                 CurrencyName = "PLN",
                 Amount = 2000,
                 Fiat = 2000,
-                Id = 2,
                 UserId = testUser.Id,
                 TransactionDate = testDate
             };
