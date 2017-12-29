@@ -17,7 +17,7 @@ namespace Stage2HW.DataAccess.Repositories
         {
             var cloudStorageAccount =
                 CloudStorageAccount.Parse(
-                    ConfigurationManager.AppSettings["azureExchangeTableStorageConnectionString"]);
+                    ConfigurationManager.AppSettings["exchangeAzureTableStorageConnectionString"]);
 
             var tableClient = cloudStorageAccount.CreateCloudTableClient();
 

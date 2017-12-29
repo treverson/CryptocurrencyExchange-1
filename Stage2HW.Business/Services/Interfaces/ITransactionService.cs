@@ -8,6 +8,6 @@ namespace Stage2HW.Business.Services.Interfaces
         List<TransactionDto> GetTransactionHistory(int activeUserId);
         void RegisterTransaction(TransactionDto transaction);
         double GetUserCryptocurrencyBalance(string currencyName, int userId);
-
+        void DownloadHistory(string filePath, int activeUserId);
     }
 }

@@ -7,5 +7,6 @@
         void ViewHistory();
         void BuyCurrencies();
         void SellCurrencies();
+        void SaveHistory();
     }
 }

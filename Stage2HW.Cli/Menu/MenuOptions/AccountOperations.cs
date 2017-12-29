@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using Stage2HW.Business.Dtos;
+﻿using Stage2HW.Business.Dtos;
 using Stage2HW.Business.Services.Enums;
 using Stage2HW.Business.Services.Interfaces;
 using Stage2HW.Cli.IoHelpers.Interfaces;
 using Stage2HW.Cli.Menu.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
 [assembly: InternalsVisibleTo("Stage2HW.Tests")]
@@ -110,7 +110,7 @@ namespace Stage2HW.Cli.Menu.MenuOptions
             _consoleWriter.DisplayHistoryHeader();
 
             _consoleWriter.DisplayTransactionsHistory(transactionHistory);
-            
+
             _consoleWriter.WriteMessage("\n\nPress ENTER to continue.");
             _inputReader.WaitForEnter();
         }
@@ -119,7 +119,7 @@ namespace Stage2HW.Cli.Menu.MenuOptions
         {
             return _transactionService.GetTransactionHistory(_showUser.ActiveUser.Id);
         }
-        
+
         public void BuyCurrencies()
         {
             DisplayHeader();
@@ -185,7 +185,7 @@ namespace Stage2HW.Cli.Menu.MenuOptions
             var i = 1;
             foreach (var currency in _exchangeRatesProvider.Currencies)
             {
-                var amount = Math.Round(temp.Where(c => c.CurrencyName == currency.CurrencyName.ToString()).Sum(a => a.Amount),7);
+                var amount = Math.Round(temp.Where(c => c.CurrencyName == currency.CurrencyName.ToString()).Sum(a => a.Amount), 7);
 
                 if (amount > 0)
                 {
@@ -208,7 +208,7 @@ namespace Stage2HW.Cli.Menu.MenuOptions
             var userChosenCurrencyBalance = _transactionService.GetUserCryptocurrencyBalance(userChosenCurrency.CurrencyName.ToString(), _showUser.ActiveUser.Id);
 
             _consoleWriter.WriteMessage($"\nSelling { userChosenCurrency.CurrencyName}, last price: {userChosenCurrency.LastPrice:C}\nCurrent balance: {userChosenCurrencyBalance}\nEnter amount to sell: ");
-            var sellAmount = Math.Round(_validateInput.ValidateAmount(),7);
+            var sellAmount = Math.Round(_validateInput.ValidateAmount(), 7);
 
             while (sellAmount > userChosenCurrencyBalance)
             {
@@ -231,7 +231,7 @@ namespace Stage2HW.Cli.Menu.MenuOptions
             {
                 Amount = -sellAmount,
                 CurrencyName = userChosenCurrency.CurrencyName.ToString(),
-                TransactionDate = DateTime.Now.ToString("G"), 
+                TransactionDate = DateTime.Now.ToString("G"),
                 ExchangeRate = userChosenCurrency.LastPrice,
                 UserId = _showUser.ActiveUser.Id,
                 Fiat = sellAmount * userChosenCurrency.LastPrice
@@ -241,6 +241,26 @@ namespace Stage2HW.Cli.Menu.MenuOptions
 
             _consoleWriter.WriteMessage($"Sold {-soldCurrency.Amount} {soldCurrency.CurrencyName} for {soldCurrency.Fiat:C}");
             _validateInput.PauseLoop();
+        }
+
+        public void SaveHistory()
+        {
+            _consoleWriter.WriteMessage($"\nSpecify download path (e.g. C:\\Users\\{Environment.UserName}\\Desktop): ");
+
+            var filePath = _inputReader.ReadInput();
+
+            try
+            {
+                _transactionService.DownloadHistory(filePath + $"\\{_showUser.ActiveUser.Login} transactions history.json"/*"C:\\Users\\student\\Desktop\\history.json"*/, _showUser.ActiveUser.Id);
+
+                _consoleWriter.WriteMessage("\nDownload successful.");
+                _validateInput.PauseLoop();
+            }
+            catch (Exception e)
+            {
+                _consoleWriter.WriteMessage($"Encountered an error with the download path.\nTry e.g. C:\\Users\\{Environment.UserName}\\Desktop");
+                _validateInput.PauseLoop();
+            }
         }
 
         internal Currency GetCurrencyFromUserTransactions(List<Currency> userCurrencies)
@@ -258,7 +278,7 @@ namespace Stage2HW.Cli.Menu.MenuOptions
                 {
                     _consoleWriter.WriteMessage("\nInvalid option, choose again.");
                 }
-            } while (currency== null);
+            } while (currency == null);
 
             return currency;
         }

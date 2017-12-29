@@ -51,5 +51,10 @@ namespace Stage2HW.Business.Services
         {
             return _transactionRepository.GetUserCryptocurrencyBalance(currencyName, userId);
         }
+
+        public void DownloadHistory(string filePath, int activeUserId)
+        {
+            _transactionRepository.DownloadHistory(filePath, activeUserId);
+        }
     }
 }

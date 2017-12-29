@@ -1,15 +1,17 @@
 ﻿using Microsoft.WindowsAzure.Storage.Table;
+using Newtonsoft.Json;
 using Stage2HW.DataAccess.Models;
 using Stage2HW.DataAccess.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace Stage2HW.DataAccess.Repositories
 {
     public class CloudTransactionRepository : BaseAzureTableStorageRepository, ITransactionRepository
     {
-        public CloudTransactionRepository() : base("usertransactions")
+        public CloudTransactionRepository() : base("UserTransactions")
         {
         }
 
@@ -28,6 +30,13 @@ namespace Stage2HW.DataAccess.Repositories
         {
             var foundCurrencies =  TableReference.CreateQuery<Transaction>().Where(u=>u.UserId == userId).Where(c => c.CurrencyName == currencyName).ToList();
             return Math.Round(foundCurrencies.Sum(x => x.Amount), 7);
+        }
+
+        public void DownloadHistory(string filePath, int activeUserId)
+        {
+            var transactions = GetTransactionsHistory(activeUserId);
+            
+            File.WriteAllText(filePath, JsonConvert.SerializeObject(transactions, Formatting.Indented));
         }
     }
 }

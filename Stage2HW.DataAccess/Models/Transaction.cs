@@ -1,10 +1,10 @@
-﻿using System;
-using Microsoft.WindowsAzure.Storage.Table;
+﻿using Microsoft.WindowsAzure.Storage.Table;
 
 namespace Stage2HW.DataAccess.Models
 {
     public class Transaction : TableEntity
     {
+        [IgnoreProperty]
         public int Id { get; set; }
         public string CurrencyName { get; set; }
         public double ExchangeRate { get; set; }
@@ -13,7 +13,7 @@ namespace Stage2HW.DataAccess.Models
 
         public int UserId
         {
-            get => Int32.Parse(PartitionKey);
+            get => int.Parse(PartitionKey);
             set => PartitionKey = value.ToString();
         }
         public string TransactionDate

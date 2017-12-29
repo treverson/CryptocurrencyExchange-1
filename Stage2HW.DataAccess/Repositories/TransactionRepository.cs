@@ -33,5 +33,10 @@ namespace Stage2HW.DataAccess.Repositories
                 return Math.Round(dbContext.TransactionsDbSet.Where(c => c.CurrencyName == currencyName).Sum(x => x.Amount), 7);
             }
         }
+
+        public void DownloadHistory(string filePath, int activeUserId)
+        {
+        }
+
     }
 }
