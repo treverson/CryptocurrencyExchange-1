@@ -79,6 +79,7 @@
   <ItemGroup>
     <Compile Include="Data\CryptocurrencyExchangeDbContext.cs" />
     <Compile Include="Models\CloudTransaction.cs" />
+    <Compile Include="Models\SqlTransaction.cs" />
     <Compile Include="Models\Transaction.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

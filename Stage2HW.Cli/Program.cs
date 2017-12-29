@@ -12,7 +12,7 @@ namespace Stage2HW.Cli
 
         private static void Main()
         {
-            IKernel kernel = new StandardKernel(new BusinessModule(CurrencyExchangeConfig), new DataAccessModule(), new CliModules(CurrencyExchangeConfig));
+            IKernel kernel = new StandardKernel(new BusinessModule(CurrencyExchangeConfig), new DataAccessModule(CurrencyExchangeConfig), new CliModules(CurrencyExchangeConfig));
             
             var programLoop = kernel.Get<ProgramLoop>();
 

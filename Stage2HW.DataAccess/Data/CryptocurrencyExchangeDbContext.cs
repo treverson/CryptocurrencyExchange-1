@@ -10,7 +10,7 @@ namespace Stage2HW.DataAccess.Data
         {}
 
         public DbSet<User> UsersDbSet { get; set; }
-        public DbSet<Transaction> TransactionsDbSet { get; set; }
+        public DbSet<SqlTransaction> TransactionsDbSet { get; set; }
              
         private static string GetConnectionString()
         {

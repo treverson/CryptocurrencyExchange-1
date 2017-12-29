@@ -7,6 +7,7 @@
         string BitBayBccPlnAddress { get; }
         string BitBayEthPlnAddress { get; }
         string BitBayLtcPlnAddress { get; }
+        string DataBaseType { get; }
         string ExchangeType { get; }
     }
 }

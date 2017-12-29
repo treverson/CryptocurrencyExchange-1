@@ -2,8 +2,9 @@
 
 namespace Stage2HW.DataAccess.Models
 {
-    public class Transaction
+    public class SqlTransaction
     {
+        public int Id { get; set; }
         public int UserId { get; set; }
         public DateTime TransactionDate { get; set; }
         public string CurrencyName { get; set; }

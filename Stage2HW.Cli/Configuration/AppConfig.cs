@@ -11,6 +11,7 @@ namespace Stage2HW.Cli.Configuration
         public string BitBayBccPlnAddress => ConfigurationManager.AppSettings["bitBayBCCPLNvalue"];
         public string BitBayEthPlnAddress => ConfigurationManager.AppSettings["bitBayETHPLNvalue"];
         public string BitBayLtcPlnAddress => ConfigurationManager.AppSettings["bitBayLTCPLNvalue"];
+        public string DataBaseType => ConfigurationManager.AppSettings["dataBaseType"];
         public string ExchangeType => ConfigurationManager.AppSettings["exchangeType"];
     }
 }

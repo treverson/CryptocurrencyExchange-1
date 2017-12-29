@@ -24,15 +24,15 @@ namespace Stage2HW.DataAccess.Repositories
 
         public IEnumerable<Transaction> GetTransactionsHistory(int activeUserId)
         {
-            List<Transaction> temp = new List<Transaction>();
+            List<Transaction> mappedTransactions = new List<Transaction>();
 
-            var cloudTransactions =  TableReference.CreateQuery<CloudTransaction>().Where(t => t.UserId == activeUserId).ToList();
-            foreach (var transaction in cloudTransactions)
+            var transactionsFromCloud =  TableReference.CreateQuery<CloudTransaction>().Where(t => t.UserId == activeUserId).ToList();
+            foreach (var transaction in transactionsFromCloud)
             {
-                temp.Add(_mapper.Map<CloudTransaction, Transaction>(transaction));
+                mappedTransactions.Add(_mapper.Map<CloudTransaction, Transaction>(transaction));
             }
 
-            return temp;
+            return mappedTransactions.OrderBy(d=>d.TransactionDate);
         }
 
         public void RegisterTransaction(Transaction transaction)
