@@ -1,10 +1,10 @@
-﻿using System;
+﻿using AutoMapper;
 using Stage2HW.DataAccess.Data;
 using Stage2HW.DataAccess.Models;
 using Stage2HW.DataAccess.Repositories.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using AutoMapper;
 
 namespace Stage2HW.DataAccess.Repositories
 {

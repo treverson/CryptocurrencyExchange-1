@@ -43,7 +43,7 @@ namespace Stage2HW.Cli.Menu.MenuOptions
             {
                 Amount = depositAmount,
                 CurrencyName = CurrencyNameEnum.Pln.ToString(),
-                TransactionDate = DateTime.Now,//.ToString("G"),
+                TransactionDate = DateTime.Now,
                 UserId = _showUser.ActiveUser.Id,
                 Fiat = depositAmount
             };
@@ -251,7 +251,7 @@ namespace Stage2HW.Cli.Menu.MenuOptions
 
             try
             {
-                _transactionService.DownloadHistory(filePath + $"\\{_showUser.ActiveUser.Login} transactions history.json"/*"C:\\Users\\student\\Desktop\\history.json"*/, _showUser.ActiveUser.Id);
+                _transactionService.DownloadHistory(filePath + $"\\{_showUser.ActiveUser.Login} transactions history.json", _showUser.ActiveUser.Id);
 
                 _consoleWriter.WriteMessage("\nDownload successful.");
                 _validateInput.PauseLoop();
