@@ -39,6 +39,7 @@ namespace Stage2HW.Cli.Menu
             _options.Add(new MenuOption("Buy currencies", _accountOperations.BuyCurrencies));
             _options.Add(new MenuOption("Sell currencies",_accountOperations.SellCurrencies));
             _options.Add(new MenuOption("View account history", _accountOperations.ViewHistory));
+            _options.Add(new MenuOption("Save history to .json file", _accountOperations.SaveHistory));
             _options.Add(new MenuOption("Logout"));
 
             foreach (var option in _options)

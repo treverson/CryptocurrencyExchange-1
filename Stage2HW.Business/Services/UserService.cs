@@ -55,10 +55,5 @@ namespace Stage2HW.Business.Services
             var userDto = _iMapper.Map<User, UserDto>(userEntity);
             return userDto;
         }
-
-        public double GetUserCryptocurrencyBalance(string currencyName)
-        {
-            return _userRepository.GetUserCryptocurrencyBalance(currencyName);
-        }
     }
 }

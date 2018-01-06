@@ -4,6 +4,8 @@ using Stage2HW.Business.Services.Interfaces;
 using Stage2HW.DataAccess.Models;
 using Stage2HW.DataAccess.Repositories.Interfaces;
 using System.Collections.Generic;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace Stage2HW.Business.Services
 {
@@ -45,6 +47,18 @@ namespace Stage2HW.Business.Services
             }
 
             return transactionsHistory;
+        }
+
+        public double GetUserCryptocurrencyBalance(string currencyName, int userId)
+        {
+            return _transactionRepository.GetUserCryptocurrencyBalance(currencyName, userId);
+        }
+
+        public void DownloadHistory(string filePath, int activeUserId)
+        {
+            var transactions = GetTransactionHistory(activeUserId);
+
+            File.WriteAllText(filePath, JsonConvert.SerializeObject(transactions, Formatting.Indented));
         }
     }
 }

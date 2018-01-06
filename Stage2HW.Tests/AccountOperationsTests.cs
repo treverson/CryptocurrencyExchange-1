@@ -41,7 +41,6 @@ namespace Stage2HW.Tests
                 CurrencyName = "PLN",
                 Amount = 1500,
                 Fiat = 1500,
-                Id = 1,
                 UserId = testUser.Id,
                 TransactionDate = testDate
             };
@@ -51,7 +50,6 @@ namespace Stage2HW.Tests
                 CurrencyName = "PLN",
                 Amount = 2000,
                 Fiat = 2000,
-                Id = 2,
                 UserId = testUser.Id,
                 TransactionDate = testDate
             };
