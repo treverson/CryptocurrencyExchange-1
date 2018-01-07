@@ -21,7 +21,7 @@ namespace Stage2HW.DependencyResolver
             {
                 Bind<ITransactionRepository>().To<CloudTransactionRepository>();
             }
-            else
+            if(_currencyExchangeConfig.DataBaseType == "Sql")
             {
                 Bind<ITransactionRepository>().To<TransactionRepository>();
             }
