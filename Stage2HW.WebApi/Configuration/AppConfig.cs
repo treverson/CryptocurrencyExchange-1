@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Stage2HW.Business.Services.Interfaces;
+using System;
 using System.Configuration;
-using Stage2HW.Business.Services.Interfaces;
 
-namespace Stage2HW.Cli.Configuration
+namespace Stage2HW.WebApi.Configuration
 {
     internal class AppConfig : ICurrencyExchangeConfig
     {

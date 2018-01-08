@@ -14,6 +14,9 @@ namespace Stage2HW.DependencyResolver
             _currencyExchangeConfig = currencyExchangeConfig;
         }
 
+        public DataAccessModule()
+        {}
+
         public override void Load()
         {
             Bind<IUserRepository>().To<UserRepository>();

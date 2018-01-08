@@ -39,5 +39,21 @@ namespace Stage2HW.DataAccess.Repositories
             }
             return loggedInUser;
         }
+
+        public bool CheckUserPassword(User user)
+        {
+            var passwordCheck = true;
+            using (var dbContext = new CryptocurrencyExchangeDbContext())
+            {
+                var foundUser = dbContext.UsersDbSet.SingleOrDefault(u => u.Name == user.Name);
+
+                if (foundUser == null || foundUser.Password != user.Password)
+                {
+                    passwordCheck = false;
+                }
+               
+                return passwordCheck;
+            }
+        }
     }
 }

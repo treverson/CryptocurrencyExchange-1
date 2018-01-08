@@ -8,5 +8,6 @@ namespace Stage2HW.DataAccess.Repositories.Interfaces
         List<User> GetExistingUsers();
         void AddUser(User newUser);
         User GetUser(string userLogin, string userPassword);
+        bool CheckUserPassword(User userDto);//new
     }
 }
