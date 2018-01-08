@@ -22,14 +22,14 @@ namespace Stage2HW.DependencyResolver
             Bind<ITransactionService>().To<TransactionService>();
             Bind<IAuthenticationService>().To<AuthenticationService>();
 
-            //if (_currencyExchangeConfig.ExchangeType == "BitBay")
-            //{
-            //    Bind<IExchangeRatesProvider>().To<ExchangeRatesProvider>().InSingletonScope();
-            //}
-            //else
-            //{
-            //    Bind<IExchangeRatesProvider>().To<CurrencyGenerator>().InSingletonScope();
-            //}
+            if (_currencyExchangeConfig.ExchangeType == "BitBay")
+            {
+                Bind<IExchangeRatesProvider>().To<ExchangeRatesProvider>().InSingletonScope();
+            }
+            else
+            {
+                Bind<IExchangeRatesProvider>().To<CurrencyGenerator>().InSingletonScope();
+            }
 
         }
     }
