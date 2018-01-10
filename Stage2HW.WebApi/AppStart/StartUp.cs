@@ -1,5 +1,6 @@
 ﻿using System.Net.Http.Headers;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using Ninject.Web.Common.OwinHost;
 using Ninject.Web.WebApi.OwinHost;
 using Owin;
@@ -12,6 +13,7 @@ namespace Stage2HW.WebApi.AppStart
         public void Configuration(IAppBuilder appBuilder)
         {
             var config = new HttpConfiguration();
+            config.EnableCors(new EnableCorsAttribute("*", "*", "*", "X-Custom-Header"));
 
             config.Routes.MapHttpRoute(
                 name: "ControllerOnly",
@@ -24,7 +26,6 @@ namespace Stage2HW.WebApi.AppStart
                 defaults: null,
                 constraints: new { id = @"^\d+$" }
             );
-
             config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
 
             appBuilder.UseNinjectMiddleware(NinjectBootstrap.GetKernel).UseNinjectWebApi(config);

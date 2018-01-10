@@ -16,6 +16,8 @@ namespace Stage2HW.Business.Services
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<User, UserDto>();
+                cfg.CreateMap<UserDto, User>();
+
             });
             _mapper = config.CreateMapper();
             _userRepository = userRepository;
@@ -26,11 +28,26 @@ namespace Stage2HW.Business.Services
         {
             var userEntity = _mapper.Map<UserDto, User>(userDto);
 
+            var userToAuthenticate = _userRepository.GetUser(userEntity.Login, userEntity.Password);
+
+            var user = _mapper.Map<User, UserDto>(userToAuthenticate);
+
+            if (userToAuthenticate == null)
+            {
+                return new AuthenticatedUserDto()
+                {
+                    Login = userDto.Login,
+                    IsAuthenticated = false
+                };
+            }
+
             return new AuthenticatedUserDto()
             {
-                Name = userDto.Name,
-                IsAuthenticated = _userRepository.CheckUserPassword(userEntity)
+                UserId = user.Id,
+                Login = user.Login,
+                IsAuthenticated = _userRepository.CheckUserPassword(userToAuthenticate)
             };
+
         }
     }
 }

@@ -1,0 +1,23 @@
+<div class="container">
+  <h2>Transactions history</h2>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Currency name</th>
+      <th>Exchange rate</th>
+      <th>Amount</th>
+      <th>Fiat (PLN)</th>
+      <th>Date</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let transaction of transactions">
+      <td>{{transaction.CurrencyName}}</td>
+      <td>{{transaction.ExchangeRate}}</td>
+      <td>{{transaction.Amount}}</td>
+      <td>{{transaction.Fiat}}</td>
+      <td>{{transaction.TransactionDate}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

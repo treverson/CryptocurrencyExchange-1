@@ -45,7 +45,7 @@ namespace Stage2HW.DataAccess.Repositories
             var passwordCheck = true;
             using (var dbContext = new CryptocurrencyExchangeDbContext())
             {
-                var foundUser = dbContext.UsersDbSet.SingleOrDefault(u => u.Name == user.Name);
+                var foundUser = dbContext.UsersDbSet.SingleOrDefault(u => u.Login == user.Login);
 
                 if (foundUser == null || foundUser.Password != user.Password)
                 {
