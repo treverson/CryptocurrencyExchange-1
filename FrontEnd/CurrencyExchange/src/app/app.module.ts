@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 
 import { AppComponent } from './app.component';
-import { NavigationComponent } from './site-navigation/navigation/navigation.component';
+import { NavigationComponent } from './site-navigation/component/navigation.component';
 import {HttpClientModule} from '@angular/common/http';
 import { LoginComponent } from './security/login/login.component';
 import {MessageComponent} from './message/component/message.component';
@@ -14,8 +14,8 @@ import {AuthenticationService} from './security/authentication/authentication.se
 import {UserService} from './security/user-service/user.service';
 import { TransactionComponent } from './transaction/component/transaction.component';
 import {TransactionService} from './transaction/service/transaction.service';
-
-
+import {RouterModule} from '@angular/router';
+import {NavigationService} from './site-navigation/service/navigation.service';
 
 @NgModule({
   declarations: [
@@ -26,12 +26,14 @@ import {TransactionService} from './transaction/service/transaction.service';
     TransactionComponent,
       ],
   imports: [
+    RouterModule,
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     FormsModule
   ],
   providers: [
+    NavigationService,
     MessageService,
     AuthenticationService,
     TransactionService,

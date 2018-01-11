@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
-import {Transaction} from '../../models/transaction';
+import {Transaction} from '../transaction';
 import {environment} from '../../../environments/environment';
-import {User} from '../../models/user';
+import {User} from '../../security/user';
 
 @Injectable()
 export class TransactionService {

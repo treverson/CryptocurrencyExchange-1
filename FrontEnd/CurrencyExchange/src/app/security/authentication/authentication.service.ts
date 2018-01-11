@@ -2,16 +2,14 @@ import { Injectable } from '@angular/core';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {UserService} from '../user-service/user.service';
-import {UserCredentials} from '../../models/user-credentials';
-import {User} from '../../models/user';
+import {UserCredentials} from '../user-credentials';
+import {User} from '../user';
 import {Observable} from 'rxjs/Observable';
 import {environment} from '../../../environments/environment';
 import {map} from 'rxjs/operators';
 
 @Injectable()
 export class AuthenticationService {
-
- // public user: User = new User();
 
   constructor(private http: HttpClient,
               private router: Router,
