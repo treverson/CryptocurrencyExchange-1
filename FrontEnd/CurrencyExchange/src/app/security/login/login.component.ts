@@ -26,15 +26,18 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    this._messageService.messages = [];
 
     this._authenticationService.login(this.userCredentials)
       .subscribe(user => {
         if (user.IsAuthenticated) {
           this._userService.setActiveUserInLocalStorage(user);
           this._router.navigateByUrl('/transactions');
+          this._messageService.messages = [];
         }
         else {
-          this._messageService.addMessage('User ' + user.Login + ' is not authenticated');
+         // this._messageService.addMessage('User ' + user.Login + ' is not authenticated');
+          this._messageService.addMessage('Wrong user name or password');
         }
         this.userCredentials = new UserCredentials();
       });

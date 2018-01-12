@@ -17,6 +17,7 @@ export class TransactionComponent implements OnInit {
               router: Router) { }
 
   ngOnInit() {
+    this.navigationService.showLoginButton = false;
     this.navigationService.showLogoutButton = true;
       this._transactionService.getTransactions().subscribe(data => this.transactions = data);
   }

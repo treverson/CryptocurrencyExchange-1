@@ -1,7 +1,5 @@
-<div *ngIf="messageService.messages.length">
-  <h3>Messages:</h3>
-
-  <ul>
-    <li *ngFor="let message of messageService.messages">{{message}}</li>
-  </ul>
+<div *ngIf="messageService.messages.length" class="center-div">
+  <div *ngFor="let message of messageService.messages">
+    {{message}}
+  </div>
 </div>

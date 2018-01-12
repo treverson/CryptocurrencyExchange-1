@@ -6,7 +6,9 @@ import {TransactionComponent} from '../transaction/component/transaction.compone
 import {AuthorizationGuard} from '../security/authorization/authorization.guard';
 
 const routes: Routes = [
-  {path: 'transactions', component: TransactionComponent, canActivate: [AuthorizationGuard], canActivateChild: [AuthorizationGuard]},
+  {path: 'transactions', component: TransactionComponent, canActivate: [AuthorizationGuard], canActivateChild: [AuthorizationGuard],
+    children:
+      [{path: ':id', redirectTo: 'transactions' }]},
   {path: 'login', component: LoginComponent }
 
 ];

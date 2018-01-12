@@ -18,9 +18,7 @@ export class AuthorizationGuard implements CanActivate, CanActivateChild {
     if (authenticatedUser) {
       return true;
     }
-
     this._router.navigateByUrl('');
-
     return false;
   }
 
