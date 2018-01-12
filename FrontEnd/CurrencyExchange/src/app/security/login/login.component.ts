@@ -36,7 +36,6 @@ export class LoginComponent implements OnInit {
           this._messageService.messages = [];
         }
         else {
-         // this._messageService.addMessage('User ' + user.Login + ' is not authenticated');
           this._messageService.addMessage('Wrong user name or password');
         }
         this.userCredentials = new UserCredentials();
