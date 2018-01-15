@@ -15,8 +15,8 @@
       <td>{{transaction.CurrencyName}}</td>
       <td>{{transaction.ExchangeRate}}</td>
       <td>{{transaction.Amount}}</td>
-      <td>{{transaction.Fiat}}</td>
-      <td>{{transaction.TransactionDate}}</td>
+      <td>{{transaction.Fiat | currency : 2}} zł</td>
+      <td>{{transaction.TransactionDate | date: "medium"}}</td>
     </tr>
     </tbody>
   </table>
