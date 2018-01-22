@@ -13,9 +13,14 @@ namespace Stage2HW.DependencyResolver
             _currencyExchangeConfig = currencyExchangeConfig;
         }
 
+        public BusinessModule()
+        {}
+
         public override void Load()
         {
             Bind<IUserService>().To<UserService>();
+            Bind<ITransactionService>().To<TransactionService>();
+            Bind<IAuthenticationService>().To<AuthenticationService>();
 
             if (_currencyExchangeConfig.ExchangeType == "BitBay")
             {
@@ -26,7 +31,6 @@ namespace Stage2HW.DependencyResolver
                 Bind<IExchangeRatesProvider>().To<CurrencyGenerator>().InSingletonScope();
             }
 
-            Bind<ITransactionService>().To<TransactionService>();
         }
     }
 }

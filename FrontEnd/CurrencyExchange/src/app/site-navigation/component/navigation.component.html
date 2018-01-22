@@ -1,0 +1,10 @@
+<nav class="navbar navbar-default" style="line-height: 110px; height: 125px; vertical-align: middle ">
+    <div class="navbar-header">
+    <img src="https://image.ibb.co/h80hz6/logo.png" alt="../../graphic/logo.png" height="106" width="157" alt="logo should be here..." border="0">
+
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><button id="loginButton" type="button" *ngIf="navigationService.showLoginButton" class="btn navbar-btn"><a (click)="login()">Login</a></button></li>
+      <li class="active"><button id="logoutButton" type="button" *ngIf= "navigationService.showLogoutButton" class="btn navbar-btn"><a (click)="logout()">Logout</a></button></li>
+    </ul>
+</nav>

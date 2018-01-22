@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stage2HW.Tests", "Stage2HW.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stage2HW.DependencyResolver", "Stage2HW.DependencyResolver\Stage2HW.DependencyResolver.csproj", "{07B2AC39-774C-4CED-BBA1-10B736D3072A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stage2HW.WebApi", "Stage2HW.WebApi\Stage2HW.WebApi.csproj", "{F4295848-D9F8-43FB-9255-E05875C305F7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{07B2AC39-774C-4CED-BBA1-10B736D3072A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{07B2AC39-774C-4CED-BBA1-10B736D3072A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{07B2AC39-774C-4CED-BBA1-10B736D3072A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4295848-D9F8-43FB-9255-E05875C305F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4295848-D9F8-43FB-9255-E05875C305F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4295848-D9F8-43FB-9255-E05875C305F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4295848-D9F8-43FB-9255-E05875C305F7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
