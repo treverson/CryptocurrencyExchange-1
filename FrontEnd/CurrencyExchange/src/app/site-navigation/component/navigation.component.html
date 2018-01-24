@@ -1,10 +1,82 @@
-<nav class="navbar navbar-default" style="line-height: 110px; height: 125px; vertical-align: middle ">
-    <div class="navbar-header">
-    <img src="https://image.ibb.co/h80hz6/logo.png" alt="../../graphic/logo.png" height="106" width="157" alt="logo should be here..." border="0">
+<!--<nav class="navbar navbar-default" style="line-height: 110px; height: 125px; vertical-align: middle ">-->
+<!--<div class="navbar-header">-->
+<!--<img src="https://image.ibb.co/h80hz6/logo.png" alt="../../graphic/logo.png" height="106" width="157" alt="logo should be here..." border="0">-->
 
+<!--</div>-->
+<!--<ul class="nav navbar-nav">-->
+<!--<li class="active"><button id="loginButton" type="button" *ngIf="navigationService.showLoginButton" class="btn navbar-btn"><a (click)="login()">Login</a></button></li>-->
+<!--<li class="active"><button id="logoutButton" type="button" *ngIf= "navigationService.showLogoutButton" class="btn navbar-btn"><a (click)="logout()">Logout</a></button></li>-->
+<!--<li class="active"><button id="registerButton" type="button" class="btn navbar-btn"><a (click)="register()">Register</a></button></li>-->
+
+<!--</ul>-->
+<!--</nav>-->
+
+
+<!-- ############################################################  -->
+<nav class="navbar navbar-default" id="navbar_loggedout" *ngIf="!_userService.getCurrentUserFromLocalStorage()">
+  <div class="container-fluid container">
+
+    <div class="navbar-header">
+      <img src="https://image.ibb.co/h80hz6/logo.png" alt="../../graphic/logo.png" height="106" width="157"
+           alt="logo should be here..." border="0">
     </div>
-    <ul class="nav navbar-nav">
-      <li class="active"><button id="loginButton" type="button" *ngIf="navigationService.showLoginButton" class="btn navbar-btn"><a (click)="login()">Login</a></button></li>
-      <li class="active"><button id="logoutButton" type="button" *ngIf= "navigationService.showLogoutButton" class="btn navbar-btn"><a (click)="logout()">Logout</a></button></li>
+
+    <ul class="nav navbar-nav navbar-right">
+      <li class="navbar-nav">
+        <button id="loginButton" class="btn btn-link navbar-btn" (click)="login()">Login</button>
+      </li>
+      <li class="navbar-nav">
+        <button id="registerButton" class="btn btn-link navbar-btn" (click)="register()">Register</button>
+      </li>
     </ul>
+
+  </div>
+
 </nav>
+
+<nav class="navbar navbar-default" id="navbar_loggedin" *ngIf="_userService.getCurrentUserFromLocalStorage()">
+  <div class="container-fluid container">
+    <div class="navbar-header">
+      <img src="https://image.ibb.co/h80hz6/logo.png" alt="../../graphic/logo.png" height="106" width="157"
+           alt="logo should be here..." border="0">
+    </div>
+
+    <ul class="nav navbar-nav navbar-left">
+      <li class="navbar-nav"><a routerLink="/transactions">Transactions history</a></li>
+      <li class="navbar-nav"><a routerLink="/purchases">Buy/sell currencies</a></li>
+      <!--<button id="transactions" class="btn btn-link navbar-btn" (click)="login()">Login</button>-->
+    </ul>
+
+    <ul class="nav navbar-nav navbar-right">
+      <li class="navbar-nav">
+        <button id="logout" class="btn btn-link navbar-btn" (click)="logout()" href="#">Logout</button>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+
+<div id="wrap" *ngIf="_userService.getCurrentUserFromLocalStorage()" >
+  <div id="left">
+    Current prices:
+  </div>
+  <div id="left-center">
+    BTC: {{exchangeRates.BtcPrice}} PLN
+  </div>
+  <div id="center">
+    BCC: {{exchangeRates.BccPrice}} PLN
+  </div>
+  <div id="right-center">
+    ETH: {{exchangeRates.EthPrice}} PLN
+  </div>
+  <div id="right">
+    LTC: {{exchangeRates.LtcPrice}} PLN
+  </div>
+</div>
+
+<div id="wrap-bottom" *ngIf="_userService.getCurrentUserFromLocalStorage()" >
+  <div id="bottom-center" *ngFor="let currency of userRequest.OwnedCurrencies">
+    {{currency.Name.toUpperCase()}}: {{currency.AvailableAmount}}
+  </div>
+
+</div>

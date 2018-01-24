@@ -16,6 +16,9 @@ import { TransactionComponent } from './transaction/component/transaction.compon
 import {TransactionService} from './transaction/service/transaction.service';
 import {RouterModule} from '@angular/router';
 import {NavigationService} from './site-navigation/service/navigation.service';
+import {RegisterComponent} from './security/register/component/register.component';
+import {RegisterService} from './security/register/service/register.service';
+import {ExchangeRatesService} from './exchange-rates/exchange-rates.service';
 
 @NgModule({
   declarations: [
@@ -24,6 +27,7 @@ import {NavigationService} from './site-navigation/service/navigation.service';
     LoginComponent,
     MessageComponent,
     TransactionComponent,
+    RegisterComponent,
       ],
   imports: [
     RouterModule,
@@ -37,7 +41,9 @@ import {NavigationService} from './site-navigation/service/navigation.service';
     MessageService,
     AuthenticationService,
     TransactionService,
-    UserService
+    UserService,
+    RegisterService,
+    ExchangeRatesService
   ],
   bootstrap: [AppComponent]
 })

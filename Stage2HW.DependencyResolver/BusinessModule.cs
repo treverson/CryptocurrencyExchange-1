@@ -21,6 +21,7 @@ namespace Stage2HW.DependencyResolver
             Bind<IUserService>().To<UserService>();
             Bind<ITransactionService>().To<TransactionService>();
             Bind<IAuthenticationService>().To<AuthenticationService>();
+            Bind<IWebApiCryptocurrencyExchange>().To<WebApiCryptocurrencyExchange>();
 
             if (_currencyExchangeConfig.ExchangeType == "BitBay")
             {

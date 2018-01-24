@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using Stage2HW.Business.Dtos;
 using Stage2HW.Business.Services.Interfaces;
 using Stage2HW.DataAccess.Models;
@@ -41,8 +42,25 @@ namespace Stage2HW.Business.Services
 
         public void AddUser(UserDto newUser)
         {
+            if (CheckIfUserAlreadyExists(newUser.Login))
+            {
+                throw new Exception("Login already taken!");
+            }
+
             var userEntity = _iMapper.Map<UserDto, User>(newUser);
             _userRepository.AddUser(userEntity);
+        }
+
+        private bool CheckIfUserAlreadyExists(string newUserLogin)
+        {
+            var user = _userRepository.GetUserByLogin(newUserLogin);
+
+            if (user == null)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         public UserDto GetUser(string userNickName, string userPassword)

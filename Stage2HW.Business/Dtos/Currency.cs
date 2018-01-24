@@ -8,5 +8,6 @@ namespace Stage2HW.Business.Dtos
         public double LastPrice { get; set; }
         public int MaxValue { get; set; }
         public int MinValue { get; set; }
+        public double AvailableAmount { get; set; }
     }
 }

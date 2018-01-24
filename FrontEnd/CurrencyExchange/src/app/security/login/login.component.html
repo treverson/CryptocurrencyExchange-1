@@ -1,22 +1,46 @@
-<div class="container" id="loginContainer">
-<form class="form-horizontal" (ngSubmit)=login() #loginForm="ngForm" >
-  <div class="form-group">
-    <label class="control-label col-sm-2" for="login">Login:</label>
-    <div class="col-sm-10">
-      <input [(ngModel)]="userCredentials.Login" type="text" class="form-control" id="login" placeholder="Login" name="login">
-    </div>
-  </div>
-  <div class="form-group">
-    <label class="control-label col-sm-2" for="password">Password:</label>
-    <div class="col-sm-10">
-      <input [(ngModel)]="userCredentials.Password" type="password" class="form-control" id="password" placeholder="Password" name="password">
-    </div>
-  </div>
+<!--<div class="container" id="loginContainer">-->
+<!--<form class="signin" (ngSubmit)=login() #loginForm="ngForm" >-->
+  <!--<div class="form-group">-->
+    <!--<label class="control-label col-sm-2" for="login">Login:</label>-->
+    <!--<div class="col-sm-10">-->
+      <!--<input [(ngModel)]="userCredentials.Login" type="text" class="form-control" id="login" placeholder="Login" name="login">-->
+    <!--</div>-->
+  <!--</div>-->
+  <!--<div class="form-group">-->
+    <!--<label class="control-label col-sm-2" for="password">Password:</label>-->
+    <!--<div class="col-sm-10">-->
+      <!--<input [(ngModel)]="userCredentials.Password" type="password" class="form-control" id="password" placeholder="Password" name="password">-->
+    <!--</div>-->
+  <!--</div>-->
 
-  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" id="loginButton" class="btn btn-default">Login</button>
+  <!--<div class="form-group">-->
+    <!--<div class="col-sm-offset-2 col-sm-10">-->
+      <!--<button type="submit" id="loginButton" class="btn btn-default">Login</button>-->
+    <!--</div>-->
+  <!--</div>-->
+<!--</form>-->
+<!--</div>-->
+
+<!--LOGIN FORM FROM GROUP PROJECT-->
+<div class="container" id="loginContainer">
+  <form class="form-signin" (ngSubmit)="login()" #loginForm="ngForm">
+    <h2 class="form-signin-heading">Please sign in</h2>
+    <div class="form-group">
+      <label class="sr-only" for="login">Login:</label>
+      <label>Login:</label>
+      <input [(ngModel)]="userCredentials.Login" type="text" class="form-control" id="login" name="login"
+             placeholder="Enter login" required>
     </div>
-  </div>
-</form>
+    <div class="form-group">
+      <label class="sr-only" for="password">Password:</label>
+      <label>Password:</label>
+      <input [(ngModel)]="userCredentials.Password" type="password" class="form-control" id="password" name="password"
+             placeholder="Enter password" required>
+    </div>
+    <button type="submit" id="loginButton" class="btn btn-lg btn-primary btn-block" [disabled]="!loginForm.valid">
+      Sign in
+    </button>
+  </form>
 </div>
+
+

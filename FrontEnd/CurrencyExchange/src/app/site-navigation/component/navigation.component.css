@@ -1,0 +1,22 @@
+#wrap, #wrap-bottom {
+  background: #6c8292;
+  padding: 0px;
+  text-align: center;
+  width: 100%;
+  margin: 0 auto;
+  font-weight: bold;
+
+}
+#left, #bottom-center, #right, #center, #left-center, #right-center {
+  display: inline-block;
+  vertical-align: center;
+
+  padding: 10px;
+}
+
+#navbar_loggedout, #navbar_loggedin{
+  line-height: 110px;
+  height: 125px;
+  vertical-align: middle;
+  margin-bottom: 0;
+}

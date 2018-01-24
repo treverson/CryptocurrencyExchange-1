@@ -21,5 +21,5 @@ export class TransactionComponent implements OnInit {
     this.navigationService.showLogoutButton = true;
       this._transactionService.getTransactions().subscribe(data => this.transactions = data);
   }
-
+  
 }
