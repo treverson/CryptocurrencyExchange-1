@@ -1,0 +1,11 @@
+<div *ngIf="userService.getCurrentUserFromLocalStorage()">
+
+
+<div id="wrap-bottom">
+  Owned currencies:
+  <div id="bottom-center" *ngFor="let currency of userRequest.OwnedCurrencies">
+    {{currency.Name.toUpperCase()}}: {{currency.AvailableAmount}}
+  </div>
+
+</div>
+</div>

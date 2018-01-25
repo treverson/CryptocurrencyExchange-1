@@ -38,9 +38,16 @@ namespace Stage2HW.WebApi.AppStart
             );
 
             config.Routes.MapHttpRoute(
-                name: "ControllerAndAction",
-                
+                name: "ControllerIdAction",
+
                 routeTemplate: "Exchange/{controller}/{id}/{action}"
+            );
+
+
+            config.Routes.MapHttpRoute(
+                name: "ControllerAndAction",
+
+                routeTemplate: "Exchange/{controller}/{action}"
             );
 
             config.Services.Replace(typeof(IExceptionHandler), new MyExceptionHandler());

@@ -32,6 +32,8 @@ export class LoginComponent implements OnInit {
       .subscribe(user => {
         if (user.IsAuthenticated) {
           this._userService.setActiveUserInLocalStorage(user);
+         // setTimeout(5000);
+
           this._router.navigateByUrl('/transactions');
           this._messageService.messages = [];
         }

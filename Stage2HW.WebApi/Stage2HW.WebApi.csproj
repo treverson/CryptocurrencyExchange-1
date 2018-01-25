@@ -101,6 +101,7 @@
   <ItemGroup>
     <Compile Include="Bootstrap\NinjectBootstrap.cs" />
     <Compile Include="Configuration\AppConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Controllers\ExchangeRatesController.cs" />
     <Compile Include="Controllers\RegistrationController.cs" />

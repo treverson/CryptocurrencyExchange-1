@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using Stage2HW.Business.Dtos;
 using Stage2HW.Business.Services.Interfaces;
 using Stage2HW.DataAccess.Models;
@@ -14,7 +15,7 @@ namespace Stage2HW.Business.Services
     public class TransactionService : ITransactionService
     {
         private readonly ITransactionRepository _transactionRepository;
-        private readonly IMapper _iMapper;
+        private readonly IMapper _mapper;
         private readonly IExchangeRatesProvider _exchangeRatesProvider;
 
         public TransactionService(ITransactionRepository transactionRepository, IExchangeRatesProvider exchangeRatesProvider)
@@ -24,7 +25,7 @@ namespace Stage2HW.Business.Services
                 cfg.CreateMap<Transaction, TransactionDto>();
                 cfg.CreateMap<TransactionDto, Transaction>();
             });
-            _iMapper = config.CreateMapper();
+            _mapper = config.CreateMapper();
 
             _transactionRepository = transactionRepository;
             _exchangeRatesProvider = exchangeRatesProvider;
@@ -33,7 +34,7 @@ namespace Stage2HW.Business.Services
 
         public void RegisterTransaction(TransactionDto transaction)
         {
-            var transactionEntity = _iMapper.Map<TransactionDto, Transaction>(transaction);
+            var transactionEntity = _mapper.Map<TransactionDto, Transaction>(transaction);
 
             _transactionRepository.RegisterTransaction(transactionEntity);
         }
@@ -46,7 +47,7 @@ namespace Stage2HW.Business.Services
 
             foreach (var transaction in transactionsHistoryEntity)
             {
-                var temp = _iMapper.Map<Transaction, TransactionDto>(transaction);
+                var temp = _mapper.Map<Transaction, TransactionDto>(transaction);
 
                 transactionsHistory.Add(temp);
             }
@@ -75,13 +76,12 @@ namespace Stage2HW.Business.Services
                 Id = id,
             };
 
-
             foreach (var currency in _exchangeRatesProvider.Currencies)
             {
                 var userOwnedCurrency = new OwnedCurrency()
                 {
                     Name = currency.CurrencyName.ToString(),
-                    AvailableAmount = GetUserCryptocurrencyBalance(currency.CurrencyName.ToString(), id),
+                    AvailableAmount = _transactionRepository.GetUserCryptocurrencyBalance(currency.CurrencyName.ToString(), id),
                 };
 
                 userRequest.OwnedCurrencies.Add(userOwnedCurrency);
@@ -105,5 +105,66 @@ namespace Stage2HW.Business.Services
             };
             return newRates;
         }
+
+        public void RegisterFiatTransaction(TransactionDto transaction)
+        {
+            //var availableCurrencies = GetCryptocurrenciesBalance(transaction.UserId).OwnedCurrencies;
+            //var chosenCurrencyAmount = availableCurrencies.SingleOrDefault(c => c.Name == transaction.CurrencyName.ToString()).AvailableAmount;
+
+
+            //if (transaction.Amount < 0 && chosenCurrencyAmount < Math.Abs(transaction.Amount))
+            //{
+            //    throw new Exception("Insufficient funds");
+            //}
+
+            if (transaction.Amount < 0 && GetUserFiatBalance(transaction.UserId) < Math.Abs(transaction.Amount))
+            {
+                throw new Exception("Insufficient funds");
+            }
+
+            transaction.TransactionDate = DateTime.Now;
+            transaction.Fiat = transaction.Amount;
+
+            RegisterTransaction(transaction);
+
+        }
+
+
+        public void RegisterBuyTransaction(TransactionDto transaction)
+        {
+            if (transaction.Amount * transaction.ExchangeRate > GetUserFiatBalance(transaction.UserId))
+            {
+                throw new Exception("Insufficient funds");
+            }
+
+            transaction.TransactionDate = DateTime.Now;
+            transaction.Fiat = -transaction.Amount * transaction.ExchangeRate;
+
+            RegisterTransaction(transaction);
+        }
+
+        public void RegisterSellTransaction(TransactionDto transaction)
+        {
+            var availableCurrencies = GetCryptocurrenciesBalance(transaction.UserId).OwnedCurrencies;
+            var chosenCurrencyAvailableAmount = availableCurrencies.SingleOrDefault(c => c.Name == transaction.CurrencyName.ToString()).AvailableAmount;
+
+            if (chosenCurrencyAvailableAmount < Math.Abs(transaction.Amount))
+            {
+                throw new Exception("Insufficient funds");
+            }
+             
+            transaction.Fiat = transaction.Amount * transaction.ExchangeRate;
+            transaction.Amount = -transaction.Amount;
+            transaction.TransactionDate = DateTime.Now;
+
+            RegisterTransaction(transaction);
+        }
+
+        private double GetUserFiatBalance(int userId)
+        {
+            var fiat = _transactionRepository.GetUserFiatBalance(userId);
+            return fiat;
+        }
+
     }
 }

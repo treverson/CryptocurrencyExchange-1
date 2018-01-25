@@ -19,6 +19,10 @@ import {NavigationService} from './site-navigation/service/navigation.service';
 import {RegisterComponent} from './security/register/component/register.component';
 import {RegisterService} from './security/register/service/register.service';
 import {ExchangeRatesService} from './exchange-rates/exchange-rates.service';
+import { AccountComponent } from './account/component/account/account.component';
+import { PurchasesComponent } from './purchases/purchases/purchases.component';
+import { ExchangeRatesComponent } from './exchange-rates/component/exchange-rates.component';
+import {TransactionsResolver} from './resolvers/transactions/transactions-resolver.service';
 
 @NgModule({
   declarations: [
@@ -28,6 +32,9 @@ import {ExchangeRatesService} from './exchange-rates/exchange-rates.service';
     MessageComponent,
     TransactionComponent,
     RegisterComponent,
+    AccountComponent,
+    PurchasesComponent,
+    ExchangeRatesComponent,
       ],
   imports: [
     RouterModule,
@@ -43,7 +50,8 @@ import {ExchangeRatesService} from './exchange-rates/exchange-rates.service';
     TransactionService,
     UserService,
     RegisterService,
-    ExchangeRatesService
+    ExchangeRatesService,
+    TransactionsResolver
   ],
   bootstrap: [AppComponent]
 })

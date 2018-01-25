@@ -11,5 +11,8 @@ namespace Stage2HW.Business.Services.Interfaces
         void DownloadHistory(string filePath, int activeUserId);
         UserRequest GetCryptocurrenciesBalance(int id);
         ExchangeRates GetExchangeRates();
+        void RegisterFiatTransaction(TransactionDto transaction);
+        void RegisterBuyTransaction(TransactionDto transaction);
+        void RegisterSellTransaction(TransactionDto transaction);
     }
 }

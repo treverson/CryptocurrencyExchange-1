@@ -15,19 +15,11 @@ namespace Stage2HW.WebApi.Controllers
         }
 
         [HttpGet]
-        [ActionName("transactions")]
         public IEnumerable<TransactionDto> GetUserTransactions(int id)
         {
             return _transactionService.GetTransactionHistory(id);
         }
-
-        [HttpGet]
-        [ActionName("balance")]
-        public UserRequest GetUserCryptocurrencies(int id)
-        {
-            return _transactionService.GetCryptocurrenciesBalance(id);
-        }
-
+        
         //[HttpGet]
         //[ActionName("balance")]
         //public UserRequest GetUserCryptocurrencies(int id)
@@ -36,9 +28,24 @@ namespace Stage2HW.WebApi.Controllers
         //}
 
         [HttpPost]
+        [ActionName("fiat")]
         public void RegisterTransaction(TransactionDto transaction)
         {
-            _transactionService.RegisterTransaction(transaction);
+            _transactionService.RegisterFiatTransaction(transaction);
+        }
+
+        [HttpPost]
+        [ActionName("buy")]
+        public void RegisterBuyTransaction(TransactionDto transaction)
+        {
+            _transactionService.RegisterBuyTransaction(transaction);
+        }
+
+        [HttpPost]
+        [ActionName("sell")]
+        public void RegisterSellTransaction(TransactionDto transaction)
+        {
+            _transactionService.RegisterSellTransaction(transaction);
         }
     }
 }

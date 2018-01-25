@@ -1,0 +1,65 @@
+<app-exchange-rates></app-exchange-rates>
+<app-account></app-account>
+
+<h2>Choose transaction: </h2>
+
+<form class="form-deposit" (ngSubmit)="deposit()" #depositForm="ngForm">
+  <div class="form-group">
+    <label class="sr-only" for="deposit"></label>
+    <label>Deposit PLN:</label>
+    <input [(ngModel)]="depositAmount" type="text" class="form-control" id="deposit" name="deposit"
+           placeholder="amount" required>
+  </div>
+  <button type="submit" id="depositButton" class="btn btn-lg btn-primary btn-block" [disabled]="!depositForm.valid">
+    Deposit
+  </button>
+</form>
+<form class="form-withdraw" (ngSubmit)="withdraw()" #withdrawForm="ngForm">
+  <div class="form-group">
+    <label class="sr-only" for="withdraw"></label>
+    <label>Withdraw PLN:</label>
+    <input [(ngModel)]="withdrawAmount" type="text" class="form-control" id="withdraw" name="withdraw"
+           placeholder="amount" required>
+  </div>
+  <button type="submit" id="withdrawButton" class="btn btn-lg btn-primary btn-block" [disabled]="!withdrawForm.valid">
+    Withdraw
+  </button>
+</form>
+
+
+<select [(ngModel)]="selectedCurrencyToBuy" name="currencyToBuy">
+  <option *ngFor="let currency of availableCurrencies" [ngValue]="currency" id="chooseCurrencyToBuy">
+    {{currency.Name}}
+  </option>
+</select>
+
+<form class="form-buy" (ngSubmit)="buy()" #buyForm="ngForm">
+  <div class="form-group">
+    <label class="sr-only" for="buy"></label>
+    <label>Buy:</label>
+    <input [(ngModel)]="amountToBuy" type="text" class="form-control" id="buy" name="buy"
+           placeholder="amount" required>
+  </div>
+  <button type="submit" id="buyButton" class="btn btn-lg btn-primary btn-block" [disabled]="!buyForm.valid">
+    Buy
+  </button>
+</form>
+
+
+<select [(ngModel)]="selectedCurrencyToSell" name="currencyToSell">
+  <option *ngFor="let currency of userOwnedCurrencies" [ngValue]="currency" id="chooseCurrencyToSell">
+    {{currency.Name}}
+  </option>
+</select>
+
+<form class="form-sell" (ngSubmit)="sell()" #sellForm="ngForm">
+  <div class="form-group">
+    <label class="sr-only" for="sell"></label>
+    <label>Sell:</label>
+    <input [(ngModel)]="amountToSell" type="text" class="form-control" id="sell" name="sell"
+           placeholder="amount" required></div>
+  <button type="submit" id="sellButton" class="btn btn-lg btn-primary btn-block" [disabled]="!sellForm.valid">
+    Sell
+  </button>
+</form>
+
