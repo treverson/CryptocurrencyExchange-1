@@ -11,11 +11,11 @@ import {UserAccountComponent} from '../user-account/user-account/user-account.co
 
 const routes: Routes = [
 
-  {path: 'transactions', component: TransactionComponent, resolve: {userhistory: TransactionsResolver}},
+  {path: 'transactions', canActivate: [AuthorizationGuard], component: TransactionComponent, resolve: {userhistory: TransactionsResolver}},
   {path: 'login', component: LoginComponent },
   {path: 'register', component: RegisterComponent},
-  {path: 'account', component: UserAccountComponent},
-  {path: 'purchases', component: PurchasesComponent},
+  {path: 'account', canActivate: [AuthorizationGuard], component: UserAccountComponent},
+  {path: 'purchases', canActivate: [AuthorizationGuard], component: PurchasesComponent},
 ];
 
 @NgModule({
