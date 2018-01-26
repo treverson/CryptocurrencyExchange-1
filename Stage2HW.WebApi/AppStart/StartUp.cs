@@ -57,9 +57,6 @@ namespace Stage2HW.WebApi.AppStart
             appBuilder.UseNinjectMiddleware(NinjectBootstrap.GetKernel).UseNinjectWebApi(config);
 
             appBuilder.UseWebApi(config);
-
-
-
         }
 
         public class MyExceptionHandler : ExceptionHandler

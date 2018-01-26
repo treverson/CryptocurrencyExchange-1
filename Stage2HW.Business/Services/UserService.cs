@@ -74,7 +74,6 @@ namespace Stage2HW.Business.Services
             return userDto;
         }
 
-        //new method
         public bool CheckUserPassword(UserDto userDto)
         {
             var userEntity = _iMapper.Map<UserDto, User>(userDto);

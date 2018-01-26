@@ -14,7 +14,7 @@ namespace Stage2HW.WebApi.Controllers
         }
 
         [HttpPost]
-        public AuthenticatedUserDto AuthenticateUser(/*[FromBody] */UserDto user)
+        public AuthenticatedUserDto AuthenticateUser(UserDto user)
         {
             return _authenticationService.AuthenticateUser(user);
         }

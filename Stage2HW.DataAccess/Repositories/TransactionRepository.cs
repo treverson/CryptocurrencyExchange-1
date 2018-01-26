@@ -62,7 +62,6 @@ namespace Stage2HW.DataAccess.Repositories
                 {
                     return 0;
                 }
-               // return Math.Round(dbContext.TransactionsDbSet.Where(c => c.CurrencyName == currencyName && c.UserId == userId).Sum(x => x.Amount), 7);
             }
         }
 

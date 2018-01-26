@@ -16,8 +16,7 @@ namespace Stage2HW.WebApi.Controllers
         [HttpGet]
         public ExchangeRates GetExchangeRates()
         {
-            var dupa = _transactionService.GetExchangeRates();
-            return dupa;
+            return _transactionService.GetExchangeRates();
         }
     }
 }

@@ -114,15 +114,6 @@ namespace Stage2HW.Business.Services
 
         public void RegisterFiatTransaction(TransactionDto transaction)
         {
-            //var availableCurrencies = GetCryptocurrenciesBalance(transaction.UserId).OwnedCurrencies;
-            //var chosenCurrencyAmount = availableCurrencies.SingleOrDefault(c => c.Name == transaction.CurrencyName.ToString()).AvailableAmount;
-
-
-            //if (transaction.Amount < 0 && chosenCurrencyAmount < Math.Abs(transaction.Amount))
-            //{
-            //    throw new Exception("Insufficient funds");
-            //}
-
             if (transaction.Amount < 0 && GetUserFiatBalance(transaction.UserId) < Math.Abs(transaction.Amount))
             {
                 throw new Exception("Insufficient funds");
@@ -132,7 +123,6 @@ namespace Stage2HW.Business.Services
             transaction.Fiat = transaction.Amount;
 
             RegisterTransaction(transaction);
-
         }
 
 
@@ -171,6 +161,5 @@ namespace Stage2HW.Business.Services
             var fiat = _transactionRepository.GetUserFiatBalance(userId);
             return fiat;
         }
-
     }
 }

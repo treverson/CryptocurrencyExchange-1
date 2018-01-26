@@ -20,15 +20,12 @@ export class TransactionService {
   getTransactions(): Observable<Transaction[]> {
     this.existingEntry = localStorage.getItem('user');
     this.userJson = JSON.parse(this.existingEntry) as User;
-    // const existingEntry = localStorage.getItem('user');
-    // const userJson = JSON.parse(existingEntry) as User;
+
     return this.http.get<Transaction[]>(environment.cryptocurrencyApi + '/UserTransactions/' + this.userJson.UserId);
   }
 
   getUserCryptoBalance(): Observable<UserRequest> {
-    // const existingEntry = localStorage.getItem('user');
-    //  const userJson = JSON.parse(existingEntry) as User;
-    //  return this.http.get<UserRequest>(environment.cryptocurrencyApi + '/UserTransactions/' + this.userJson.UserId + '/balance');
+
     return this.http.get<UserRequest>(environment.cryptocurrencyApi + '/account/' + this.userJson.UserId);
 
   }

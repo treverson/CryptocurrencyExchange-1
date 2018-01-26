@@ -14,8 +14,6 @@ namespace Stage2HW.WebApi.Bootstrap
         {
             var kernel = new StandardKernel(new WebApiModules(CurrencyExchangeConfig), new BusinessModule(CurrencyExchangeConfig), new DataAccessModule(CurrencyExchangeConfig));
 
-           // kernel.Bind<IWebApiCryptocurrencyExchange>().To<WebApiCryptocurrencyExchange>();
-
             return kernel;
         }
     }

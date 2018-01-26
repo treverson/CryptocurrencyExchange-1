@@ -8,7 +8,6 @@ namespace Stage2HW.DataAccess.Repositories.Interfaces
         IEnumerable<Transaction> GetTransactionsHistory(int activeUserId);
         void RegisterTransaction(Transaction transaction);
         double GetUserCryptocurrencyBalance(string currencyName, int userId);
-        void RegisterWebTransaction(Transaction transactionEntity);
         double GetUserFiatBalance(int userId);
     }
 }

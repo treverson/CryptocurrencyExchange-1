@@ -18,8 +18,6 @@ namespace Stage2HW.Business.Services
         public void RunExchange()
         {
             _exchangeRatesProvider.NewExchangeRatesEvent += UpdateValues;
-
-            //_exchangeRatesProvider.NewExchangeRatesEvent -= UpdateValues;
         }
         
         public void UpdateValues(NewExchangeRatesEventArgs e)
@@ -37,8 +35,6 @@ namespace Stage2HW.Business.Services
 
             _exchangeRatesProvider.Currencies.Single(c => c.CurrencyName == CurrencyNameEnum.Ltc).LastPrice =
                 e.CurrenciesList.Single(c => c.CurrencyName == CurrencyNameEnum.Ltc).LastPrice;
-
         }
-
     }
 }

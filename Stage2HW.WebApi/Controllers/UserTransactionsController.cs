@@ -19,13 +19,6 @@ namespace Stage2HW.WebApi.Controllers
         {
             return _transactionService.GetTransactionHistory(id);
         }
-        
-        //[HttpGet]
-        //[ActionName("balance")]
-        //public UserRequest GetUserCryptocurrencies(int id)
-        //{
-        //    return _transactionService.GetCryptocurrenciesBalance(id);
-        //}
 
         [HttpPost]
         [ActionName("fiat")]

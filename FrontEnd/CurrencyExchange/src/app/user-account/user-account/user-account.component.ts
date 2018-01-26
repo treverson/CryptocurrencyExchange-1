@@ -1,18 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import {UserService} from '../../../security/user-service/user.service';
-import {ExchangeRatesService} from '../../../exchange-rates/exchange-rates.service';
-import {ExchangeRates} from '../../../exchange-rates/exchange-rates';
-import {UserRequest} from '../../../transaction/user-request';
-import {TransactionService} from '../../../transaction/service/transaction.service';
-import {User} from '../../../security/user';
+import {UserRequest} from '../../transaction/user-request';
 import {ActivatedRoute} from '@angular/router';
+import {TransactionService} from '../../transaction/service/transaction.service';
+import {UserService} from '../../security/user-service/user.service';
 
 @Component({
-  selector: 'app-account',
-  templateUrl: './account.component.html',
-  styleUrls: ['./account.component.css']
+  selector: 'app-user-account',
+  templateUrl: './user-account.component.html',
+  styleUrls: ['./user-account.component.css']
 })
-export class AccountComponent implements OnInit {
+export class UserAccountComponent implements OnInit {
+
   userRequest: UserRequest = new UserRequest();
 
   constructor(public userService: UserService,

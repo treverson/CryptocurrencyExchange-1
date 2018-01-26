@@ -49,11 +49,6 @@ namespace Stage2HW.DataAccess.Repositories
             return Math.Round(foundCurrencies.Sum(x => x.Amount), 7);
         }
 
-        public void RegisterWebTransaction(Transaction transactionEntity)
-        {
-            //
-        }
-
         public double GetUserFiatBalance(int userId)
         {
             return 0;

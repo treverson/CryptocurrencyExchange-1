@@ -6,7 +6,6 @@ import {TransactionService} from '../../transaction/service/transaction.service'
 import {Transaction} from '../../transaction/transaction';
 import {Router} from '@angular/router';
 import {OwnedCurrency} from '../../transaction/owned-currency';
-import {AccountComponent} from '../../account/component/account/account.component';
 
 @Component({
   selector: 'app-purchases',
@@ -17,8 +16,7 @@ export class PurchasesComponent implements OnInit {
 
   constructor(private exchangeRatesService: ExchangeRatesService,
               private transactionService: TransactionService,
-              private router: Router,
-              private dupa: AccountComponent) {
+              private router: Router) {
   }
 
   userRequest = new UserRequest();
