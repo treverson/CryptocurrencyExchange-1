@@ -1,7 +1,8 @@
 <app-exchange-rates></app-exchange-rates>
 <app-account></app-account>
 
-<h2>Choose transaction: </h2>
+<div id="wrap">
+  <h2>Choose transaction: </h2>
 
 <form class="form-deposit" (ngSubmit)="deposit()" #depositForm="ngForm">
   <div class="form-group">
@@ -25,41 +26,54 @@
     Withdraw
   </button>
 </form>
+</div>
 
+<div id="wrap-bottom">
 
-<select [(ngModel)]="selectedCurrencyToBuy" name="currencyToBuy">
-  <option *ngFor="let currency of availableCurrencies" [ngValue]="currency" id="chooseCurrencyToBuy">
-    {{currency.Name}}
-  </option>
-</select>
+  <div id="left">
+    <label>Choose cryptocurrency to buy:</label>
 
-<form class="form-buy" (ngSubmit)="buy()" #buyForm="ngForm">
-  <div class="form-group">
-    <label class="sr-only" for="buy"></label>
-    <label>Buy:</label>
-    <input [(ngModel)]="amountToBuy" type="text" class="form-control" id="buy" name="buy"
-           placeholder="amount" required>
+    <form class="form-buy" (ngSubmit)="buy()" #buyForm="ngForm">
+      <select [(ngModel)]="selectedCurrencyToBuy" name="currencyToBuy">
+        <option *ngFor="let currency of availableCurrencies" [ngValue]="currency" id="chooseCurrencyToBuy">
+          {{currency.Name}}
+        </option>
+      </select>
+      <div class="form-group">
+        <label class="sr-only" for="buy"></label>
+        <label>Buy:</label>
+        <input [(ngModel)]="amountToBuy" type="text" class="form-control" id="buy" name="buy"
+               placeholder="amount" required>
+      </div>
+      <button type="submit" id="buyButton" class="btn btn-lg btn-primary btn-block" [disabled]="!buyForm.valid">
+        Buy
+      </button>
+    </form>
   </div>
-  <button type="submit" id="buyButton" class="btn btn-lg btn-primary btn-block" [disabled]="!buyForm.valid">
-    Buy
-  </button>
-</form>
 
 
-<select [(ngModel)]="selectedCurrencyToSell" name="currencyToSell">
-  <option *ngFor="let currency of userOwnedCurrencies" [ngValue]="currency" id="chooseCurrencyToSell">
-    {{currency.Name}}
-  </option>
-</select>
+  <div id="right">
+    <label>Choose cryptocurrency to sell:</label>
 
-<form class="form-sell" (ngSubmit)="sell()" #sellForm="ngForm">
-  <div class="form-group">
-    <label class="sr-only" for="sell"></label>
-    <label>Sell:</label>
-    <input [(ngModel)]="amountToSell" type="text" class="form-control" id="sell" name="sell"
-           placeholder="amount" required></div>
-  <button type="submit" id="sellButton" class="btn btn-lg btn-primary btn-block" [disabled]="!sellForm.valid">
-    Sell
-  </button>
-</form>
-
+    <form class="form-sell" (ngSubmit)="sell()" #sellForm="ngForm">
+      <select [(ngModel)]="selectedCurrencyToSell" name="currencyToSell">
+        <option *ngFor="let currency of userOwnedCurrencies" [ngValue]="currency" id="chooseCurrencyToSell">
+          {{currency.Name}}
+        </option>
+      </select>
+      <!--<select [(ngModel)]="selectedCurrencyToSell" name="currencyToSell">-->
+        <!--<option *ngFor="let currency of userOwnedCurrencies" [ngValue]="currency" id="chooseCurrencyToSell">-->
+          <!--{{currency.Name}}-->
+        <!--</option>-->
+      <!--</select>-->
+      <div class="form-group">
+        <label class="sr-only" for="sell"></label>
+        <label>Sell:</label>
+        <input [(ngModel)]="amountToSell" type="text" class="form-control" id="sell" name="sell"
+               placeholder="amount" required></div>
+      <button type="submit" id="sellButton" class="btn btn-lg btn-primary btn-block" [disabled]="!sellForm.valid">
+        Sell
+      </button>
+    </form>
+  </div>
+</div>

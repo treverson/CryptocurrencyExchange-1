@@ -76,6 +76,12 @@ namespace Stage2HW.Business.Services
                 Id = id,
             };
 
+            userRequest.OwnedCurrencies.Add(new OwnedCurrency()
+            {
+                Name = CurrencyNameEnum.Pln.ToString(),
+               AvailableAmount = GetUserFiatBalance(id)
+            });
+
             foreach (var currency in _exchangeRatesProvider.Currencies)
             {
                 var userOwnedCurrency = new OwnedCurrency()

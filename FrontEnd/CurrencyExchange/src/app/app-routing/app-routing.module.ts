@@ -10,11 +10,12 @@ import {PurchasesComponent} from '../purchases/purchases/purchases.component';
 import {TransactionsResolver} from '../resolvers/transactions/transactions-resolver.service';
 
 const routes: Routes = [
-  {path: 'transactions', component: TransactionComponent, resolve: {userhistory: TransactionsResolver}},
+
+  {path: 'transactions', canActivate: [AuthorizationGuard], component: TransactionComponent, resolve: {userhistory: TransactionsResolver}},
   {path: 'login', component: LoginComponent },
   {path: 'register', component: RegisterComponent},
-  {path: 'account', component: AccountComponent},
-  {path: 'purchases', component: PurchasesComponent}
+  {path: 'account', canActivate: [AuthorizationGuard], component: AccountComponent},
+  {path: 'purchases', canActivate: [AuthorizationGuard], component: PurchasesComponent},
 ];
 
 @NgModule({

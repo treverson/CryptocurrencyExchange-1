@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './site-navigation/component/navigation.component';
 import {HttpClientModule} from '@angular/common/http';

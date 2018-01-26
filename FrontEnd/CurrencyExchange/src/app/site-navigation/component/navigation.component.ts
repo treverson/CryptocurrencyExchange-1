@@ -49,6 +49,9 @@ export class NavigationComponent implements OnInit {
     this._router.navigateByUrl('/purchases');
   }
 
+  buySellCryptos() {
+    this._router.navigateByUrl('/cryptos');
+  }
   ngOnInit() {
 
   }

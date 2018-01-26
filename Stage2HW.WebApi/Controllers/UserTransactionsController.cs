@@ -36,16 +36,16 @@ namespace Stage2HW.WebApi.Controllers
 
         [HttpPost]
         [ActionName("buy")]
-        public void RegisterBuyTransaction(TransactionDto transaction)
+        public void RegisterBuyTransaction(TransactionDto buyTransaction)
         {
-            _transactionService.RegisterBuyTransaction(transaction);
+            _transactionService.RegisterBuyTransaction(buyTransaction);
         }
 
         [HttpPost]
         [ActionName("sell")]
-        public void RegisterSellTransaction(TransactionDto transaction)
+        public void RegisterSellTransaction(TransactionDto sellTransaction)
         {
-            _transactionService.RegisterSellTransaction(transaction);
+            _transactionService.RegisterSellTransaction(sellTransaction);
         }
     }
 }

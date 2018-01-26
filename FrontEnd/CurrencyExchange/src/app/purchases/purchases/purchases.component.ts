@@ -6,7 +6,7 @@ import {TransactionService} from '../../transaction/service/transaction.service'
 import {Transaction} from '../../transaction/transaction';
 import {Router} from '@angular/router';
 import {OwnedCurrency} from '../../transaction/owned-currency';
-import {forEach} from '@angular/router/src/utils/collection';
+import {AccountComponent} from '../../account/component/account/account.component';
 
 @Component({
   selector: 'app-purchases',
@@ -17,7 +17,8 @@ export class PurchasesComponent implements OnInit {
 
   constructor(private exchangeRatesService: ExchangeRatesService,
               private transactionService: TransactionService,
-              private router: Router) {
+              private router: Router,
+              private dupa: AccountComponent) {
   }
 
   userRequest = new UserRequest();
@@ -29,11 +30,12 @@ export class PurchasesComponent implements OnInit {
   withdrawAmount: number;
   amountToSell: number;
   amountToBuy: number;
-  selectedCurrencyToBuy: string;
-  selectedCurrencyToSell: string;
+  selectedCurrencyToBuy: OwnedCurrency;
+  selectedCurrencyToSell: OwnedCurrency;
 
   ngOnInit() {
     this.exchangeRatesService.getExchangeRates().subscribe(data => this.currentPrices = data);
+
     this.transactionService.getUserCryptoBalance().subscribe(data => {
       this.userRequest = data;
       this.availableCurrencies = data.OwnedCurrencies.filter(curr => curr.Name !== 'Pln');
@@ -59,11 +61,35 @@ export class PurchasesComponent implements OnInit {
     }, err => alert('Insufficient funds'));
   }
 
+  assignCurrencyExchangeRate() {
+
+    switch (this.transaction.CurrencyName) {
+    case 'Btc':
+      this.transaction.ExchangeRate = this.currentPrices.BtcPrice;
+    break;
+    case 'Bcc':
+      this.transaction.ExchangeRate = this.currentPrices.BccPrice;
+    break;
+    case 'Eth':
+      this.transaction.ExchangeRate = this.currentPrices.EthPrice;
+    break;
+    case 'Ltc':
+      this.transaction.ExchangeRate = this.currentPrices.LtcPrice;
+    break;
+  }
+
+  }
+
   buy() {
-    this.transaction.CurrencyName = this.selectedCurrencyToBuy;
+    this.transaction.CurrencyName = this.selectedCurrencyToBuy.Name;
     this.transaction.Amount = this.amountToBuy;
 
-    this.transactionService.BuyTransaction(this.transaction).subscribe(resp => {
+    this.assignCurrencyExchangeRate();
+
+    this.transaction.Fiat = -this.transaction.ExchangeRate * this.transaction.Amount;
+
+
+    this.transactionService.registerBuyTransaction(this.transaction).subscribe(resp => {
       this.transaction = new Transaction();
       this.router.navigateByUrl('/transactions');
     }, err => alert('Insufficient funds'));
@@ -71,8 +97,13 @@ export class PurchasesComponent implements OnInit {
   }
 
   sell() {
-    this.transaction.CurrencyName = this.selectedCurrencyToSell;
+    this.transaction.CurrencyName = this.selectedCurrencyToSell.Name;
     this.transaction.Amount = this.amountToSell;
+
+    this.assignCurrencyExchangeRate();
+
+    this.transaction.Fiat = this.transaction.ExchangeRate * this.transaction.Amount;
+
 
     this.transactionService.registerSellTransaction(this.transaction).subscribe(resp => {
       this.transaction = new Transaction();

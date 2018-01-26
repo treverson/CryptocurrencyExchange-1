@@ -62,10 +62,10 @@ namespace Stage2HW.Business.Services
 
         private void InitializeCryptocurrencies()
         {
-            Currency pln = new Currency
-            {
-                CurrencyName = CurrencyNameEnum.Pln,
-            };
+            //Currency pln = new Currency
+            //{
+            //    CurrencyName = CurrencyNameEnum.Pln,
+            //};
 
             Currency bitCoin = new Currency
             {
@@ -89,7 +89,7 @@ namespace Stage2HW.Business.Services
 
             Currencies = new List<Currency>
             {
-                pln,
+               // pln,
                 bitCoin,
                 bitCoinCash,
                 ethereum,
