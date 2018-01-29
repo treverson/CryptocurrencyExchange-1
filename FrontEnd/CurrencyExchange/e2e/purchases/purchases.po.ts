@@ -5,7 +5,8 @@ export class PurchasesPage {
     return browser.get('/purchases');
   }
 
-  isTransactionListPresent() {
-    return element(by.id('transactionsTable')).isPresent();
+  areTransactionFormsPresent() {
+
+    return element(by.id('cryptoForms') && by.id('plnForms')).isPresent();
   }
 }

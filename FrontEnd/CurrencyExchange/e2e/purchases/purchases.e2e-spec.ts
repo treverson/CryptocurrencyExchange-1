@@ -1,17 +1,14 @@
-import {LoginPage} from './purchases.po';
+import {PurchasesPage} from './purchases.po';
 
-describe('Login page', () => {
-  let page: LoginPage;
+describe('Purchases page', () => {
+  let page: PurchasesPage;
 
-  beforeEach(() => {page = new LoginPage(); });
+  beforeEach(() => {page = new PurchasesPage(); });
 
-  it('should login user', () => {
+  it('should show purchase forms', () => {
     page.navigateTo();
 
-    page.setLogin('tmx');
-    page.setPassword('asd');
-    page.login();
-    expect(page.isTransactionListPresent()).toBe(true);
+    expect(page.areTransactionFormsPresent()).toBe(true);
 
   });
 });
