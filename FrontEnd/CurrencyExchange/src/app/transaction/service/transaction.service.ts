@@ -14,12 +14,15 @@ export class TransactionService {
 
   existingEntry: string;
   userJson: any;
-  //existingEntry: string = localStorage.getItem('user');
-  //userJson = JSON.parse(this.existingEntry) as User;
 
-  getTransactions(): Observable<Transaction[]> {
+  getUserFromLocalStorage() {
     this.existingEntry = localStorage.getItem('user');
     this.userJson = JSON.parse(this.existingEntry) as User;
+  }
+
+
+  getTransactions(): Observable<Transaction[]> {
+    this.getUserFromLocalStorage();
 
     return this.http.get<Transaction[]>(environment.cryptocurrencyApi + '/UserTransactions/' + this.userJson.UserId);
   }
@@ -31,23 +34,24 @@ export class TransactionService {
   }
 
   registerTransaction(transaction: Transaction): Observable<Transaction> {
-    this.existingEntry = localStorage.getItem('user');
-    this.userJson = JSON.parse(this.existingEntry) as User;
+
+    this.getUserFromLocalStorage();
+
     transaction.UserId = this.userJson.UserId;
     return this.http.post<Transaction>(environment.cryptocurrencyApi + '/UserTransactions/' + this.userJson.UserId + '/fiat', transaction);
   }
 
   registerBuyTransaction(buyTransaction: Transaction): Observable<Transaction> {
-    this.existingEntry = localStorage.getItem('user');
-    this.userJson = JSON.parse(this.existingEntry) as User;
+    this.getUserFromLocalStorage();
+
     buyTransaction.UserId = this.userJson.UserId;
     return this.http.post<Transaction>(
       environment.cryptocurrencyApi + '/UserTransactions/' + this.userJson.UserId + '/buy', buyTransaction);
   }
 
   registerSellTransaction(sellTransaction: Transaction): Observable<Transaction> {
-    this.existingEntry = localStorage.getItem('user');
-    this.userJson = JSON.parse(this.existingEntry) as User;
+    this.getUserFromLocalStorage();
+
     sellTransaction.UserId = this.userJson.UserId;
     return this.http.post<Transaction>(
       environment.cryptocurrencyApi + '/UserTransactions/' + this.userJson.UserId + '/sell', sellTransaction);
