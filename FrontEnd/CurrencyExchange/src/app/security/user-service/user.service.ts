@@ -11,7 +11,7 @@ export class UserService {
     localStorage.setItem('user', userJson);
   }
 
-  getCurrentUserFromLocalStorage(): User {
+  getCurrentUserFromLocalStorage() {
     const userJson = localStorage.getItem('user');
     if (userJson) {
       return JSON.parse(userJson) as User;

@@ -101,15 +101,21 @@
   <ItemGroup>
     <Compile Include="Bootstrap\NinjectBootstrap.cs" />
     <Compile Include="Configuration\AppConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
+    <Compile Include="Controllers\ExchangeRatesController.cs" />
+    <Compile Include="Controllers\RegistrationController.cs" />
     <Compile Include="Controllers\StatusController.cs" />
     <Compile Include="Controllers\UserTransactionsController.cs" />
+    <Compile Include="Modules\WebApiModules.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AppStart\StartUp.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
@@ -117,6 +123,10 @@
     <ProjectReference Include="..\Stage2HW.Business\Stage2HW.Business.csproj">
       <Project>{32c496f0-9bc4-4006-bf4d-fc4eb83bc10c}</Project>
       <Name>Stage2HW.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Stage2HW.Cli\Stage2HW.Cli.csproj">
+      <Project>{8228f647-03d2-4a49-8f5d-b26e463b2103}</Project>
+      <Name>Stage2HW.Cli</Name>
     </ProjectReference>
     <ProjectReference Include="..\Stage2HW.DataAccess\Stage2HW.DataAccess.csproj">
       <Project>{85c1107f-9acc-41f5-8384-88d457131a25}</Project>

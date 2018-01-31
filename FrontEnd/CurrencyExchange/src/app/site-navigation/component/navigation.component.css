@@ -1,0 +1,8 @@
+
+
+#navbar_loggedout, #navbar_loggedin{
+  line-height: 110px;
+  height: 125px;
+  vertical-align: middle;
+  margin-bottom: 0;
+}

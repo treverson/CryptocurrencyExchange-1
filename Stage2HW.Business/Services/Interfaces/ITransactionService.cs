@@ -9,5 +9,10 @@ namespace Stage2HW.Business.Services.Interfaces
         void RegisterTransaction(TransactionDto transaction);
         double GetUserCryptocurrencyBalance(string currencyName, int userId);
         void DownloadHistory(string filePath, int activeUserId);
+        UserRequest GetCryptocurrenciesBalance(int id);
+        ExchangeRates GetExchangeRates();
+        void RegisterFiatTransaction(TransactionDto transaction);
+        void RegisterBuyTransaction(TransactionDto transaction);
+        void RegisterSellTransaction(TransactionDto transaction);
     }
 }

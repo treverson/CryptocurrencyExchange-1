@@ -18,12 +18,12 @@ export class AuthenticationService {
   login(credentials: UserCredentials): Observable<User> {
     return this.http.post<any>(environment.cryptocurrencyApi + '/authentication', credentials)
                     .pipe( map(response => {
-                                                      return new User(response.UserId, response.Login, response.IsAuthenticated);
+                                                      return new User(response.UserId, response.Login, response.Name, response.IsAuthenticated);
                                                    } ));
   }
 
   logout() {
     this.userService.removeUserFromLocalStorage();
-    this.router.navigateByUrl('');
+    this.router.navigateByUrl('/login');
   }
 }

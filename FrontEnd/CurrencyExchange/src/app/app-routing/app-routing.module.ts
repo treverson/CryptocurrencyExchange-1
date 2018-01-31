@@ -4,13 +4,18 @@ import {RouterModule, Routes} from '@angular/router';
 import {LoginComponent} from '../security/login/login.component';
 import {TransactionComponent} from '../transaction/component/transaction.component';
 import {AuthorizationGuard} from '../security/authorization/authorization.guard';
+import {RegisterComponent} from '../security/register/component/register.component';
+import {PurchasesComponent} from '../purchases/purchases/purchases.component';
+import {TransactionsResolver} from '../resolvers/transactions/transactions-resolver.service';
+import {UserAccountComponent} from '../user-account/user-account/user-account.component';
 
 const routes: Routes = [
-  {path: 'transactions', component: TransactionComponent, canActivate: [AuthorizationGuard], canActivateChild: [AuthorizationGuard],
-    children:
-      [{path: ':id', redirectTo: 'transactions' }]},
-  {path: 'login', component: LoginComponent }
 
+  {path: 'transactions', canActivate: [AuthorizationGuard], component: TransactionComponent, resolve: {userhistory: TransactionsResolver}},
+  {path: 'login', component: LoginComponent },
+  {path: 'register', component: RegisterComponent},
+  {path: 'account', canActivate: [AuthorizationGuard], component: UserAccountComponent},
+  {path: 'purchases', canActivate: [AuthorizationGuard], component: PurchasesComponent},
 ];
 
 @NgModule({

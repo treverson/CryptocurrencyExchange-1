@@ -1,0 +1,17 @@
+<div id="wrap" *ngIf="userService.getCurrentUserFromLocalStorage()">
+  <div id="left">
+    Current prices:
+  </div>
+  <div id="left-center">
+    BTC: {{exchangeRates.BtcPrice}} PLN
+  </div>
+  <div id="center">
+    BCC: {{exchangeRates.BccPrice}} PLN
+  </div>
+  <div id="right-center">
+    ETH: {{exchangeRates.EthPrice}} PLN
+  </div>
+  <div id="right">
+    LTC: {{exchangeRates.LtcPrice}} PLN
+  </div>
+</div>

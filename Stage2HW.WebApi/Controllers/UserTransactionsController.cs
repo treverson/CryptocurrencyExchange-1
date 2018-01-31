@@ -19,5 +19,26 @@ namespace Stage2HW.WebApi.Controllers
         {
             return _transactionService.GetTransactionHistory(id);
         }
+
+        [HttpPost]
+        [ActionName("fiat")]
+        public void RegisterTransaction(TransactionDto transaction)
+        {
+            _transactionService.RegisterFiatTransaction(transaction);
+        }
+
+        [HttpPost]
+        [ActionName("buy")]
+        public void RegisterBuyTransaction(TransactionDto buyTransaction)
+        {
+            _transactionService.RegisterBuyTransaction(buyTransaction);
+        }
+
+        [HttpPost]
+        [ActionName("sell")]
+        public void RegisterSellTransaction(TransactionDto sellTransaction)
+        {
+            _transactionService.RegisterSellTransaction(sellTransaction);
+        }
     }
 }

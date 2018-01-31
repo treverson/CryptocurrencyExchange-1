@@ -48,5 +48,10 @@ namespace Stage2HW.DataAccess.Repositories
             var foundCurrencies =  TableReference.CreateQuery<CloudTransaction>().Where(u=>u.UserId == userId).Where(c => c.CurrencyName == currencyName).ToList();
             return Math.Round(foundCurrencies.Sum(x => x.Amount), 7);
         }
+
+        public double GetUserFiatBalance(int userId)
+        {
+            return 0;
+        }
     }
 }

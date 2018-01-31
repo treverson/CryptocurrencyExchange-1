@@ -1,0 +1,18 @@
+#plnForms, #cryptoForms {
+  padding: 0px;
+  text-align: center;
+  width: 100%;
+  margin: 0 auto;
+  font-weight: bold;
+
+}
+#left, #bottom-center, #right, #center, #left-center, #right-center, .form-deposit, .form-withdraw {
+  display: inline-block;
+  vertical-align: center;
+  padding: 10px;
+}
+#top-left, #top-right{
+  vertical-align: top;
+
+  padding: 10px;
+}

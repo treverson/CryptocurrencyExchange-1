@@ -2,6 +2,7 @@
 using Stage2HW.Business.Services.Interfaces;
 using Stage2HW.DependencyResolver;
 using Stage2HW.WebApi.Configuration;
+using Stage2HW.WebApi.Modules;
 
 namespace Stage2HW.WebApi.Bootstrap
 {
@@ -11,7 +12,7 @@ namespace Stage2HW.WebApi.Bootstrap
 
         public static IKernel GetKernel()
         {
-            var kernel = new StandardKernel(new BusinessModule(CurrencyExchangeConfig), new DataAccessModule(CurrencyExchangeConfig));
+            var kernel = new StandardKernel(new WebApiModules(CurrencyExchangeConfig), new BusinessModule(CurrencyExchangeConfig), new DataAccessModule(CurrencyExchangeConfig));
 
             return kernel;
         }

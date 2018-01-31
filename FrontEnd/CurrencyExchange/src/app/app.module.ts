@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './site-navigation/component/navigation.component';
 import {HttpClientModule} from '@angular/common/http';
@@ -16,6 +15,13 @@ import { TransactionComponent } from './transaction/component/transaction.compon
 import {TransactionService} from './transaction/service/transaction.service';
 import {RouterModule} from '@angular/router';
 import {NavigationService} from './site-navigation/service/navigation.service';
+import {RegisterComponent} from './security/register/component/register.component';
+import {RegisterService} from './security/register/service/register.service';
+import {ExchangeRatesService} from './exchange-rates/exchange-rates.service';
+import { PurchasesComponent } from './purchases/purchases/purchases.component';
+import { ExchangeRatesComponent } from './exchange-rates/component/exchange-rates.component';
+import {TransactionsResolver} from './resolvers/transactions/transactions-resolver.service';
+import { UserAccountComponent } from './user-account/user-account/user-account.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +30,10 @@ import {NavigationService} from './site-navigation/service/navigation.service';
     LoginComponent,
     MessageComponent,
     TransactionComponent,
+    RegisterComponent,
+    PurchasesComponent,
+    ExchangeRatesComponent,
+    UserAccountComponent,
       ],
   imports: [
     RouterModule,
@@ -37,7 +47,10 @@ import {NavigationService} from './site-navigation/service/navigation.service';
     MessageService,
     AuthenticationService,
     TransactionService,
-    UserService
+    UserService,
+    RegisterService,
+    ExchangeRatesService,
+    TransactionsResolver
   ],
   bootstrap: [AppComponent]
 })

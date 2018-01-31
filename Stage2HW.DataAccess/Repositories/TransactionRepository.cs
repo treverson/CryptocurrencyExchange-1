@@ -51,12 +51,34 @@ namespace Stage2HW.DataAccess.Repositories
         {
             using (var dbContext = new CryptocurrencyExchangeDbContext())
             {
-                return Math.Round(dbContext.TransactionsDbSet.Where(c => c.CurrencyName == currencyName).Sum(x => x.Amount), 7);
+                var choosenCurrencyTransactionList =
+                    dbContext.TransactionsDbSet.Where(c => c.CurrencyName == currencyName && c.UserId == userId).ToList();
+
+                if (choosenCurrencyTransactionList.Count > 0)
+                {
+                    return Math.Round(choosenCurrencyTransactionList.Sum(x => x.Amount), 7);
+                }
+                else
+                {
+                    return 0;
+                }
             }
         }
 
-        public void DownloadHistory(string filePath, int activeUserId)
+        public void RegisterWebTransaction(Transaction transactionEntity)
         {
+            using (var dbContext = new CryptocurrencyExchangeDbContext())
+            {
+                
+            }
+        }
+
+        public double GetUserFiatBalance(int id)
+        {
+            using (var dbContext = new CryptocurrencyExchangeDbContext())
+            {
+                return dbContext.TransactionsDbSet.Where(u => u.UserId == id).ToList().Sum(x=>x.Fiat);
+            }
         }
     }
 }
